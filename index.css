@@ -12,3 +12,10 @@
     vertical-align: middle;
     text-align: center;
 }
+
+body {
+    background-color: rgb(86, 89, 94);
+    color: white;
+    font-family: monospace;
+    font-size: 30px;
+}
