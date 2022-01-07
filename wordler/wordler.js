@@ -1,4 +1,5 @@
-var answer = 'APPLE';
+var words = ['QUICK', 'KLUTZ', 'FIELD', 'HAIRY'];
+var answer = words[Math.floor(Math.random() * words.length)];
 
 function makeGuess() {
     var guess = document.getElementById('guess').value;
