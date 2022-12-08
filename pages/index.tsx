@@ -18,12 +18,12 @@ export default function Home() {
     <Head>
       <title>sspenst</title>
     </Head>
-    <div className={classNames('flex items-center justify-center text-center font-semibold text-7xl h-screen w-screen absolute', animating ? 'animateName' : 'hidden')}>
+    <div className={classNames('flex fixed inset-0 items-center justify-center text-center font-semibold text-7xl', animating ? 'animateName' : 'hidden')}>
       <div className='flex flex-row w-48'>
         <Image alt='ss' src='/ss.png' width={512} height={512} className='rounded-lg shadow-lg mb-4' />
       </div>
     </div>
-    <div className={classNames('flex flex-col items-center justify-center h-screen w-screen', animating ? 'animateMain' : 'block')}>
+    <div className={classNames('flex flex-col items-center justify-center w-screen', animating ? 'animateMain' : 'block')}>
       <div className='flex flex-row grow w-full'>
         <div className='flex flex-col justify-center text-center items-center grow m-8 p-4 gap-4 text-2xl'>
           <div className='font-semibold text-5xl mb-8'>
