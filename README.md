@@ -1,1 +1,1 @@
-[![SS](./public/ss.jpeg)](https://sspenst.com)
+[Spencer Spenst](https://sspenst.com)
