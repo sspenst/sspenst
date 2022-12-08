@@ -1,5 +1,6 @@
 import classNames from 'classnames';
 import Head from 'next/head';
+import Image from 'next/image';
 import Link from 'next/link';
 import React, { useContext, useEffect } from 'react';
 import { AppContext } from '../contexts/appContext';
@@ -18,7 +19,9 @@ export default function Home() {
       <title>sspenst</title>
     </Head>
     <div className={classNames('flex items-center justify-center text-center font-semibold text-7xl h-screen w-screen absolute', animating ? 'animateName' : 'hidden')}>
-      Spencer Spenst
+      <div className='flex flex-row w-48'>
+        <Image alt='ss' src='/ss.png' width={512} height={512} className='rounded-lg shadow-lg mb-4' />
+      </div>
     </div>
     <div className={classNames('flex flex-col items-center justify-center h-screen w-screen', animating ? 'animateMain' : 'block')}>
       <div className='flex flex-row grow w-full'>
