@@ -14,7 +14,7 @@ class MyDocument extends Document {
         <Head>
           <link rel='icon' href='/ss.jpeg' />
         </Head>
-        <body>
+        <body className='bg-zinc-900'>
           <Main />
           <NextScript />
         </body>
