@@ -13,8 +13,9 @@ class MyDocument extends Document {
       <Html lang='en'>
         <Head>
           <link rel='icon' href='/ss.jpeg' />
+          <meta name='description' content='sspenst.com' />
         </Head>
-        <body className='bg-zinc-900'>
+        <body className='bg-neutral-900 text-white'>
           <Main />
           <NextScript />
         </body>

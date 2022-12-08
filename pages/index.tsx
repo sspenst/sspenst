@@ -1,19 +1,28 @@
+import classNames from 'classnames';
 import Head from 'next/head';
 import Link from 'next/link';
-import React from 'react';
+import React, { useContext, useEffect } from 'react';
+import { AppContext } from '../contexts/appContext';
 
 export default function Home() {
+  const { animating, setAnimating } = useContext(AppContext);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setAnimating(false);
+    }, 3000);
+  }, [setAnimating]);
+
   return (<>
     <Head>
       <title>sspenst</title>
-      <meta name='description' content='sspenst.com' />
     </Head>
-    <div className='flex items-center justify-center text-center font-semibold text-7xl text-white h-screen w-screen absolute animateName'>
+    <div className={classNames('flex items-center justify-center text-center font-semibold text-7xl h-screen w-screen absolute', animating ? 'animateName' : 'hidden')}>
       Spencer Spenst
     </div>
-    <div className='flex flex-col items-center justify-center text-white h-screen w-screen animateMain'>
+    <div className={classNames('flex flex-col items-center justify-center h-screen w-screen', animating ? 'animateMain' : 'block')}>
       <div className='flex flex-row grow w-full'>
-        <div className='flex flex-col justify-center text-center items-center grow m-8 p-4 border rounded-md border-zinc-500 gap-4 text-2xl'>
+        <div className='flex flex-col justify-center text-center items-center grow m-8 p-4 gap-4 text-2xl'>
           <div className='font-semibold text-4xl mb-4'>
             Spencer Spenst
           </div>
@@ -25,6 +34,9 @@ export default function Home() {
           </Link>
           <Link href='https://pathology.gg' className='underline'>
             Pathology
+          </Link>
+          <Link href='/music' className='underline'>
+            Music
           </Link>
         </div>
       </div>

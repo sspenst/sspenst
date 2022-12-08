@@ -12,12 +12,13 @@
 
 @keyframes animateName {
   0% { opacity: 0; }
-  25% { opacity: 0; }
+  15% { opacity: 0; }
   50% { opacity: 1; }
-  80% {
+  75% {
     filter: blur(0);
     opacity: 1;
   }
+  90% { opacity: 0; }
   100% {
     filter: blur(100px);
     opacity: 0;
@@ -36,4 +37,12 @@
   0% { opacity: 0; }
   53% { opacity: 0; }
   100% { opacity: 1; }
+}
+
+.musicCardZoom {
+  transition: transform 0.2s ease;
+}
+
+.musicCardZoom:hover {
+  transform: scale(1.04);
 }
