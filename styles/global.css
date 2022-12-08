@@ -2,9 +2,38 @@
 @tailwind components;
 @tailwind utilities;
 
-body {
-  font-family: 'Roboto', sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  background-color: rgb(24 24 27);
+.animateName {
+  animation-name: animateName;
+  animation-duration: 2s;
+  animation-fill-mode: both;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+
+@keyframes animateName {
+  0% { opacity: 0; }
+  25% { opacity: 0; }
+  50% { opacity: 1; }
+  80% {
+    filter: blur(0);
+    opacity: 1;
+  }
+  100% {
+    filter: blur(100px);
+    opacity: 0;
+  }
+}
+
+.animateMain {
+  animation-name: animateMain;
+  animation-duration: 3s;
+  animation-fill-mode: both;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+
+@keyframes animateMain {
+  0% { opacity: 0; }
+  53% { opacity: 0; }
+  100% { opacity: 1; }
 }
