@@ -14,7 +14,7 @@ export default function Home() {
         <Image alt='ss' src='/ss.png' width={512} height={512} />
       </div>
     </div>
-    <div className='flex flex-col items-center justify-center w-full p-12 gap-12 text-xl animateMain'>
+    <div className='flex flex-col items-center justify-center w-full px-8 py-12 gap-12 text-xl animateMain'>
       <h1 className='font-semibold text-5xl text-center'>
         Spencer Spenst
       </h1>
@@ -32,22 +32,64 @@ export default function Home() {
           Email
         </a>
       </div>
-      <h2 className='font-medium text-4xl'>
-        Experience
-      </h2>
-      <div className='flex flex-col gap-4'>
-        <Link href='https://pathology.gg' className='hover:underline flex flex-row gap-3 items-center text-2xl font-medium'>
-          <Image alt='pathology' src='/pathology.svg' width='32' height='32' className='w-8' />
-          Pathology
-        </Link>
-        <Link href='https://microsoft.com' className='hover:underline flex flex-row gap-3 items-center text-2xl font-medium'>
-          <Image alt='microsoft' src='/microsoft.svg' width='32' height='32' className='w-8' />
-          Microsoft
-        </Link>
-        <Link href='https://ubc.ca' className='hover:underline flex flex-row gap-3 items-center text-2xl font-medium'>
-          <Image alt='ubc' src='/ubc.png' width='2400' height='2400' className='w-8 bg-white rounded-sm' />
-          UBC
-        </Link>
+      <div className='flex flex-row w-full max-w-screen-sm'>
+        <div className='w-11 flex justify-center' style={{
+          minWidth: '2.75rem',
+        }}>
+          <div className='w-0.5 rounded bg-neutral-700 h-full' />
+        </div>
+        <div className='grow flex flex-col my-1 gap-6'>
+          <div className='flex flex-row items-center gap-3 text-base text-neutral-400 -ml-8'>
+            <Image alt='timeline' src='/timeline.svg' width='32' height='32' className='w-5 h-5 bg-neutral-900' />
+            Jan 2022 - Present
+          </div>
+          <Link href='https://pathology.gg' className='hover:underline flex flex-row gap-3 items-center text-2xl font-medium w-fit'>
+            <Image alt='pathology' src='/pathology.svg' width='32' height='32' className='w-8' style={{
+              minWidth: '2rem',
+            }} />
+            Pathology
+          </Link>
+          <div className='flex flex-row items-center gap-3 text-base text-neutral-400 -ml-8'>
+            <Image alt='timeline' src='/timeline.svg' width='32' height='32' className='w-5 h-5 bg-neutral-900' />
+            Aug 2018 - Jun 2021
+          </div>
+          <Link href='https://microsoft.com' className='hover:underline flex flex-row gap-3 items-center text-2xl font-medium w-fit'>
+            <Image alt='microsoft' src='/microsoft.svg' width='32' height='32' className='w-8' />
+            Microsoft
+          </Link>
+          <div className='flex flex-row items-center gap-3 text-base text-neutral-400 -ml-8'>
+            <Image alt='timeline' src='/timeline.svg' width='32' height='32' className='w-5 h-5 bg-neutral-900' />
+            May 2018 - Graduated UBC - BASc in Computer Engineering
+          </div>
+          <div className='flex flex-row items-center gap-3 text-base text-neutral-400 -ml-8'>
+            <Image alt='timeline' src='/timeline.svg' width='32' height='32' className='w-5 h-5 bg-neutral-900' />
+            May 2017 - Aug 2017
+          </div>
+          <Link href='https://microsoft.com' className='hover:underline flex flex-row gap-3 items-center text-2xl font-medium w-fit'>
+            <Image alt='microsoft' src='/microsoft.svg' width='32' height='32' className='w-8' />
+            Microsoft
+          </Link>
+          <div className='flex flex-row items-center gap-3 text-base text-neutral-400 -ml-8'>
+            <Image alt='timeline' src='/timeline.svg' width='32' height='32' className='w-5 h-5 bg-neutral-900' />
+            Sep 2016 - Dec 2016
+          </div>
+          <Link href='https://ubc.ca' className='hover:underline flex flex-row gap-3 items-center text-2xl font-medium w-fit'>
+            <Image alt='ubc' src='/ubc.png' width='2400' height='2400' className='w-8 bg-white' />
+            UBC
+          </Link>
+          <div className='flex flex-row items-center gap-3 text-base text-neutral-400 -ml-8'>
+            <Image alt='timeline' src='/timeline.svg' width='32' height='32' className='w-5 h-5 bg-neutral-900' />
+            May 2016 - Aug 2016
+          </div>
+          <Link href='https://ubc.ca' className='hover:underline flex flex-row gap-3 items-center text-2xl font-medium w-fit'>
+            <Image alt='ubc' src='/ubc.png' width='2400' height='2400' className='w-8 bg-white' />
+            UBC
+          </Link>
+          <div className='flex flex-row items-center gap-3 text-base text-neutral-400 -ml-8'>
+            <Image alt='timeline' src='/timeline.svg' width='32' height='32' className='w-5 h-5 bg-neutral-900' />
+            Sep 2014 - Entered UBC
+          </div>
+        </div>
       </div>
       <h2 className='font-medium text-4xl'>
         Music
