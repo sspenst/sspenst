@@ -2,6 +2,7 @@ import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
+import ExperienceCard from '../components/experinceCard';
 import MusicCard, { ReleaseType } from '../components/musicCard';
 
 export default function Home() {
@@ -11,10 +12,11 @@ export default function Home() {
     </Head>
     <div className='flex fixed inset-0 items-center justify-center text-center font-semibold text-7xl animateName'>
       <div className='flex flex-row w-48'>
-        <Image alt='ss' src='/ss.png' width={512} height={512} />
+        <Image alt='ss' src='/ss.png' width={512} height={512} loading='eager' priority={true} />
       </div>
     </div>
     <div className='flex flex-col items-center justify-center w-full px-8 py-12 gap-12 text-xl animateMain'>
+      <Image alt='ss' src='/ss.png' width={512} height={512} priority={true} className='w-10' />
       <h1 className='font-semibold text-5xl text-center'>
         Spencer Spenst
       </h1>
@@ -32,7 +34,7 @@ export default function Home() {
           Email
         </a>
       </div>
-      <div className='flex flex-row w-full max-w-screen-sm'>
+      <div className='flex flex-row w-full max-w-lg'>
         <div className='w-11 flex justify-center' style={{
           minWidth: '2.75rem',
         }}>
@@ -43,55 +45,70 @@ export default function Home() {
             <Image alt='timeline' src='/timeline.svg' width='32' height='32' className='w-5 h-5 bg-neutral-900' />
             Jan 2022 - Present
           </div>
-          <Link href='https://pathology.gg' className='hover:underline flex flex-row gap-3 items-center text-2xl font-medium w-fit'>
-            <Image alt='pathology' src='/pathology.svg' width='32' height='32' className='w-8' style={{
-              minWidth: '2rem',
-            }} />
-            Pathology
-          </Link>
+          <ExperienceCard
+            company='Pathology'
+            description='Shortest path puzzle game'
+            href='https://pathology.gg'
+            src='/pathology.svg'
+            title='Founder'
+          />
           <div className='flex flex-row items-center gap-3 text-base text-neutral-400 -ml-8'>
             <Image alt='timeline' src='/timeline.svg' width='32' height='32' className='w-5 h-5 bg-neutral-900' />
             Aug 2018 - Jun 2021
           </div>
-          <Link href='https://microsoft.com' className='hover:underline flex flex-row gap-3 items-center text-2xl font-medium w-fit'>
-            <Image alt='microsoft' src='/microsoft.svg' width='32' height='32' className='w-8' />
-            Microsoft
-          </Link>
+          <ExperienceCard
+            company='Microsoft'
+            description='Universal Store, Pricing and Availability'
+            href='https://microsoft.com'
+            src='/microsoft.svg'
+            title='Software Engineer'
+          />
           <div className='flex flex-row items-center gap-3 text-base text-neutral-400 -ml-8'>
             <Image alt='timeline' src='/timeline.svg' width='32' height='32' className='w-5 h-5 bg-neutral-900' />
-            May 2018 - Graduated UBC - BASc in Computer Engineering
+            May 2018 - Graduated UBC - BASc Computer Engineering
           </div>
           <div className='flex flex-row items-center gap-3 text-base text-neutral-400 -ml-8'>
             <Image alt='timeline' src='/timeline.svg' width='32' height='32' className='w-5 h-5 bg-neutral-900' />
             May 2017 - Aug 2017
           </div>
-          <Link href='https://microsoft.com' className='hover:underline flex flex-row gap-3 items-center text-2xl font-medium w-fit'>
-            <Image alt='microsoft' src='/microsoft.svg' width='32' height='32' className='w-8' />
-            Microsoft
-          </Link>
+          <ExperienceCard
+            company='Microsoft'
+            description='Universal Store'
+            href='https://microsoft.com'
+            src='/microsoft.svg'
+            title='Software Developer Intern'
+          />
           <div className='flex flex-row items-center gap-3 text-base text-neutral-400 -ml-8'>
             <Image alt='timeline' src='/timeline.svg' width='32' height='32' className='w-5 h-5 bg-neutral-900' />
             Sep 2016 - Dec 2016
           </div>
-          <Link href='https://ubc.ca' className='hover:underline flex flex-row gap-3 items-center text-2xl font-medium w-fit'>
-            <Image alt='ubc' src='/ubc.png' width='2400' height='2400' className='w-8 bg-white' />
-            UBC
-          </Link>
+          <ExperienceCard
+            company='UBC'
+            description='Introduction to Microcomputers'
+            href='https://ubc.ca'
+            imageClassName='bg-white'
+            src='/ubc.png'
+            title='Teacher Assistant'
+          />
           <div className='flex flex-row items-center gap-3 text-base text-neutral-400 -ml-8'>
             <Image alt='timeline' src='/timeline.svg' width='32' height='32' className='w-5 h-5 bg-neutral-900' />
             May 2016 - Aug 2016
           </div>
-          <Link href='https://ubc.ca' className='hover:underline flex flex-row gap-3 items-center text-2xl font-medium w-fit'>
-            <Image alt='ubc' src='/ubc.png' width='2400' height='2400' className='w-8 bg-white' />
-            UBC
-          </Link>
+          <ExperienceCard
+            company='UBC'
+            description='Computer Engineering Department'
+            href='https://ubc.ca'
+            imageClassName='bg-white'
+            src='/ubc.png'
+            title='Research Assistant'
+          />
           <div className='flex flex-row items-center gap-3 text-base text-neutral-400 -ml-8'>
             <Image alt='timeline' src='/timeline.svg' width='32' height='32' className='w-5 h-5 bg-neutral-900' />
             Sep 2014 - Entered UBC
           </div>
         </div>
       </div>
-      <h2 className='font-medium text-4xl'>
+      {/* <h2 className='font-medium text-4xl'>
         Music
       </h2>
       <div className='flex flex-row flex-wrap justify-center gap-8'>
@@ -123,7 +140,7 @@ export default function Home() {
           src='/re.png'
           year={2021}
         />
-      </div>
+      </div> */}
     </div>
   </>);
 }
