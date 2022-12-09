@@ -20,7 +20,7 @@ export default function Home() {
     </Head>
     <div className={classNames('flex fixed inset-0 items-center justify-center text-center font-semibold text-7xl', animating ? 'animateName' : 'hidden')}>
       <div className='flex flex-row w-48'>
-        <Image alt='ss' src='/ss.png' width={512} height={512} className='rounded-lg shadow-lg mb-4' />
+        <Image alt='ss' src='/ss.png' width={512} height={512} />
       </div>
     </div>
     <div className={classNames('flex flex-col items-center justify-center w-screen', animating ? 'animateMain' : 'block')}>
@@ -29,18 +29,38 @@ export default function Home() {
           <div className='font-semibold text-5xl mb-8'>
             Spencer Spenst
           </div>
-          <Link href='https://pathology.gg' className='underline'>
-            Pathology
-          </Link>
-          <Link href='https://linkedin.com/in/sspenst' className='underline'>
-            LinkedIn
-          </Link>
-          <Link href='https://github.com/sspenst' className='underline'>
-            GitHub
-          </Link>
-          <Link href='/music' className='underline'>
-            Music
-          </Link>
+          <div className='flex flex-row flex-wrap justify-center gap-8'>
+            <div className='flex flex-row gap-3 items-center'>
+              <Image alt='linkedin' src='/linkedin.svg' width='32' height='32' className='w-8' />
+              <Link href='https://linkedin.com/in/sspenst' className='hover:underline'>
+                LinkedIn
+              </Link>
+            </div>
+            <div className='flex flex-row gap-3 items-center'>
+              <Image alt='github' src='/github.svg' width='32' height='32' className='w-8' />
+              <Link href='https://github.com/sspenst' className='hover:underline'>
+                GitHub
+              </Link>
+            </div>
+            <div className='flex flex-row gap-3 items-center'>
+              <Image alt='github' src='/mail.svg' width='32' height='32' className='w-8' />
+              <a href='mailto:spencerspenst@gmail.com' className='hover:underline'>Email</a>
+            </div>
+          </div>
+          <div className='flex flex-col gap-4 m-8'>
+            <div className='flex flex-row gap-3 items-center'>
+              <Image alt='pathology' src='/pathology.svg' width='32' height='32' className='w-8' />
+              <Link href='https://pathology.gg' className='hover:underline'>
+                Pathology
+              </Link>
+            </div>
+            <div className='flex flex-row gap-3 items-center'>
+              <Image alt='github' src='/music.svg' width='32' height='32' className='w-8' />
+              <Link href='/music' className='hover:underline'>
+                Music
+              </Link>
+            </div>
+          </div>
         </div>
       </div>
     </div>
