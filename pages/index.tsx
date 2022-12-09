@@ -46,16 +46,30 @@ export default function Home() {
             Pathology
           </Link>
         </div>
-        {/* <div className='flex flex-row gap-3 items-center'>
-          <Image alt='github' src='/music.svg' width='32' height='32' className='w-8' />
-          <Link href='/music' className='hover:underline'>
-            Music
-          </Link>
-        </div> */}
       </div>
       <h2 className='font-medium text-4xl'>
         Music
       </h2>
+      <div className='flex flex-row flex-wrap justify-center gap-8'>
+        <div className='flex flex-row gap-3 items-center'>
+          <Image alt='soundcloud' src='/soundcloud.svg' width='32' height='32' className='w-8' />
+          <Link href='https://soundcloud.com/sspenst' className='hover:underline'>
+            SoundCloud
+          </Link>
+        </div>
+        <div className='flex flex-row gap-3 items-center'>
+          <Image alt='spotify' src='/spotify.svg' width='32' height='32' className='w-8' />
+          <Link href='https://open.spotify.com/artist/7yWCWPWpYoj22kUps71yey?si=24Yjcju9Qi6J4sri7XkSZw' className='hover:underline'>
+            Spotify
+          </Link>
+        </div>
+        <div className='flex flex-row gap-3 items-center'>
+          <Image alt='music' src='/music.svg' width='32' height='32' className='w-8' />
+          <Link href='https://music.apple.com/us/artist/sspenst/1592620337' className='hover:underline'>
+            Apple Music
+          </Link>
+        </div>
+      </div>
       <div className='flex flex-wrap justify-center gap-16 mx-8'>
         <MusicCard
           name='turbine'
