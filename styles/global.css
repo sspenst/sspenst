@@ -4,16 +4,14 @@
 
 .animateName {
   animation-name: animateName;
-  animation-duration: 2s;
+  animation-duration: 1s;
   animation-fill-mode: both;
   -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
 }
 
 @keyframes animateName {
-  0% { opacity: 0; }
-  15% { opacity: 0; }
-  50% { opacity: 1; }
+  0% { opacity: 1; }
   75% {
     filter: blur(0);
     opacity: 1;
@@ -27,7 +25,7 @@
 
 .animateMain {
   animation-name: animateMain;
-  animation-duration: 3s;
+  animation-duration: 1.5s;
   animation-fill-mode: both;
   -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
