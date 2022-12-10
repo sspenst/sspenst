@@ -36,12 +36,3 @@
   53% { opacity: 0; }
   100% { opacity: 1; }
 }
-
-.musicCardZoom {
-  transition: all 0.2s ease;
-}
-
-.musicCardZoom:hover {
-  transform: scale(1.04);
-  background-color: rgb(50 50 50);
-}

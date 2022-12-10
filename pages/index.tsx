@@ -10,7 +10,7 @@ export default function Home() {
       <title>Spencer Spenst</title>
     </Head>
     <Page>
-      <div className='flex flex-row w-full max-w-lg'>
+      <div className='flex flex-row'>
         <div className='w-11 flex justify-center' style={{
           minWidth: '2.75rem',
         }}>
