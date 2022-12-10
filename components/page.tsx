@@ -33,8 +33,14 @@ export default function Page({ children }: PageProps) {
       </div>
       <div className='flex flex-col w-full justify-center text-2xl'>
         <div className='flex flex-row flex-wrap justify-center gap-6 z-10 -my-2'>
-          <Link href='/' scroll={false} className={classNames('pb-1 px-1 hover:underline', { 'border-b-2 border-neutral-500 pointer-events-none': router.pathname === '/' })}>Experience</Link>
-          <Link href='/music' scroll={false} className={classNames('pb-1 px-1 hover:underline', { 'border-b-2 border-neutral-500 pointer-events-none': router.pathname === '/music' })}>Music</Link>
+          <Link href='/' scroll={false} className={classNames(
+            'pb-1 px-1 hover:border-b-2 hover:border-neutral-400',
+            router.pathname === '/' ? 'border-b-2 border-white pointer-events-none' : 'text-neutral-400',
+          )}>Experience</Link>
+          <Link href='/music' scroll={false} className={classNames(
+            'pb-1 px-1 hover:border-b-2 hover:border-neutral-400',
+            router.pathname === '/music' ? 'border-b-2 border-white pointer-events-none' : 'text-neutral-400',
+          )}>Music</Link>
         </div>
       </div>
       {children}
