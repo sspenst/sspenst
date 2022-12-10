@@ -13,9 +13,9 @@ interface MusicCardProps {
 
 export default function MusicCard({ feature, hrefAppleMusic, hrefSoundCloud, hrefSpotify, info, src, title }: MusicCardProps) {
   return (
-    <div className='flex flex-row flex-wrap gap-4'>
+    <div className='flex flex-row flex-wrap justify-center gap-4'>
       <Image alt={title} src={src ?? `/${title}.png`} width={192} height={192} className='rounded-lg shadow-lg w-48 h-48' />
-      <div className='flex flex-col max-w-full gap-2'>
+      <div className='flex flex-col gap-2 w-36'>
         <div className='text-2xl font-medium'>
           {title}
         </div>
