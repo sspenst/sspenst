@@ -1,14 +1,10 @@
-import Head from 'next/head';
 import Image from 'next/image';
 import React from 'react';
 import ExperienceCard from '../components/experinceCard';
 import Page from '../components/page';
 
 export default function Home() {
-  return (<>
-    <Head>
-      <title>Spencer Spenst</title>
-    </Head>
+  return (
     <Page>
       <div className='flex flex-row'>
         <div className='w-11 flex justify-center' style={{
@@ -85,5 +81,5 @@ export default function Home() {
         </div>
       </div>
     </Page>
-  </>);
+  );
 }
