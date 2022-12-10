@@ -29,11 +29,25 @@ export default function Music() {
           title='turbine'
         />
         <MusicCard
+          feature='N E T W O R K'
+          hrefSoundCloud='https://soundcloud.com/n_e_t_w_o_r_k/expanse-w-sspenst'
+          info={['Single - 2022', '2:02']}
+          src='/expanse.jpeg'
+          title='expanse'
+        />
+        <MusicCard
           hrefAppleMusic='https://music.apple.com/us/album/re-ep/1592628164'
           hrefSoundCloud='https://soundcloud.com/sspenst/sets/re_ep'
           hrefSpotify='https://open.spotify.com/album/3NQEsxiwMrpQF1pN9w7XbR?si=XqMIqu-1SEu6yHxrrNL4DQ'
           info={['EP - 2021', '4 songs', '7:11']}
           title='re'
+        />
+        <MusicCard
+          feature='N E T W O R K'
+          hrefSoundCloud='https://soundcloud.com/n_e_t_w_o_r_k/uplift-w-sspenst'
+          info={['Single - 2022', '2:04']}
+          src='/uplift.jpeg'
+          title='uplift'
         />
       </div>
     </Page>
