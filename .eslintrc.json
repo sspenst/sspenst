@@ -57,6 +57,7 @@
         "groups": [["^\\u0000", "^@?\\w", "^[^.]", "^\\."]]
       }
     ],
+    "sort-keys": "warn",
     "space-infix-ops": "warn"
   }
 }

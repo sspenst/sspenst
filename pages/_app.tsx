@@ -3,7 +3,11 @@ import { Work_Sans } from '@next/font/google';
 import type { AppProps } from 'next/app';
 import React from 'react';
 
-const workSans = Work_Sans({ subsets: ['latin'] });
+const workSans = Work_Sans({
+  fallback: ['system-ui', 'arial'],
+  preload: true,
+  subsets: ['latin'],
+});
 
 export default function App({ Component, pageProps }: AppProps) {
   return (

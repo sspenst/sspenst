@@ -2,15 +2,15 @@
 @tailwind components;
 @tailwind utilities;
 
-.animateName {
-  animation-name: animateName;
+.animateSS {
+  animation-name: animateSS;
   animation-duration: 1s;
   animation-fill-mode: both;
   -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
 }
 
-@keyframes animateName {
+@keyframes animateSS {
   0% { opacity: 1; }
   75% {
     filter: blur(0);

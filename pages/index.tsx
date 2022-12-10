@@ -8,9 +8,9 @@ import MusicCard, { ReleaseType } from '../components/musicCard';
 export default function Home() {
   return (<>
     <Head>
-      <title>sspenst</title>
+      <title>Spencer Spenst</title>
     </Head>
-    <div className='flex fixed inset-0 items-center justify-center text-center font-semibold text-7xl animateName'>
+    <div className='flex fixed inset-0 items-center justify-center text-center font-semibold text-7xl animateSS'>
       <div className='flex flex-row w-48'>
         <Image alt='ss' src='/ss.png' width={512} height={512} loading='eager' priority={true} />
       </div>
