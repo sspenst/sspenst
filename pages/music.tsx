@@ -20,36 +20,21 @@ export default function Music() {
             Apple Music
         </a>
       </div>
-      <div className='flex flex-row'>
-        <div className='w-11 flex justify-center' style={{
-          minWidth: '2.75rem',
-        }}>
-          <div className='w-0.5 rounded bg-neutral-700 h-full' />
-        </div>
-        <div className='grow flex flex-col my-1 gap-4'>
-          <div className='flex flex-row items-center gap-3 text-base text-neutral-400 -ml-8'>
-            <Image alt='timeline' src='/timeline.svg' width='32' height='32' className='w-5 h-5 bg-neutral-900' />
-            2022
-          </div>
-          <MusicCard
-            description='Single - 1:52'
-            hrefAppleMusic='https://music.apple.com/us/album/turbine/1652622865?i=1652622866'
-            hrefSoundCloud='https://soundcloud.com/sspenst/turbine'
-            hrefSpotify='https://open.spotify.com/track/36svwtlEoExlHUPJnhk9TG?si=00111c0436c040c2'
-            title='turbine'
-          />
-          <div className='flex flex-row items-center gap-3 text-base text-neutral-400 -ml-8'>
-            <Image alt='timeline' src='/timeline.svg' width='32' height='32' className='w-5 h-5 bg-neutral-900' />
-            2021
-          </div>
-          <MusicCard
-            description='EP - 7:11'
-            hrefAppleMusic='https://music.apple.com/us/album/re-ep/1592628164'
-            hrefSoundCloud='https://soundcloud.com/sspenst/sets/re_ep'
-            hrefSpotify='https://open.spotify.com/album/3NQEsxiwMrpQF1pN9w7XbR?si=XqMIqu-1SEu6yHxrrNL4DQ'
-            title='re'
-          />
-        </div>
+      <div className='grow flex flex-col my-1 gap-12'>
+        <MusicCard
+          hrefAppleMusic='https://music.apple.com/us/album/turbine/1652622865?i=1652622866'
+          hrefSoundCloud='https://soundcloud.com/sspenst/turbine'
+          hrefSpotify='https://open.spotify.com/track/36svwtlEoExlHUPJnhk9TG?si=00111c0436c040c2'
+          info={['Single - 2022', '1:52']}
+          title='turbine'
+        />
+        <MusicCard
+          hrefAppleMusic='https://music.apple.com/us/album/re-ep/1592628164'
+          hrefSoundCloud='https://soundcloud.com/sspenst/sets/re_ep'
+          hrefSpotify='https://open.spotify.com/album/3NQEsxiwMrpQF1pN9w7XbR?si=XqMIqu-1SEu6yHxrrNL4DQ'
+          info={['EP - 2021', '4 songs', '7:11']}
+          title='re'
+        />
       </div>
     </Page>
   );
