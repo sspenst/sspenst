@@ -15,7 +15,7 @@ class MyDocument extends Document {
           <link rel='icon' href='/ss.png' />
           <meta name='description' content='sspenst.com' />
         </Head>
-        <body className='bg-neutral-900 text-white'>
+        <body className='bg-neutral-900 text-white overflow-y-scroll'>
           <Main />
           <NextScript />
         </body>

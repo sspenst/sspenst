@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  color-scheme: dark;
+}
+
 .animateSS {
   animation-name: animateSS;
   animation-duration: 1s;

@@ -58,7 +58,6 @@ export default function Home() {
             company='University of British Columbia'
             description='Introduction to Microcomputers'
             href='https://ubc.ca'
-            imageClassName='bg-white'
             src='/ubc.png'
             title='Teacher Assistant'
           />
@@ -70,7 +69,6 @@ export default function Home() {
             company='University of British Columbia'
             description='Computer Engineering Department'
             href='https://ubc.ca'
-            imageClassName='bg-white'
             src='/ubc.png'
             title='Research Assistant'
           />

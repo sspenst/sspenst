@@ -1,5 +1,4 @@
 import Image from 'next/image';
-import Link from 'next/link';
 import React from 'react';
 import MusicCard from '../components/musicCard';
 import Page from '../components/page';
@@ -8,18 +7,18 @@ export default function Music() {
   return (
     <Page>
       <div className='flex flex-row flex-wrap justify-center gap-6 text-lg -my-2'>
-        <Link href='https://soundcloud.com/sspenst' className='hover:underline flex flex-row gap-3 items-center'>
+        <a target='_blank' rel='noreferrer' href='https://soundcloud.com/sspenst' className='hover:underline flex flex-row gap-3 items-center'>
           <Image alt='soundcloud' src='/soundcloud.svg' width='32' height='32' className='w-6' />
           SoundCloud
-        </Link>
-        <Link href='https://open.spotify.com/artist/7yWCWPWpYoj22kUps71yey?si=24Yjcju9Qi6J4sri7XkSZw' className='hover:underline flex flex-row gap-3 items-center'>
+        </a>
+        <a target='_blank' rel='noreferrer' href='https://open.spotify.com/artist/7yWCWPWpYoj22kUps71yey?si=24Yjcju9Qi6J4sri7XkSZw' className='hover:underline flex flex-row gap-3 items-center'>
           <Image alt='spotify' src='/spotify.svg' width='32' height='32' className='w-6' />
           Spotify
-        </Link>
-        <Link href='https://music.apple.com/us/artist/sspenst/1592620337' className='hover:underline flex flex-row gap-3 items-center'>
+        </a>
+        <a target='_blank' rel='noreferrer' href='https://music.apple.com/us/artist/sspenst/1592620337' className='hover:underline flex flex-row gap-3 items-center'>
           <Image alt='music' src='/music.svg' width='32' height='32' className='w-6' />
             Apple Music
-        </Link>
+        </a>
       </div>
       <div className='flex flex-row'>
         <div className='w-11 flex justify-center' style={{

@@ -18,14 +18,14 @@ export default function Page({ children }: PageProps) {
         Spencer Spenst
       </h1>
       <div className='flex flex-row flex-wrap justify-center gap-8 text-xl'>
-        <Link href='https://linkedin.com/in/sspenst' className='hover:underline flex flex-row gap-3 items-center flex flex-row gap-3 items-center'>
+        <a target='_blank' rel='noreferrer' href='https://linkedin.com/in/sspenst' className='hover:underline flex flex-row gap-3 items-center flex flex-row gap-3 items-center'>
           <Image alt='linkedin' src='/linkedin.svg' width='32' height='32' className='w-8' />
           LinkedIn
-        </Link>
-        <Link href='https://github.com/sspenst' className='hover:underline flex flex-row gap-3 items-center'>
+        </a>
+        <a target='_blank' rel='noreferrer' href='https://github.com/sspenst' className='hover:underline flex flex-row gap-3 items-center'>
           <Image alt='github' src='/github.svg' width='32' height='32' className='w-8' />
           GitHub
-        </Link>
+        </a>
         <a href='mailto:spencerspenst@gmail.com' className='hover:underline flex flex-row gap-3 items-center'>
           <Image alt='email' src='/email.svg' width='32' height='32' className='w-8' />
           Email
