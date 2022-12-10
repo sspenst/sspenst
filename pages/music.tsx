@@ -11,7 +11,7 @@ export default function Music() {
       <title>Spencer Spenst - Music</title>
     </Head>
     <Page>
-      <div className='flex flex-row flex-wrap justify-center gap-8'>
+      <div className='flex flex-row flex-wrap justify-center gap-8 text-xl'>
         <Link href='https://soundcloud.com/sspenst' className='hover:underline flex flex-row gap-3 items-center'>
           <Image alt='soundcloud' src='/soundcloud.svg' width='32' height='32' className='w-8' />
           SoundCloud

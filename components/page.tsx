@@ -12,12 +12,12 @@ export default function Page({ children }: PageProps) {
   const router = useRouter();
 
   return (
-    <div className='flex flex-col items-center justify-center w-full px-8 pt-12 pb-8 gap-12 text-xl'>
+    <div className='flex flex-col items-center justify-center w-full px-8 py-12 gap-12'>
       <Image alt='ss' src='/ss.png' width={512} height={512} priority={true} className='w-10' />
       <h1 className='font-semibold text-5xl text-center'>
         Spencer Spenst
       </h1>
-      <div className='flex flex-row flex-wrap justify-center gap-8'>
+      <div className='flex flex-row flex-wrap justify-center gap-8 text-xl'>
         <Link href='https://linkedin.com/in/sspenst' className='hover:underline flex flex-row gap-3 items-center flex flex-row gap-3 items-center'>
           <Image alt='linkedin' src='/linkedin.svg' width='32' height='32' className='w-8' />
           LinkedIn
@@ -27,7 +27,7 @@ export default function Page({ children }: PageProps) {
           GitHub
         </Link>
         <a href='mailto:spencerspenst@gmail.com' className='hover:underline flex flex-row gap-3 items-center'>
-          <Image alt='github' src='/mail.svg' width='32' height='32' className='w-8' />
+          <Image alt='email' src='/email.svg' width='32' height='32' className='w-8' />
           Email
         </a>
       </div>
