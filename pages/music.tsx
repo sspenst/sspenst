@@ -20,7 +20,7 @@ export default function Music() {
             Apple Music
         </a>
       </div>
-      <div className='grow flex flex-col my-1 gap-12'>
+      <div className='grow flex flex-row flex-wrap justify-center my-1 gap-12 max-w-3xl'>
         <MusicCard
           hrefAppleMusic='https://music.apple.com/us/album/turbine/1652622865?i=1652622866'
           hrefSoundCloud='https://soundcloud.com/sspenst/turbine'
