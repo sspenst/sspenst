@@ -12,7 +12,7 @@ class MyDocument extends Document {
     return (
       <Html lang='en'>
         <Head>
-          <link rel='icon' href='/ss.png' />
+          <link rel='icon' href='/ss.svg' />
           <meta name='description' content='sspenst.com' />
         </Head>
         <body className='bg-neutral-900 text-white overflow-y-scroll'>

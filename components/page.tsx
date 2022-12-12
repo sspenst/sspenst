@@ -13,7 +13,7 @@ export default function Page({ children }: PageProps) {
 
   return (
     <div className='flex flex-col items-center justify-center w-full px-8 py-12 gap-12'>
-      <Image alt='ss' src='/ss.png' width={512} height={512} priority={true} className='w-10' />
+      <Image alt='ss' src='/ss.svg' width={512} height={512} priority={true} className='w-10' />
       <h1 className='font-semibold text-5xl text-center'>
         Spencer Spenst
       </h1>
