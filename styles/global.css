@@ -20,6 +20,16 @@
   100% { opacity: 0; }
 }
 
+.animateSSPath {
+  stroke-dasharray: 168.26;
+  stroke-dashoffset: 168.26;
+  animation: dash 1.25s ease forwards;
+}
+
+@keyframes dash {
+  to { stroke-dashoffset: 0; }
+}
+
 .animateMain {
   animation-name: animateMain;
   animation-duration: 2s;
