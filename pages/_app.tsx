@@ -5,6 +5,7 @@ import Head from 'next/head';
 import React from 'react';
 
 const workSans = Work_Sans({
+  display: 'swap',
   fallback: ['system-ui', 'arial'],
   preload: true,
   subsets: ['latin'],
