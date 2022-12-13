@@ -26,13 +26,14 @@ export default function Music() {
           hrefSoundCloud='https://soundcloud.com/sspenst/turbine'
           hrefSpotify='https://open.spotify.com/track/36svwtlEoExlHUPJnhk9TG?si=00111c0436c040c2'
           info={['Single - 2022', '1:52']}
+          src='turbine.png'
           title='turbine'
         />
         <MusicCard
           feature='N E T W O R K'
           hrefSoundCloud='https://soundcloud.com/n_e_t_w_o_r_k/expanse-w-sspenst'
           info={['Single - 2022', '2:02']}
-          src='/expanse.jpeg'
+          src='expanse.jpeg'
           title='expanse'
         />
         <MusicCard
@@ -40,13 +41,14 @@ export default function Music() {
           hrefSoundCloud='https://soundcloud.com/sspenst/sets/re_ep'
           hrefSpotify='https://open.spotify.com/album/3NQEsxiwMrpQF1pN9w7XbR?si=XqMIqu-1SEu6yHxrrNL4DQ'
           info={['EP - 2021', '4 songs', '7:11']}
+          src='re.png'
           title='re'
         />
         <MusicCard
           feature='N E T W O R K'
           hrefSoundCloud='https://soundcloud.com/n_e_t_w_o_r_k/uplift-w-sspenst'
           info={['Single - 2022', '2:04']}
-          src='/uplift.jpeg'
+          src='uplift.jpeg'
           title='uplift'
         />
       </div>

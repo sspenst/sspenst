@@ -1,16 +1,26 @@
 import Image from 'next/image';
 import React from 'react';
+import TimelineDate from './timelineDate';
 
 interface ExperienceCardProps {
   company: string;
+  date: string;
   description: string;
   href: string;
   src: string;
   title: string;
 }
 
-export default function ExperienceCard({ company, description, href, src, title }: ExperienceCardProps) {
-  return (
+export default function ExperienceCard({
+  company,
+  date,
+  description,
+  href,
+  src,
+  title,
+}: ExperienceCardProps) {
+  return (<>
+    <TimelineDate date={date} />
     <div className='flex flex-row items-start gap-3'>
       <Image alt={src.split('.')[0]} src={src} width='32' height='32' className='w-8' style={{
         minWidth: '2rem',
@@ -27,5 +37,5 @@ export default function ExperienceCard({ company, description, href, src, title 
         </div>
       </div>
     </div>
-  );
+  </>);
 }

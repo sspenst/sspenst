@@ -7,18 +7,26 @@ interface MusicCardProps {
   hrefSoundCloud: string;
   hrefSpotify?: string;
   info: string[];
-  src?: string;
+  src: string;
   title: string;
 }
 
-export default function MusicCard({ feature, hrefAppleMusic, hrefSoundCloud, hrefSpotify, info, src, title }: MusicCardProps) {
+export default function MusicCard({
+  feature,
+  hrefAppleMusic,
+  hrefSoundCloud,
+  hrefSpotify,
+  info,
+  src,
+  title,
+}: MusicCardProps) {
   return (
     <div className='flex flex-row flex-wrap justify-center gap-4'>
       <Image
         alt={title}
         className='rounded-lg shadow-lg w-48 h-48'
         height={192}
-        src={src ?? `/${title}.png`}
+        src={`/music/${src}`}
         style={{
           minWidth: '12rem',
         }}
