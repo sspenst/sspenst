@@ -5,26 +5,7 @@ import { GetServerSidePropsContext } from 'next';
 import Image from 'next/image';
 import React, { useEffect, useState } from 'react';
 import { getAccessToken, redirectToAuthCodeFlow } from '../helpers/authCodeWithPkce';
-
-interface Artist {
-  id: string;
-  name: string;
-}
-
-interface Track {
-  artists: Artist[];
-  genres: string[];
-  href: string;
-  id: string;
-  image: string;
-  name: string;
-  preview: HTMLAudioElement;
-  seconds: number;
-}
-
-interface FormattedTrackProps {
-  track: Track;
-}
+import { parseTrack, parseUser, Track, User } from '../helpers/spotifyParsers';
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
   return {
@@ -44,6 +25,7 @@ export default function Spotify({ code }: SpotifyProps) {
   const [preview, setPreview] = useState<HTMLAudioElement>();
   const [recommendations, setRecommendations] = useState<Track[]>([]);
   const [tracks, setTracks] = useState<Track[]>([]);
+  const [user, setUser] = useState<User>();
 
   const clientId = 'a16d23f0a5e34c73b8719bd006b90464';
 
@@ -51,12 +33,27 @@ export default function Spotify({ code }: SpotifyProps) {
     if (!code) {
       redirectToAuthCodeFlow(clientId);
     } else {
-      getAccessToken(clientId, code as string).then(accessToken => setAccessToken(accessToken));
+      getAccessToken(clientId, code as string).then(async accessToken => {
+        setAccessToken(accessToken);
+
+        const meResult = await fetch('https://api.spotify.com/v1/me', {
+          headers: {
+            'Authorization': `Bearer ${accessToken}`,
+          },
+          method: 'GET',
+        });
+
+        const user = parseUser(await meResult.json());
+
+        setUser(user);
+
+        console.log(user);
+      });
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  function FormattedTrack({ track }: FormattedTrackProps) {
+  function FormattedTrack({ track }: { track: Track }) {
     function formatSeconds(seconds: number) {
       const m = Math.floor(seconds / 60);
       const s = seconds % 60;
@@ -88,8 +85,7 @@ export default function Spotify({ code }: SpotifyProps) {
             minWidth: '3rem',
           }}
           width={48}
-        >
-        </Image>
+        />
         <div className='grow flex flex-col gap-1 truncate text-left'>
           <span className={classNames('truncate text-lg', { 'text-green-500': preview === track.preview })}>{track.name}</span>
           <span className='text-neutral-400 text-sm truncate'>{track.artists.map(a => a.name).join(', ')}</span>
@@ -101,33 +97,36 @@ export default function Spotify({ code }: SpotifyProps) {
     );
   }
 
-  function parseTrack(t: any) {
-    if (!t.preview_url) {
-      console.log('no audio', t);
+  function FormattedUser({ user }: { user: User | undefined }) {
+    if (!user) {
+      return null;
     }
 
-    // TODO: preview_url can be null
-    // either visual indication there is no preview, or filter these results
-    const preview = new Audio(t.preview_url);
+    return (
+      <a className='flex items-center gap-4' href={user.href} rel='noreferrer' target='_blank'>
+        <Image
+          alt={user.name}
+          className='shadow-lg w-12 h-12 rounded-full'
+          height={48}
+          src={user.image}
+          style={{
+            minWidth: '3rem',
+          }}
+          width={48}
+        />
+        <span className='text-lg font-medium'>
+          {user.name}
+        </span>
+      </a>
+    );
+  }
 
-    preview.addEventListener('ended', () => setPreview(undefined));
+  function loadTrack(t: any) {
+    const track = parseTrack(t);
 
-    return {
-      artists: t.artists.map((a: Artist) => {
-        return {
-          id: a.id,
-          name: a.name,
-        };
-      }),
-      genres: t.album.genres ?? [],
-      href: t.external_urls.spotify,
-      id: t.id,
-      image: t.album.images[0].url,
-      name: t.name,
-      preview: preview,
-      preview_url: t.preview_url,
-      seconds: Math.round(t.duration_ms / 1000),
-    } as Track;
+    track.preview.addEventListener('ended', () => setPreview(undefined));
+
+    return track;
   }
 
   function getTrack(id: string) {
@@ -141,8 +140,7 @@ export default function Spotify({ code }: SpotifyProps) {
         throw res.text();
       }
 
-      const t = await res.json();
-      const track = parseTrack(t);
+      const track = loadTrack(await res.json());
 
       setTracks(prev => {
         const newTracks = [...prev];
@@ -152,7 +150,7 @@ export default function Spotify({ code }: SpotifyProps) {
         return newTracks;
       });
 
-      console.log(t, track);
+      console.log(track);
     }).catch(async err => {
       console.error(JSON.parse(await err)?.error);
     });
@@ -179,7 +177,7 @@ export default function Spotify({ code }: SpotifyProps) {
       }
 
       const r = await res.json();
-      const tracks = r.tracks.map((t: any) => parseTrack(t));
+      const tracks = r.tracks.map((t: any) => loadTrack(t));
 
       setRecommendations(tracks);
 
@@ -189,15 +187,58 @@ export default function Spotify({ code }: SpotifyProps) {
     });
   }
 
-  function save() {
-    // create playlist
+  async function save() {
+    if (!user) {
+      return;
+    }
+
+    const createPlaylistRes = await fetch(`https://api.spotify.com/v1/users/${user.id}/playlists`, {
+      body: JSON.stringify({
+        description: 'Playlist created with Set Builder',
+        name: `Set Builder - ${tracks[0].name}`,
+        public: false,
+      }),
+      headers: {
+        'Authorization': `Bearer ${accessToken}`,
+        'Content-Type': 'application/json',
+      },
+      method: 'POST',
+    });
+
+    if (createPlaylistRes.status !== 201) {
+      // TODO: error messaging
+
+      return;
+    }
+
+    const p = await createPlaylistRes.json();
+
+    console.log('playlist', p);
+
     // add all tracks to the playlist
     // TODO: limit playlist to max 100 songs so i can always make one request here
+
+    await fetch(`https://api.spotify.com/v1/playlists/${p.id}/tracks`, {
+      body: JSON.stringify({
+        position: 0,
+        uris: tracks.map(t => t.uri),
+      }),
+      headers: {
+        'Authorization': `Bearer ${accessToken}`,
+        'Content-Type': 'application/json',
+      },
+      method: 'POST',
+    });
+
+    // TODO: success notification if 201
   }
 
   if (tracks.length === 0) {
     return (
       <div className='flex flex-col items-center text-center gap-4 p-4 h-full w-full justify-center inset-0 fixed'>
+        <div className='w-full flex justify-end'>
+          <FormattedUser user={user} />
+        </div>
         <span className='text-3xl'>Paste a track ID to start off your set</span>
         <input
           className='text-2xl px-3 py-2 rounded-lg w-96 text-center'
@@ -219,26 +260,32 @@ export default function Spotify({ code }: SpotifyProps) {
   return (
     <div className='flex inset-0 fixed p-3'>
       <div className='w-96 bg-neutral-800 rounded-md flex flex-col p-3 gap-3 overflow-y-scroll items-center'>
-        {tracks.map((track, trackIndex) => (
-          <div className='flex items-center w-full' key={track.id}>
-            <FormattedTrack track={track} />
-            <div className='transition cursor-pointer hover:scale-125 hover:text-red-500 mx-2' onClick={() => {
-              setTracks(prevTracks => {
-                const newTracks = [...prevTracks];
+        {tracks.map((track, trackIndex) => {
+          const canDelete = tracks.length !== 1;
 
-                newTracks.splice(trackIndex, 1);
+          return (
+            <div className='flex items-center w-full' key={track.id}>
+              <FormattedTrack track={track} />
+              {canDelete &&
+                <div className={classNames('transition cursor-pointer hover:scale-125 hover:text-red-500 mx-2')} onClick={() => {
+                  setTracks(prevTracks => {
+                    const newTracks = [...prevTracks];
 
-                console.log(prevTracks.map(t => t.name), newTracks.map(t => t.name));
+                    newTracks.splice(trackIndex, 1);
 
-                return newTracks;
-              });
-            }}>
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
-              </svg>
+                    console.log(prevTracks.map(t => t.name), newTracks.map(t => t.name));
+
+                    return newTracks;
+                  });
+                }}>
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                </div>
+              }
             </div>
-          </div>
-        ))}
+          );
+        })}
         <button
           className='bg-green-500 disabled:invisible text-black px-4 py-2 text-2xl rounded-2xl'
           onClick={save}
@@ -247,6 +294,9 @@ export default function Spotify({ code }: SpotifyProps) {
         </button>
       </div>
       <div className='grow flex flex-col text-center items-center gap-4 truncate'>
+        <div className='w-full flex justify-end'>
+          <FormattedUser user={user} />
+        </div>
         {/* <span className='text-4xl font-medium'>What do you want next?</span> */}
         <div className='grow flex flex-col items-center text-center gap-4 w-full overflow-y-scroll'>
           {/* <div>
@@ -262,6 +312,7 @@ export default function Spotify({ code }: SpotifyProps) {
             ⚡️ Energy
           </div> */}
           {recommendations.map(track => {
+            // TODO: allow adding identical tracks
             const disabled = tracks.some(t => t.id === track.id);
 
             return (
