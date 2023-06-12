@@ -4,9 +4,9 @@ import React from 'react';
 interface MusicCardProps {
   feature?: string;
   hrefAppleMusic?: string;
-  hrefSoundCloud: string;
+  hrefSoundCloud?: string;
   hrefSpotify?: string;
-  info: string[];
+  info?: string[];
   src: string;
   title: string;
 }
@@ -26,7 +26,7 @@ export default function MusicCard({
         alt={title}
         className='rounded-lg shadow-lg w-48 h-48'
         height={192}
-        src={`/music/${src}`}
+        src={src.startsWith('http') ? src : `/music/${src}`}
         style={{
           minWidth: '12rem',
         }}
@@ -39,7 +39,7 @@ export default function MusicCard({
         {feature && <div className='text-neutral-200 text-md'>
           w/ {feature}
         </div>}
-        {info.map((line, index) => {
+        {info?.map((line, index) => {
           return (
             <div className='text-neutral-400 text-sm' key={`${title}-${index}`}>
               {line}
@@ -47,9 +47,9 @@ export default function MusicCard({
           );
         })}
         <div className='flex flex-row gap-2'>
-          <a target='_blank' rel='noreferrer' href={hrefSoundCloud} className='w-fit'>
+          {hrefSoundCloud && <a target='_blank' rel='noreferrer' href={hrefSoundCloud} className='w-fit'>
             <Image alt='soundcloud' src='/soundcloud.svg' width='32' height='32' className='w-6' />
-          </a>
+          </a>}
           {hrefSpotify && <a target='_blank' rel='noreferrer' href={hrefSpotify} className='w-fit'>
             <Image alt='spotify' src='/spotify.svg' width='32' height='32' className='w-6' />
           </a>}
