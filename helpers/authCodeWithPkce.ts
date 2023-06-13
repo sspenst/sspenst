@@ -1,4 +1,9 @@
 const clientId = 'a16d23f0a5e34c73b8719bd006b90464';
+const maxRetries = 5;
+
+function getCurrentUri() {
+  return `${location.protocol}//${location.host}${location.pathname}`;
+}
 
 // https://developer.spotify.com/documentation/web-api/tutorials/code-pkce-flow
 export async function redirectToAuthCodeFlow() {
@@ -15,7 +20,7 @@ export async function redirectToAuthCodeFlow() {
     client_id: clientId,
     code_challenge: challenge,
     code_challenge_method: 'S256',
-    redirect_uri: 'http://localhost:3000/spotify',
+    redirect_uri: getCurrentUri(),
     response_type: 'code',
     scope: 'user-read-private playlist-modify-private',
   })}`;
@@ -58,12 +63,14 @@ export async function loadTokens(code?: string) {
       await redirectToAuthCodeFlow();
 
       return;
+    } else {
+      localStorage.removeItem('verifier');
     }
 
     body.code = code;
     body.code_verifier = verifier;
     body.grant_type = 'authorization_code';
-    body.redirect_uri = 'http://localhost:3000/spotify';
+    body.redirect_uri = getCurrentUri();
   } else {
     const refreshToken = localStorage.getItem('refreshToken');
 
@@ -96,7 +103,7 @@ export async function loadTokens(code?: string) {
   localStorage.setItem('refreshToken', refresh_token);
 }
 
-export async function spotifyFetch(input: RequestInfo | URL, init?: RequestInit | undefined) {
+export async function spotifyFetch(input: RequestInfo | URL, init?: RequestInit | undefined, attempt = 0) {
   // subtract 10s from expiration time to account for any timing errors
   const refreshExpiresAt = Number(localStorage.getItem('accessTokenExpiresAt') ?? '0') - 10000;
 
@@ -106,12 +113,22 @@ export async function spotifyFetch(input: RequestInfo | URL, init?: RequestInit 
 
   const accessToken = localStorage.getItem('accessToken');
 
-  return fetch(input, {
+  let res = await fetch(input, {
     ...init,
     headers: {
       'Authorization': `Bearer ${accessToken}`,
       ...init?.headers,
     },
   });
-  // TODO: handle 401 or other error codes here before returning
+
+  if (res.status === 401) {
+    await redirectToAuthCodeFlow();
+  } else if (res.status === 429) {
+    if (attempt < maxRetries) {
+      await new Promise(resolve => setTimeout(resolve, (2 ** attempt) * 1000));
+      res = await spotifyFetch(input, init, attempt + 1);
+    }
+  }
+
+  return res;
 }
