@@ -17,14 +17,6 @@ export interface Track {
 }
 
 export function parseTrack(t: any): Track {
-  if (!t.preview_url) {
-    console.log('no audio', t);
-  }
-
-  // TODO: preview_url can be null
-  // either visual indication there is no preview, or filter these results
-  const preview = new Audio(t.preview_url);
-
   return {
     artists: t.artists.map((a: Artist) => {
       return {
@@ -37,8 +29,7 @@ export function parseTrack(t: any): Track {
     id: t.id,
     image: t.album.images[0].url,
     name: t.name,
-    preview: preview,
-    preview_url: t.preview_url,
+    preview: new Audio(t.preview_url),
     seconds: Math.round(t.duration_ms / 1000),
     uri: t.uri,
   } as Track;

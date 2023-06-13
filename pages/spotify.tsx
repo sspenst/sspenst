@@ -21,7 +21,7 @@ interface SpotifyProps {
 
 export default function Spotify({ code }: SpotifyProps) {
   const [accessToken, setAccessToken] = useState<string>();
-  const [initialTrackId, setInitialTrackId] = useState('02nhDSWvcXYALyVkth2oXd');
+  const [initialTrackId, setInitialTrackId] = useState('57RJ51keAi2GaYOPtaTjfT');
   const [preview, setPreview] = useState<HTMLAudioElement>();
   const [recommendations, setRecommendations] = useState<Track[]>([]);
   const [tracks, setTracks] = useState<Track[]>([]);
@@ -119,7 +119,7 @@ export default function Spotify({ code }: SpotifyProps) {
     }
 
     return (
-      <a className='flex items-center gap-4' href={user.href} rel='noreferrer' target='_blank'>
+      <a className='flex items-center gap-3 truncate mx-1' href={user.href} rel='noreferrer' target='_blank'>
         <Image
           alt={user.name}
           className='shadow-lg w-12 h-12 rounded-full'
@@ -130,7 +130,7 @@ export default function Spotify({ code }: SpotifyProps) {
           }}
           width={48}
         />
-        <span className='text-lg font-medium'>
+        <span className='text-lg font-medium truncate'>
           {user.name}
         </span>
       </a>
@@ -174,9 +174,7 @@ export default function Spotify({ code }: SpotifyProps) {
     const latestTrack = tracks[tracks.length - 1];
 
     fetch(`https://api.spotify.com/v1/recommendations?${new URLSearchParams({
-      limit: '7',
-      // TODO: use the market of the user logged in
-      market: 'US',
+      limit: '10',
       seed_artists: latestTrack.artists.map(a => a.id).slice(0, 5).join(','),
       seed_genres: latestTrack.genres.slice(0, 5).join(','),
       seed_tracks: latestTrack.id,
@@ -191,7 +189,11 @@ export default function Spotify({ code }: SpotifyProps) {
       }
 
       const r = await res.json();
-      const tracks = r.tracks.map((t: any) => loadTrack(t));
+      const tracks = r.tracks
+        // preview url can be null, but audio is essential here so need to filter these results
+        // https://github.com/spotify/web-api/issues/148#issuecomment-313924088
+        .filter((t: any) => !!t.preview_url)
+        .map((t: any) => loadTrack(t));
 
       setRecommendations(tracks);
     }).catch(async err => {
@@ -244,7 +246,7 @@ export default function Spotify({ code }: SpotifyProps) {
   }
 
   return (
-    <div className='flex inset-0 fixed p-3'>
+    <div className='flex inset-0 fixed p-3 gap-3'>
       <div className='w-96 bg-neutral-800 rounded-md flex flex-col p-3 gap-3 overflow-y-scroll items-center'>
         {tracks.map((track, trackIndex) => {
           const canDelete = tracks.length !== 1;
