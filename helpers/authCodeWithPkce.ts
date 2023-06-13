@@ -22,7 +22,7 @@ export async function redirectToAuthCodeFlow() {
     code_challenge_method: 'S256',
     redirect_uri: getCurrentUri(),
     response_type: 'code',
-    scope: 'user-read-private playlist-modify-private',
+    scope: 'user-read-private playlist-modify-private user-library-read',
   })}`;
 }
 
@@ -123,6 +123,10 @@ export async function spotifyFetch(input: RequestInfo | URL, init?: RequestInit 
 
   if (res.status === 401) {
     await redirectToAuthCodeFlow();
+  } else if (res.status === 403) {
+    // could be that the scopes have updated since originally being authenticated
+    // or that the user doesn't have access to the app in dev mode
+    // for now, silently ignore both
   } else if (res.status === 429) {
     if (attempt < maxRetries) {
       await new Promise(resolve => setTimeout(resolve, (2 ** attempt) * 1000));

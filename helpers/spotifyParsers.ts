@@ -17,8 +17,12 @@ export interface Track {
 }
 
 export function parseTrack(t: any): Track {
+  const preview = new Audio(t.preview_url);
+
+  preview.loop = true;
+
   return {
-    artists: t.artists.map((a: Artist) => {
+    artists: t.artists.map((a: any) => {
       return {
         id: a.id,
         name: a.name,
@@ -30,10 +34,17 @@ export function parseTrack(t: any): Track {
     // TODO: images may be empty, need a placeholder
     image: t.album.images[0]?.url,
     name: t.name,
-    preview: new Audio(t.preview_url),
+    preview: preview,
     seconds: Math.round(t.duration_ms / 1000),
     uri: t.uri,
   } as Track;
+}
+
+export function parseTracks(t: any): Track[] {
+  // preview url can be null, but audio is essential here so need to filter these results
+  // https://github.com/spotify/web-api/issues/148#issuecomment-313924088
+  return t.filter((t: any) => !!t.preview_url)
+    .map((t: any) => parseTrack(t));
 }
 
 export interface User {
