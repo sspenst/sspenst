@@ -1,11 +1,15 @@
+const clientId = 'a16d23f0a5e34c73b8719bd006b90464';
+
 // https://developer.spotify.com/documentation/web-api/tutorials/code-pkce-flow
-export async function redirectToAuthCodeFlow(clientId: string) {
+export async function redirectToAuthCodeFlow() {
   const verifier = generateCodeVerifier(128);
   const challenge = await generateCodeChallenge(verifier);
 
   localStorage.setItem('verifier', verifier);
-  // we are restarting the auth flow, make sure any old access token is gone
+  // we are restarting the auth flow, make sure any old tokens are gone
   localStorage.removeItem('accessToken');
+  localStorage.removeItem('accessTokenExpiresAt');
+  localStorage.removeItem('refreshToken');
 
   document.location = `https://accounts.spotify.com/authorize?${new URLSearchParams({
     client_id: clientId,
@@ -38,36 +42,76 @@ async function generateCodeChallenge(codeVerifier: string) {
     .replace(/=+$/, '');
 }
 
-export async function getAccessToken(clientId: string, code: string) {
-  const verifier = localStorage.getItem('verifier');
+// update accessToken and refreshToken in localStorage
+// if no code is provided, the existing token is refreshed
+// redirects to auth flow if there is an error
+export async function loadTokens(code?: string) {
+  const body: Record<string, string> = {
+    client_id: clientId,
+  };
 
-  if (!verifier) {
-    await redirectToAuthCodeFlow(clientId);
+  // use the code or try to refresh the old token
+  if (code) {
+    const verifier = localStorage.getItem('verifier');
 
-    return;
+    if (!verifier) {
+      await redirectToAuthCodeFlow();
+
+      return;
+    }
+
+    body.code = code;
+    body.code_verifier = verifier;
+    body.grant_type = 'authorization_code';
+    body.redirect_uri = 'http://localhost:3000/spotify';
+  } else {
+    const refreshToken = localStorage.getItem('refreshToken');
+
+    if (!refreshToken) {
+      await redirectToAuthCodeFlow();
+
+      return;
+    }
+
+    body.grant_type = 'refresh_token';
+    body.refresh_token = refreshToken;
   }
 
   const result = await fetch('https://accounts.spotify.com/api/token', {
-    body: new URLSearchParams({
-      client_id: clientId,
-      code: code,
-      code_verifier: verifier,
-      grant_type: 'authorization_code',
-      redirect_uri: 'http://localhost:3000/spotify',
-    }),
+    body: new URLSearchParams(body),
     headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
     method: 'POST',
   });
 
   if (!result.ok) {
-    await redirectToAuthCodeFlow(clientId);
+    await redirectToAuthCodeFlow();
 
     return;
   }
 
-  const { access_token } = await result.json();
+  const { access_token, expires_in, refresh_token } = await result.json();
 
   localStorage.setItem('accessToken', access_token);
+  localStorage.setItem('accessTokenExpiresAt', String(Date.now() + (expires_in as number) * 1000));
+  localStorage.setItem('refreshToken', refresh_token);
+}
 
-  return access_token as string;
+export async function spotifyFetch(input: RequestInfo | URL, init?: RequestInit | undefined) {
+  // subtract 10s from expiration time to account for any timing errors
+  const refreshExpiresAt = Number(localStorage.getItem('accessTokenExpiresAt') ?? '0') - 10000;
+
+  if (refreshExpiresAt < Date.now()) {
+    await loadTokens();
+  }
+
+  const accessToken = localStorage.getItem('accessToken');
+
+  return fetch(input, {
+    ...init,
+    headers: {
+      'Authorization': `Bearer ${accessToken}`,
+      ...init?.headers,
+    },
+  });
+  // TODO: handle 401 or other error codes here before returning
 }

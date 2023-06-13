@@ -3,8 +3,9 @@
 import classNames from 'classnames';
 import { GetServerSidePropsContext } from 'next';
 import Image from 'next/image';
+import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
-import { getAccessToken, redirectToAuthCodeFlow } from '../helpers/authCodeWithPkce';
+import { loadTokens, redirectToAuthCodeFlow, spotifyFetch } from '../helpers/authCodeWithPkce';
 import { parseTrack, parseUser, Track, User } from '../helpers/spotifyParsers';
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
@@ -20,52 +21,39 @@ interface SpotifyProps {
 }
 
 export default function Spotify({ code }: SpotifyProps) {
-  const [accessToken, setAccessToken] = useState<string>();
   const [initialTrackId, setInitialTrackId] = useState('57RJ51keAi2GaYOPtaTjfT');
   const [preview, setPreview] = useState<HTMLAudioElement>();
   const [recommendations, setRecommendations] = useState<Track[]>([]);
   const [tracks, setTracks] = useState<Track[]>([]);
   const [user, setUser] = useState<User>();
-
-  const clientId = 'a16d23f0a5e34c73b8719bd006b90464';
+  const router = useRouter();
 
   useEffect(() => {
-    // load user info given their access token
-    async function loadUser(accessToken: string | undefined) {
-      const meResult = await fetch('https://api.spotify.com/v1/me', {
-        headers: {
-          'Authorization': `Bearer ${accessToken}`,
-        },
+    async function loadUser() {
+      const res = await spotifyFetch('https://api.spotify.com/v1/me', {
         method: 'GET',
       });
 
-      const user = parseUser(await meResult.json());
-
-      setUser(user);
+      setUser(parseUser(await res.json()));
     }
 
     // load access token and user given with the auth code
-    async function loadAccessTokenAndUser() {
-      const accessToken = await getAccessToken(clientId, code as string);
-
-      setAccessToken(accessToken);
-
-      await loadUser(accessToken);
+    async function loadAccessTokenAndUser(code: string) {
+      await loadTokens(code);
+      await loadUser();
     }
 
-    // authenticate the user or fetch the access token and user
-    if (!code) {
-      redirectToAuthCodeFlow(clientId);
+    // use existing accessToken if we have it, otherwise normal auth flow
+    if (localStorage.getItem('accessToken')) {
+      loadUser();
+    } else if (!code) {
+      redirectToAuthCodeFlow();
     } else {
-      const accessToken = localStorage.getItem('accessToken');
-
-      if (accessToken) {
-        setAccessToken(accessToken);
-        loadUser(accessToken);
-      } else {
-        loadAccessTokenAndUser();
-      }
+      loadAccessTokenAndUser(code);
     }
+
+    // remove code from the url query for clean aesthetic
+    router.push('/spotify', undefined, { shallow: true });
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -146,10 +134,7 @@ export default function Spotify({ code }: SpotifyProps) {
   }
 
   function getTrack(id: string) {
-    fetch(`https://api.spotify.com/v1/tracks/${id}`, {
-      headers: {
-        'Authorization': `Bearer ${accessToken}`,
-      },
+    spotifyFetch(`https://api.spotify.com/v1/tracks/${id}`, {
       method: 'GET',
     }).then(async res => {
       if (res.status !== 200) {
@@ -173,15 +158,12 @@ export default function Spotify({ code }: SpotifyProps) {
   function getRecommendation() {
     const latestTrack = tracks[tracks.length - 1];
 
-    fetch(`https://api.spotify.com/v1/recommendations?${new URLSearchParams({
+    spotifyFetch(`https://api.spotify.com/v1/recommendations?${new URLSearchParams({
       limit: '10',
       seed_artists: latestTrack.artists.map(a => a.id).slice(0, 5).join(','),
       seed_genres: latestTrack.genres.slice(0, 5).join(','),
       seed_tracks: latestTrack.id,
     })}`, {
-      headers: {
-        'Authorization': `Bearer ${accessToken}`,
-      },
       method: 'GET',
     }).then(async res => {
       if (res.status !== 200) {
@@ -206,14 +188,13 @@ export default function Spotify({ code }: SpotifyProps) {
       return;
     }
 
-    const createPlaylistRes = await fetch(`https://api.spotify.com/v1/users/${user.id}/playlists`, {
+    const createPlaylistRes = await spotifyFetch(`https://api.spotify.com/v1/users/${user.id}/playlists`, {
       body: JSON.stringify({
         description: 'Playlist created with Set Builder',
         name: `Set Builder - ${tracks[0].name}`,
         public: false,
       }),
       headers: {
-        'Authorization': `Bearer ${accessToken}`,
         'Content-Type': 'application/json',
       },
       method: 'POST',
@@ -230,13 +211,12 @@ export default function Spotify({ code }: SpotifyProps) {
     // add all tracks to the playlist
     // TODO: limit playlist to max 100 songs so i can always make one request here
 
-    await fetch(`https://api.spotify.com/v1/playlists/${p.id}/tracks`, {
+    await spotifyFetch(`https://api.spotify.com/v1/playlists/${p.id}/tracks`, {
       body: JSON.stringify({
         position: 0,
         uris: tracks.map(t => t.uri),
       }),
       headers: {
-        'Authorization': `Bearer ${accessToken}`,
         'Content-Type': 'application/json',
       },
       method: 'POST',
