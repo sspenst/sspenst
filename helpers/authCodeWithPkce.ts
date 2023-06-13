@@ -1,19 +1,20 @@
+// https://developer.spotify.com/documentation/web-api/tutorials/code-pkce-flow
 export async function redirectToAuthCodeFlow(clientId: string) {
   const verifier = generateCodeVerifier(128);
   const challenge = await generateCodeChallenge(verifier);
 
   localStorage.setItem('verifier', verifier);
+  // we are restarting the auth flow, make sure any old access token is gone
+  localStorage.removeItem('accessToken');
 
-  const params = new URLSearchParams();
-
-  params.append('client_id', clientId);
-  params.append('response_type', 'code');
-  params.append('redirect_uri', 'http://localhost:3000/spotify');
-  params.append('scope', 'user-read-private playlist-modify-private');
-  params.append('code_challenge_method', 'S256');
-  params.append('code_challenge', challenge);
-
-  document.location = `https://accounts.spotify.com/authorize?${params.toString()}`;
+  document.location = `https://accounts.spotify.com/authorize?${new URLSearchParams({
+    client_id: clientId,
+    code_challenge: challenge,
+    code_challenge_method: 'S256',
+    redirect_uri: 'http://localhost:3000/spotify',
+    response_type: 'code',
+    scope: 'user-read-private playlist-modify-private',
+  })}`;
 }
 
 function generateCodeVerifier(length: number) {
@@ -41,28 +42,32 @@ export async function getAccessToken(clientId: string, code: string) {
   const verifier = localStorage.getItem('verifier');
 
   if (!verifier) {
-    return null;
+    await redirectToAuthCodeFlow(clientId);
+
+    return;
   }
 
-  const params = new URLSearchParams();
-
-  params.append('client_id', clientId);
-  params.append('grant_type', 'authorization_code');
-  params.append('code', code);
-  params.append('redirect_uri', 'http://localhost:3000/spotify');
-  params.append('code_verifier', verifier);
-
   const result = await fetch('https://accounts.spotify.com/api/token', {
-    body: params,
+    body: new URLSearchParams({
+      client_id: clientId,
+      code: code,
+      code_verifier: verifier,
+      grant_type: 'authorization_code',
+      redirect_uri: 'http://localhost:3000/spotify',
+    }),
     headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
     method: 'POST',
   });
 
   if (!result.ok) {
     await redirectToAuthCodeFlow(clientId);
+
+    return;
   }
 
   const { access_token } = await result.json();
+
+  localStorage.setItem('accessToken', access_token);
 
   return access_token as string;
 }
