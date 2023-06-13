@@ -27,7 +27,8 @@ export function parseTrack(t: any): Track {
     genres: t.album.genres ?? [],
     href: t.external_urls.spotify,
     id: t.id,
-    image: t.album.images[0].url,
+    // TODO: images may be empty, need a placeholder
+    image: t.album.images[0]?.url,
     name: t.name,
     preview: new Audio(t.preview_url),
     seconds: Math.round(t.duration_ms / 1000),
@@ -46,7 +47,7 @@ export function parseUser(u: any): User {
   return {
     href: u.external_urls.spotify,
     id: u.id,
-    image: u.images[0].url,
+    image: u.images[0]?.url,
     name: u.display_name,
   };
 }
