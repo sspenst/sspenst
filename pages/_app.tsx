@@ -1,6 +1,6 @@
 import '../styles/global.css';
-import { Work_Sans } from '@next/font/google';
 import type { AppProps } from 'next/app';
+import { Work_Sans } from 'next/font/google';
 import Head from 'next/head';
 import React from 'react';
 
