@@ -136,3 +136,9 @@ export async function spotifyFetch(input: RequestInfo | URL, init?: RequestInit 
 
   return res;
 }
+
+export function removeTokens() {
+  localStorage.removeItem('accessToken');
+  localStorage.removeItem('accessTokenExpiresAt');
+  localStorage.removeItem('refreshToken');
+}

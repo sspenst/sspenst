@@ -5,7 +5,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import FormattedTrack from '../components/spotifyRabbit/formattedTrack';
 import FormattedUser from '../components/spotifyRabbit/formattedUser';
 import { SpotifyRabbitContext } from '../contexts/spotifyRabbitContext';
-import { loadTokens, redirectToAuthCodeFlow, spotifyFetch } from '../helpers/authCodeWithPkce';
+import { loadTokens, redirectToAuthCodeFlow, removeTokens, spotifyFetch } from '../helpers/authCodeWithPkce';
 import { parseTrack, parseTracks, parseUser, Track, User } from '../helpers/spotifyParsers';
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
@@ -95,6 +95,11 @@ export default function Spotify({ code }: SpotifyProps) {
     });
   }
 
+  function logOut() {
+    removeTokens();
+    router.push('/');
+  }
+
   async function getTracks() {
     setDisableGetTracks(true);
 
@@ -156,6 +161,33 @@ export default function Spotify({ code }: SpotifyProps) {
     setDisableSave(false);
   }
 
+  if (!user) {
+    // TODO: skeleton page before user has loaded
+    return (
+      <div className='flex inset-0 fixed text-center text-lg items-center p-4'>
+        <p className='w-full'>
+          {'An unexpected error occurred! Try '}
+          <button
+            className='text-blue-300'
+            onClick={logOut}
+          >
+            logging out
+          </button>
+          {' or '}
+          <a
+            className='text-blue-300'
+            href='mailto:spencerspenst@gmail.com'
+            rel='noreferrer'
+            target='_blank'
+          >
+            contact me
+          </a>
+          {' if you are still having issues.'}
+        </p>
+      </div>
+    );
+  }
+
   return (
     <SpotifyRabbitContext.Provider value={{
       preview: preview,
@@ -204,7 +236,17 @@ export default function Spotify({ code }: SpotifyProps) {
                 <path strokeLinecap="round" strokeLinejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99" />
               </svg>
             </button>
-            <FormattedUser user={user} />
+            <div className='flex gap-3'>
+              <FormattedUser user={user} />
+              <button
+                className='bg-neutral-500 text-black p-3 text-2xl rounded-full hover:bg-neutral-300 transition'
+                onClick={() => logOut()}
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15M12 9l-3 3m0 0l3 3m-3-3h12.75" />
+                </svg>
+              </button>
+            </div>
           </div>
           {/* <span className='text-4xl font-medium'>What do you want next?</span> */}
           <div className='grow flex flex-col items-center text-center w-full overflow-y-scroll p-2'>
