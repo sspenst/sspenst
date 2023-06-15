@@ -1,11 +1,12 @@
 import { createContext } from 'react';
+import { Track } from '../helpers/spotifyParsers';
 
 interface SpotifyRabbitContextInterface {
-  preview: HTMLAudioElement | undefined;
-  setPreview: React.Dispatch<React.SetStateAction<HTMLAudioElement | undefined>>;
+  previewTrack: Track | undefined;
+  setPreviewTrack: React.Dispatch<React.SetStateAction<Track | undefined>>;
 }
 
 export const SpotifyRabbitContext = createContext<SpotifyRabbitContextInterface>({
-  preview: undefined,
-  setPreview: () => { return; },
+  previewTrack: undefined,
+  setPreviewTrack: () => { return; },
 });

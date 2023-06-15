@@ -16,21 +16,21 @@ interface FormattedTrackProps {
 }
 
 export default function FormattedTrack({ track }: FormattedTrackProps) {
-  const { preview, setPreview } = useContext(SpotifyRabbitContext);
+  const { previewTrack, setPreviewTrack } = useContext(SpotifyRabbitContext);
 
   return (
     <div className='flex gap-4 w-full items-center cursor-pointer truncate select-none' onClick={() => {
       // pause any ongoing track
-      if (preview) {
-        preview.pause();
+      if (previewTrack?.preview) {
+        previewTrack.preview.pause();
       }
 
       // play the current track if it is different than the previous
-      if (preview !== track.preview) {
+      if (previewTrack?.preview !== track.preview) {
         track.preview.play();
-        setPreview(track.preview);
+        setPreviewTrack(track);
       } else {
-        setPreview(undefined);
+        setPreviewTrack(undefined);
       }
     }}>
       <Image
@@ -44,7 +44,7 @@ export default function FormattedTrack({ track }: FormattedTrackProps) {
         width={48}
       />
       <div className='grow flex flex-col gap-1 truncate text-left'>
-        <span className={classNames('truncate text-lg', { 'text-green-500': preview === track.preview })}>{track.name}</span>
+        <span className={classNames('truncate text-lg', { 'text-green-500': previewTrack?.preview === track.preview })}>{track.name}</span>
         <span className='text-neutral-400 text-sm truncate'>{track.artists.map(a => a.name).join(', ')}</span>
       </div>
       <span className='text-neutral-400 ml-4'>

@@ -12,7 +12,15 @@ export default function FormattedUser({ user }: FormattedUserProps) {
   }
 
   return (
-    <a className='flex items-center gap-3 truncate rounded-full hover:bg-neutral-700 transition' href={user.href} rel='noreferrer' target='_blank'>
+    <a
+      className='flex items-center gap-3 truncate rounded-full hover:bg-neutral-700 transition h-min'
+      href={user.href}
+      style={{
+        minWidth: 48,
+      }}
+      rel='noreferrer'
+      target='_blank'
+    >
       <Image
         alt={user.name}
         className='shadow-lg w-12 h-12 rounded-full'

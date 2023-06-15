@@ -3,6 +3,7 @@ import { GetServerSidePropsContext } from 'next';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
+import FeatureControlComponent, { FeatureControl, FeatureControlValue } from '../components/spotifyRabbit/featureControl';
 import FormattedTrack from '../components/spotifyRabbit/formattedTrack';
 import FormattedUser from '../components/spotifyRabbit/formattedUser';
 import { SpotifyRabbitContext } from '../contexts/spotifyRabbitContext';
@@ -24,10 +25,17 @@ interface SpotifyProps {
 export default function Spotify({ code }: SpotifyProps) {
   const [disableGetTracks, setDisableGetTracks] = useState(false);
   const [disableSave, setDisableSave] = useState(false);
+  const [featureControls, setFeatureControls] = useState<FeatureControl[]>([
+    { key: 'danceability', value: FeatureControlValue.NONE },
+    { key: 'energy', value: FeatureControlValue.NONE },
+    { key: 'loudness', value: FeatureControlValue.NONE },
+    { key: 'tempo', value: FeatureControlValue.NONE },
+    { key: 'valence', value: FeatureControlValue.NONE },
+  ]);
   const limit = 20;
   const [myTracksPage, setMyTracksPage] = useState(0);
   const [playlist, setPlaylist] = useState<Track[]>([]);
-  const [preview, setPreview] = useState<HTMLAudioElement>();
+  const [previewTrack, setPreviewTrack] = useState<Track>();
   const [recommendations, setRecommendations] = useState<Track[]>([]);
   const router = useRouter();
   const [user, setUser] = useState<User | null>();
@@ -47,7 +55,7 @@ export default function Spotify({ code }: SpotifyProps) {
     }
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const myTracks = parseTracks(tracks.items.map((i: any) => i.track));
+    const myTracks = await parseTracks(tracks.items.map((i: any) => i.track));
 
     if (!myTracks.length) {
       // if there are no tracks, we have probably reached the end of the user's saved tracks
@@ -93,18 +101,28 @@ export default function Spotify({ code }: SpotifyProps) {
   async function getRecommendations() {
     setDisableGetTracks(true);
 
-    // TODO: use as many latest tracks + genres as possible?
+    const features: Record<string, string> = {};
     const latestTrack = playlist[playlist.length - 1];
+
+    featureControls.forEach(f => {
+      if (f.value === FeatureControlValue.UP) {
+        features[`min_${f.key}`] = latestTrack.features[f.key];
+      } else if (f.value === FeatureControlValue.DOWN) {
+        features[`max_${f.key}`] = latestTrack.features[f.key];
+      }
+    });
+
     const recommendations = await spotifyFetch(`https://api.spotify.com/v1/recommendations?${new URLSearchParams({
       limit: String(limit),
       seed_artists: latestTrack.artists.map(a => a.id).slice(0, 5).join(','),
       seed_genres: latestTrack.genres.slice(0, 5).join(','),
       seed_tracks: latestTrack.id,
+      ...features,
     })}`, {
       method: 'GET',
     });
 
-    setRecommendations(parseTracks(recommendations?.tracks));
+    setRecommendations(await parseTracks(recommendations?.tracks));
     setDisableGetTracks(false);
   }
 
@@ -186,8 +204,8 @@ export default function Spotify({ code }: SpotifyProps) {
 
   return (
     <SpotifyRabbitContext.Provider value={{
-      preview: preview,
-      setPreview: setPreview,
+      previewTrack: previewTrack,
+      setPreviewTrack: setPreviewTrack,
     }}>
       <div className='flex inset-0 fixed select-none'>
         {playlist.length > 0 &&
@@ -222,7 +240,7 @@ export default function Spotify({ code }: SpotifyProps) {
           </div>
         }
         <div className='grow flex flex-col text-center items-center truncate'>
-          <div className='w-full flex justify-between p-3 gap-3'>
+          <div className='w-full flex justify-between p-3 gap-3 items-center'>
             {!playlist.length ?
               <div className='flex gap-3' key='my-tracks-controls'>
                 <button
@@ -249,7 +267,7 @@ export default function Spotify({ code }: SpotifyProps) {
                 </button>
               </div>
               :
-              <div className='flex gap-3' key='recommendations-controls'>
+              <div className='flex gap-3 items-center' key='recommendations-controls'>
                 <button
                   className='bg-green-500 disabled:bg-neutral-500 text-black p-3 text-2xl rounded-full enabled:hover:bg-green-300 transition'
                   disabled={disableGetTracks}
@@ -259,10 +277,27 @@ export default function Spotify({ code }: SpotifyProps) {
                     <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
                   </svg>
                 </button>
-                {/* TODO: add parameters for recommendations */}
+                {featureControls.map(featureControl => (
+                  <FeatureControlComponent
+                    featureControl={featureControl}
+                    key={featureControl.key}
+                    rotateValue={() => setFeatureControls(prevFeatureControls => {
+                      const newFeatureControls = [...prevFeatureControls];
+
+                      const featureControlToRotate = newFeatureControls.find(f => f.key === featureControl.key);
+
+                      if (featureControlToRotate) {
+                        featureControlToRotate.value = (featureControlToRotate.value + 1) % 3;
+                      }
+
+                      return newFeatureControls;
+                    })}
+                    track={playlist[playlist.length - 1]}
+                  />
+                ))}
               </div>
             }
-            <div className='flex truncate'>
+            <div className='flex truncate h-min'>
               <FormattedUser user={user} />
               <button
                 className='text-neutral-400 p-3 text-2xl rounded-full hover:bg-neutral-700 transition'
@@ -275,18 +310,6 @@ export default function Spotify({ code }: SpotifyProps) {
             </div>
           </div>
           <div className='grow flex flex-col items-center text-center w-full overflow-y-scroll px-2 pb-2'>
-            {/* <div>
-              ⏰ Tempo
-            </div>
-            <div>
-              💃 Danceability
-            </div>
-            <div>
-              🔊 Loudness
-            </div>
-            <div>
-              ⚡️ Energy
-            </div> */}
             {recommendations.map(track => (
               <div className='flex items-center w-full hover:bg-neutral-700 transition py-1 px-4 gap-4 rounded-md' key={`recommended-track-${track.id}`}>
                 <div className='transition cursor-pointer hover:scale-125 hover:text-green-500' onClick={() => {
