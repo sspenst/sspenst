@@ -2,7 +2,7 @@ import classNames from 'classnames';
 import { GetServerSidePropsContext } from 'next';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import FormattedTrack from '../components/spotifyRabbit/formattedTrack';
 import FormattedUser from '../components/spotifyRabbit/formattedUser';
 import { SpotifyRabbitContext } from '../contexts/spotifyRabbitContext';
@@ -25,17 +25,19 @@ export default function Spotify({ code }: SpotifyProps) {
   const [disableGetTracks, setDisableGetTracks] = useState(false);
   const [disableSave, setDisableSave] = useState(false);
   const limit = 20;
-  const myTracksOffset = useRef(0);
+  const [myTracksPage, setMyTracksPage] = useState(0);
   const [playlist, setPlaylist] = useState<Track[]>([]);
   const [preview, setPreview] = useState<HTMLAudioElement>();
   const [recommendations, setRecommendations] = useState<Track[]>([]);
   const router = useRouter();
   const [user, setUser] = useState<User | null>();
 
-  async function loadMyTracks() {
+  async function loadMyTracks(page: number) {
+    setDisableGetTracks(true);
+
     const tracks = await spotifyFetch(`https://api.spotify.com/v1/me/tracks?${new URLSearchParams({
       limit: String(limit),
-      offset: String(myTracksOffset.current),
+      offset: String(page * limit),
     })}`, {
       method: 'GET',
     });
@@ -50,11 +52,11 @@ export default function Spotify({ code }: SpotifyProps) {
     if (!myTracks.length) {
       // if there are no tracks, we have probably reached the end of the user's saved tracks
       // load again from the beginning
-      myTracksOffset.current = 0;
-      loadMyTracks();
+      loadMyTracks(0);
     } else {
-      myTracksOffset.current += limit;
+      setMyTracksPage(page);
       setRecommendations(myTracks);
+      setDisableGetTracks(false);
     }
   }
 
@@ -66,7 +68,7 @@ export default function Spotify({ code }: SpotifyProps) {
 
       setUser(parseUser(user));
 
-      await loadMyTracks();
+      await loadMyTracks(0);
     }
 
     // use existing accessToken if we have it, otherwise normal auth flow
@@ -88,26 +90,21 @@ export default function Spotify({ code }: SpotifyProps) {
     router.push('/');
   }
 
-  async function getTracks() {
+  async function getRecommendations() {
     setDisableGetTracks(true);
 
-    if (playlist.length === 0) {
-      await loadMyTracks();
-    } else {
-      // TODO: use as many latest tracks + genres as possible?
-      const latestTrack = playlist[playlist.length - 1];
-      const recommendations = await spotifyFetch(`https://api.spotify.com/v1/recommendations?${new URLSearchParams({
-        limit: String(limit),
-        seed_artists: latestTrack.artists.map(a => a.id).slice(0, 5).join(','),
-        seed_genres: latestTrack.genres.slice(0, 5).join(','),
-        seed_tracks: latestTrack.id,
-      })}`, {
-        method: 'GET',
-      });
+    // TODO: use as many latest tracks + genres as possible?
+    const latestTrack = playlist[playlist.length - 1];
+    const recommendations = await spotifyFetch(`https://api.spotify.com/v1/recommendations?${new URLSearchParams({
+      limit: String(limit),
+      seed_artists: latestTrack.artists.map(a => a.id).slice(0, 5).join(','),
+      seed_genres: latestTrack.genres.slice(0, 5).join(','),
+      seed_tracks: latestTrack.id,
+    })}`, {
+      method: 'GET',
+    });
 
-      setRecommendations(parseTracks(recommendations?.tracks));
-    }
-
+    setRecommendations(parseTracks(recommendations?.tracks));
     setDisableGetTracks(false);
   }
 
@@ -226,23 +223,45 @@ export default function Spotify({ code }: SpotifyProps) {
         }
         <div className='grow flex flex-col text-center items-center truncate'>
           <div className='w-full flex justify-between p-3 gap-3'>
-            <button
-              className='bg-green-500 disabled:bg-neutral-500 text-black p-3 text-2xl rounded-full enabled:hover:bg-green-300 transition'
-              disabled={disableGetTracks}
-              onClick={() => getTracks()}
-            >
-              {/* TODO:
-              if playlist is empty:
-              - left/right arrow for getting my tracks using offset
-              - future: search bar to find any song
-              otherwise:
-              - search icon
-              - add parameters for recommendations
-              */}
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99" />
-              </svg>
-            </button>
+            {!playlist.length ?
+              <div className='flex gap-3' key='my-tracks-controls'>
+                <button
+                  className='bg-green-500 disabled:bg-neutral-500 text-black p-3 text-2xl rounded-full enabled:hover:bg-green-300 transition'
+                  disabled={disableGetTracks || !myTracksPage}
+                  onClick={async () => {
+                    await loadMyTracks(myTracksPage - 1);
+                  }}
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
+                  </svg>
+                </button>
+                <button
+                  className='bg-green-500 disabled:bg-neutral-500 text-black p-3 text-2xl rounded-full enabled:hover:bg-green-300 transition'
+                  disabled={disableGetTracks}
+                  onClick={async () => {
+                    await loadMyTracks(myTracksPage + 1);
+                  }}
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+                  </svg>
+                </button>
+              </div>
+              :
+              <div className='flex gap-3' key='recommendations-controls'>
+                <button
+                  className='bg-green-500 disabled:bg-neutral-500 text-black p-3 text-2xl rounded-full enabled:hover:bg-green-300 transition'
+                  disabled={disableGetTracks}
+                  onClick={async () => await getRecommendations()}
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
+                  </svg>
+                </button>
+                {/* TODO: add parameters for recommendations */}
+              </div>
+            }
             <div className='flex truncate'>
               <FormattedUser user={user} />
               <button
@@ -255,8 +274,7 @@ export default function Spotify({ code }: SpotifyProps) {
               </button>
             </div>
           </div>
-          {/* <span className='text-4xl font-medium'>What do you want next?</span> */}
-          <div className='grow flex flex-col items-center text-center w-full overflow-y-scroll p-2'>
+          <div className='grow flex flex-col items-center text-center w-full overflow-y-scroll px-2 pb-2'>
             {/* <div>
               ⏰ Tempo
             </div>
