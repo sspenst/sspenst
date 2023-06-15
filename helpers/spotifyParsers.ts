@@ -40,6 +40,10 @@ export function parseTrack(t: any): Track {
 }
 
 export function parseTracks(t: any): Track[] {
+  if (!t) {
+    return [];
+  }
+
   // preview url can be null, but audio is essential here so need to filter these results
   // https://github.com/spotify/web-api/issues/148#issuecomment-313924088
   return t.filter((t: any) => !!t.preview_url)
@@ -53,7 +57,11 @@ export interface User {
   name: string;
 }
 
-export function parseUser(u: any): User {
+export function parseUser(u: any): User | null {
+  if (!u) {
+    return null;
+  }
+
   return {
     href: u.external_urls.spotify,
     id: u.id,

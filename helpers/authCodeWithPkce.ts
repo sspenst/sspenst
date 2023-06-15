@@ -103,7 +103,9 @@ export async function loadTokens(code?: string) {
   localStorage.setItem('refreshToken', refresh_token);
 }
 
-export async function spotifyFetch(input: RequestInfo | URL, init?: RequestInit | undefined, attempt = 0) {
+// spotifyFetch returns the API's json response or null if there is an error
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export async function spotifyFetch(input: RequestInfo | URL, init?: RequestInit | undefined, attempt = 0): Promise<any | null> {
   // subtract 10s from expiration time to account for any timing errors
   const refreshExpiresAt = Number(localStorage.getItem('accessTokenExpiresAt') ?? '0') - 10000;
 
@@ -112,8 +114,7 @@ export async function spotifyFetch(input: RequestInfo | URL, init?: RequestInit 
   }
 
   const accessToken = localStorage.getItem('accessToken');
-
-  let res = await fetch(input, {
+  const res = await fetch(input, {
     ...init,
     headers: {
       'Authorization': `Bearer ${accessToken}`,
@@ -130,11 +131,20 @@ export async function spotifyFetch(input: RequestInfo | URL, init?: RequestInit 
   } else if (res.status === 429) {
     if (attempt < maxRetries) {
       await new Promise(resolve => setTimeout(resolve, (2 ** attempt) * 1000));
-      res = await spotifyFetch(input, init, attempt + 1);
+
+      return await spotifyFetch(input, init, attempt + 1);
     }
   }
 
-  return res;
+  const json = await res.json();
+
+  if (json.error) {
+    console.error(json.error);
+
+    return null;
+  }
+
+  return json;
 }
 
 export function removeTokens() {

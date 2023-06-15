@@ -1,5 +1,6 @@
 import classNames from 'classnames';
 import { GetServerSidePropsContext } from 'next';
+import Image from 'next/image';
 import { useRouter } from 'next/router';
 import React, { useEffect, useRef, useState } from 'react';
 import FormattedTrack from '../components/spotifyRabbit/formattedTrack';
@@ -29,18 +30,22 @@ export default function Spotify({ code }: SpotifyProps) {
   const [preview, setPreview] = useState<HTMLAudioElement>();
   const [recommendations, setRecommendations] = useState<Track[]>([]);
   const router = useRouter();
-  const [user, setUser] = useState<User>();
+  const [user, setUser] = useState<User | null>();
 
   async function loadMyTracks() {
-    const tracksRes = await spotifyFetch(`https://api.spotify.com/v1/me/tracks?${new URLSearchParams({
+    const tracks = await spotifyFetch(`https://api.spotify.com/v1/me/tracks?${new URLSearchParams({
       limit: String(limit),
       offset: String(myTracksOffset.current),
     })}`, {
       method: 'GET',
     });
 
+    if (!tracks) {
+      return;
+    }
+
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const myTracks = parseTracks((await tracksRes.json()).items.map((i: any) => i.track));
+    const myTracks = parseTracks(tracks.items.map((i: any) => i.track));
 
     if (!myTracks.length) {
       // if there are no tracks, we have probably reached the end of the user's saved tracks
@@ -55,11 +60,11 @@ export default function Spotify({ code }: SpotifyProps) {
 
   useEffect(() => {
     async function initializePageData() {
-      const userRes = await spotifyFetch('https://api.spotify.com/v1/me', {
+      const user = await spotifyFetch('https://api.spotify.com/v1/me', {
         method: 'GET',
       });
 
-      setUser(parseUser(await userRes.json()));
+      setUser(parseUser(user));
 
       await loadMyTracks();
     }
@@ -91,7 +96,7 @@ export default function Spotify({ code }: SpotifyProps) {
     } else {
       // TODO: use as many latest tracks + genres as possible?
       const latestTrack = playlist[playlist.length - 1];
-      const res = await spotifyFetch(`https://api.spotify.com/v1/recommendations?${new URLSearchParams({
+      const recommendations = await spotifyFetch(`https://api.spotify.com/v1/recommendations?${new URLSearchParams({
         limit: String(limit),
         seed_artists: latestTrack.artists.map(a => a.id).slice(0, 5).join(','),
         seed_genres: latestTrack.genres.slice(0, 5).join(','),
@@ -100,7 +105,7 @@ export default function Spotify({ code }: SpotifyProps) {
         method: 'GET',
       });
 
-      setRecommendations(parseTracks((await res.json()).tracks));
+      setRecommendations(parseTracks(recommendations?.tracks));
     }
 
     setDisableGetTracks(false);
@@ -113,7 +118,7 @@ export default function Spotify({ code }: SpotifyProps) {
 
     setDisableSave(true);
 
-    const createPlaylistRes = await spotifyFetch(`https://api.spotify.com/v1/users/${user.id}/playlists`, {
+    const spotifyPlaylist = await spotifyFetch(`https://api.spotify.com/v1/users/${user.id}/playlists`, {
       body: JSON.stringify({
         description: 'Playlist created with Set Builder',
         name: `Set Builder - ${playlist[0].name}`,
@@ -125,7 +130,11 @@ export default function Spotify({ code }: SpotifyProps) {
       method: 'POST',
     });
 
-    const spotifyPlaylist = await createPlaylistRes.json();
+    if (!spotifyPlaylist) {
+      setDisableSave(false);
+
+      return;
+    }
 
     // add all tracks to the playlist
     // TODO: loop through if above POST limit (100 per call)
@@ -144,8 +153,7 @@ export default function Spotify({ code }: SpotifyProps) {
     setDisableSave(false);
   }
 
-  if (!user) {
-    // TODO: skeleton page before user has loaded
+  if (user === null) {
     return (
       <div className='flex inset-0 fixed text-center text-lg items-center p-4'>
         <p className='w-full'>
@@ -167,6 +175,14 @@ export default function Spotify({ code }: SpotifyProps) {
           </a>
           {' if you are still having issues.'}
         </p>
+      </div>
+    );
+  }
+
+  if (!user) {
+    return (
+      <div className='flex inset-0 fixed justify-center items-center'>
+        <Image alt='loading' src='/setBuilder/puff.svg' width='48' height='48' />
       </div>
     );
   }
