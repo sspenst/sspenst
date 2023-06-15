@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import Image from 'next/image';
 import React, { useContext } from 'react';
-import { SpotifyRabbitContext } from '../../contexts/spotifyRabbitContext';
+import { RabbitContext } from '../../contexts/rabbitContext';
 import { Track } from '../../helpers/spotifyParsers';
 
 function formatSeconds(seconds: number) {
@@ -16,7 +16,7 @@ interface FormattedTrackProps {
 }
 
 export default function FormattedTrack({ track }: FormattedTrackProps) {
-  const { previewTrack, setPreviewTrack } = useContext(SpotifyRabbitContext);
+  const { previewTrack, setPreviewTrack } = useContext(RabbitContext);
 
   return (
     <div className='flex gap-4 w-full items-center cursor-pointer truncate select-none' onClick={() => {

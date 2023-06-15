@@ -3,10 +3,10 @@ import { GetServerSidePropsContext } from 'next';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
-import FeatureControlComponent, { FeatureControl, FeatureControlValue } from '../components/spotifyRabbit/featureControl';
-import FormattedTrack from '../components/spotifyRabbit/formattedTrack';
-import FormattedUser from '../components/spotifyRabbit/formattedUser';
-import { SpotifyRabbitContext } from '../contexts/spotifyRabbitContext';
+import FeatureControlComponent, { FeatureControl, FeatureControlValue } from '../components/rabbit/featureControl';
+import FormattedTrack from '../components/rabbit/formattedTrack';
+import FormattedUser from '../components/rabbit/formattedUser';
+import { RabbitContext } from '../contexts/rabbitContext';
 import { loadTokens, redirectToAuthCodeFlow, removeTokens, spotifyFetch } from '../helpers/authCodeWithPkce';
 import { parseTracks, parseUser, Track, User } from '../helpers/spotifyParsers';
 
@@ -14,15 +14,15 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
   return {
     props: {
       code: context.query.code ?? null,
-    } as SpotifyProps,
+    } as RabbitProps,
   };
 }
 
-interface SpotifyProps {
+interface RabbitProps {
   code: string | undefined;
 }
 
-export default function Spotify({ code }: SpotifyProps) {
+export default function Rabbit({ code }: RabbitProps) {
   const [disableGetTracks, setDisableGetTracks] = useState(false);
   const [disableSave, setDisableSave] = useState(false);
   const [featureControls, setFeatureControls] = useState<FeatureControl[]>([
@@ -89,7 +89,7 @@ export default function Spotify({ code }: SpotifyProps) {
     }
 
     // remove code from the url query for clean aesthetic
-    router.push('/spotify', undefined, { shallow: true });
+    router.push('/rabbit', undefined, { shallow: true });
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -203,7 +203,7 @@ export default function Spotify({ code }: SpotifyProps) {
   }
 
   return (
-    <SpotifyRabbitContext.Provider value={{
+    <RabbitContext.Provider value={{
       previewTrack: previewTrack,
       setPreviewTrack: setPreviewTrack,
     }}>
@@ -331,6 +331,6 @@ export default function Spotify({ code }: SpotifyProps) {
           </div>
         </div>
       </div>
-    </SpotifyRabbitContext.Provider>
+    </RabbitContext.Provider>
   );
 }

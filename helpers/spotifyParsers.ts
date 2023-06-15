@@ -51,7 +51,7 @@ function parseTrack(track: any, audioFeature: any): Track {
     genres: track.album.genres ?? [],
     href: track.external_urls.spotify,
     id: track.id,
-    image: track.album.images[0]?.url ?? '/spotify/music.svg',
+    image: track.album.images[0]?.url ?? '/rabbit/music.svg',
     name: track.name,
     preview: preview,
     seconds: Math.round(track.duration_ms / 1000),
@@ -92,7 +92,7 @@ export function parseUser(user: any): User | null {
   return {
     href: user.external_urls.spotify,
     id: user.id,
-    image: user.images[0]?.url ?? '/spotify/user.svg',
+    image: user.images[0]?.url ?? '/rabbit/user.svg',
     name: user.display_name,
   };
 }
