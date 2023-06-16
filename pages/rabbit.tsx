@@ -24,11 +24,11 @@ interface RabbitProps {
 export default function Rabbit({ code }: RabbitProps) {
   const [disableGetTracks, setDisableGetTracks] = useState(false);
   const [featureControls, setFeatureControls] = useState<FeatureControl[]>([
-    { key: 'danceability', value: FeatureControlValue.NONE },
     { key: 'energy', value: FeatureControlValue.NONE },
     { key: 'loudness', value: FeatureControlValue.NONE },
-    { key: 'tempo', value: FeatureControlValue.NONE },
+    { key: 'danceability', value: FeatureControlValue.NONE },
     { key: 'valence', value: FeatureControlValue.NONE },
+    { key: 'tempo', value: FeatureControlValue.NONE },
   ]);
   const limit = 20;
   const [savingTrackId, setSavingTrackId] = useState<string>();
@@ -227,7 +227,7 @@ export default function Rabbit({ code }: RabbitProps) {
               <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
             </svg>
           </button>
-          <div className='flex gap-3 grow overflow-x-scroll'>
+          <div className='flex gap-3 grow truncate'>
             {featureControls.map(featureControl => (
               <FeatureControlComponent
                 featureControl={featureControl}
