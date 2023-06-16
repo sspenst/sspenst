@@ -15,11 +15,12 @@ export interface Track {
   image: string;
   name: string;
   preview: HTMLAudioElement;
+  saved: boolean;
   seconds: number;
   uri: string;
 }
 
-function parseTrack(track: any, audioFeature: any): Track {
+function parseTrack(track: any, audioFeature: any, saved: boolean): Track {
   const features: Record<string, string> = {};
   const preview = new Audio(track.preview_url);
 
@@ -54,6 +55,7 @@ function parseTrack(track: any, audioFeature: any): Track {
     image: track.album.images[0]?.url ?? '/rabbit/music.svg',
     name: track.name,
     preview: preview,
+    saved: saved,
     seconds: Math.round(track.duration_ms / 1000),
     uri: track.uri,
   } as Track;
@@ -68,13 +70,20 @@ export async function parseTracks(tracks: any): Promise<Track[]> {
   // https://github.com/spotify/web-api/issues/148#issuecomment-313924088
   const filteredTracks = tracks.filter((t: any) => !!t.preview_url);
 
-  const audioFeatures = await spotifyFetch(`https://api.spotify.com/v1/audio-features?${new URLSearchParams({
-    ids: filteredTracks.map((f: any) => f.id).join(','),
-  })}`, {
-    method: 'GET',
-  });
+  const [audioFeatures, saved] = await Promise.all([
+    spotifyFetch(`https://api.spotify.com/v1/audio-features?${new URLSearchParams({
+      ids: filteredTracks.map((f: any) => f.id).join(','),
+    })}`, {
+      method: 'GET',
+    }),
+    spotifyFetch(`https://api.spotify.com/v1/me/tracks/contains?${new URLSearchParams({
+      ids: filteredTracks.map((f: any) => f.id).join(','),
+    })}`, {
+      method: 'GET',
+    }) as Promise<boolean[] | null>,
+  ]);
 
-  return filteredTracks.map((t: any, i: number) => parseTrack(t, audioFeatures?.audio_features[i]));
+  return filteredTracks.map((t: any, i: number) => parseTrack(t, audioFeatures?.audio_features[i], saved?.at(i) ?? false));
 }
 
 export interface User {
