@@ -31,10 +31,12 @@ export default function Rabbit({ code }: RabbitProps) {
     { key: 'valence', value: FeatureControlValue.NONE },
   ]);
   const limit = 20;
+  const [savingTrackId, setSavingTrackId] = useState<string>();
   const [myTracksPage, setMyTracksPage] = useState(0);
   const [previewTrack, setPreviewTrack] = useState<Track>();
   const [recommendations, setRecommendations] = useState<Track[]>([]);
   const router = useRouter();
+  const [showMyTracks, setShowMyTracks] = useState(true);
   const [user, setUser] = useState<User | null>();
 
   async function loadMyTracks(page: number) {
@@ -122,8 +124,13 @@ export default function Rabbit({ code }: RabbitProps) {
       method: 'GET',
     });
 
-    setRecommendations(await parseTracks(recommendations?.tracks));
+    const newRecommnedations = await parseTracks(recommendations?.tracks);
+
+    newRecommnedations.unshift({ ...previewTrack });
+
+    setRecommendations(newRecommnedations);
     setDisableGetTracks(false);
+    setShowMyTracks(false);
   }
 
   if (user === null) {
@@ -160,42 +167,51 @@ export default function Rabbit({ code }: RabbitProps) {
     );
   }
 
+  async function saveTrack(track: Track) {
+    setSavingTrackId(track.id);
+
+    await spotifyFetch(`https://api.spotify.com/v1/me/tracks?${new URLSearchParams({
+      ids: track.id,
+    })}`, {
+      method: track.saved ? 'DELETE' : 'PUT',
+    });
+
+    if (track.id === previewTrack?.id) {
+      setPreviewTrack(prevTrack => {
+        const newTrack = { ...prevTrack } as Track;
+
+        newTrack.saved = !newTrack.saved;
+
+        return newTrack;
+      });
+    }
+
+    const index = recommendations.findIndex(t => t.id === track.id);
+
+    if (index !== -1) {
+      setRecommendations(prevTracks => {
+        const newTracks = [...prevTracks];
+
+        newTracks[index].saved = !newTracks[index].saved;
+
+        return newTracks;
+      });
+    }
+
+    setSavingTrackId(undefined);
+  }
+
   return (
     <RabbitContext.Provider value={{
       previewTrack: previewTrack,
+      saveTrack: saveTrack,
+      savingTrackId: savingTrackId,
       setPreviewTrack: setPreviewTrack,
     }}>
       <div className='flex inset-0 fixed select-none'>
         <div className='grow flex flex-col text-center items-center truncate'>
           <div className='w-full flex p-3 gap-3'>
             <div className='flex flex-col gap-2 grow'>
-              {/* TODO: infinite scroll */}
-              {/* {!previewTrack ?
-                <div className='flex gap-3' key='my-tracks-controls'>
-                  <button
-                    className='bg-green-500 disabled:bg-neutral-500 text-black p-3 text-2xl rounded-full enabled:hover:bg-green-300 transition'
-                    disabled={disableGetTracks || !myTracksPage}
-                    onClick={async () => {
-                      await loadMyTracks(myTracksPage - 1);
-                    }}
-                  >
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
-                    </svg>
-                  </button>
-                  <button
-                    className='bg-green-500 disabled:bg-neutral-500 text-black p-3 text-2xl rounded-full enabled:hover:bg-green-300 transition'
-                    disabled={disableGetTracks}
-                    onClick={async () => {
-                      await loadMyTracks(myTracksPage + 1);
-                    }}
-                  >
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
-                    </svg>
-                  </button>
-                </div>
-                : */}
               <div className='flex gap-3 items-center' key='recommendations-controls'>
                 <button
                   className='bg-green-500 disabled:bg-neutral-500 text-black p-3 text-2xl rounded-full enabled:hover:bg-green-300 transition'
@@ -256,6 +272,32 @@ export default function Rabbit({ code }: RabbitProps) {
                 <FormattedTrack track={track} />
               </div>
             ))}
+            {showMyTracks &&
+              <div className='flex gap-3 mt-2' key='my-tracks-controls'>
+                <button
+                  className='bg-green-500 disabled:bg-neutral-500 text-black p-3 text-2xl rounded-full enabled:hover:bg-green-300 transition'
+                  disabled={disableGetTracks || !myTracksPage}
+                  onClick={async () => {
+                    await loadMyTracks(myTracksPage - 1);
+                  }}
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
+                  </svg>
+                </button>
+                <button
+                  className='bg-green-500 disabled:bg-neutral-500 text-black p-3 text-2xl rounded-full enabled:hover:bg-green-300 transition'
+                  disabled={disableGetTracks}
+                  onClick={async () => {
+                    await loadMyTracks(myTracksPage + 1);
+                  }}
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+                  </svg>
+                </button>
+              </div>
+            }
           </div>
         </div>
       </div>

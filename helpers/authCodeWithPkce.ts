@@ -104,6 +104,7 @@ export async function loadTokens(code?: string) {
 }
 
 // spotifyFetch returns the API's json response or null if there is an error
+// may also return undefined in some cases (eg successful requests that have no response json)
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export async function spotifyFetch(input: RequestInfo | URL, init?: RequestInit | undefined, attempt = 0): Promise<any | null> {
   // subtract 10s from expiration time to account for any timing errors
@@ -136,7 +137,17 @@ export async function spotifyFetch(input: RequestInfo | URL, init?: RequestInit 
     }
   }
 
-  const json = await res.json();
+  let json;
+
+  try {
+    json = await res.json();
+  } catch {
+    // silently catch
+  }
+
+  if (!json) {
+    return undefined;
+  }
 
   if (json.error) {
     console.error(json.error);
