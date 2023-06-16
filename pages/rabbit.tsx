@@ -4,7 +4,7 @@ import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
 import FeatureControlComponent, { FeatureControl, FeatureControlValue } from '../components/rabbit/featureControl';
 import FormattedTrack from '../components/rabbit/formattedTrack';
-import FormattedUser from '../components/rabbit/formattedUser';
+import Profile from '../components/rabbit/profile';
 import { RabbitContext } from '../contexts/rabbitContext';
 import { loadTokens, redirectToAuthCodeFlow, removeTokens, spotifyFetch } from '../helpers/authCodeWithPkce';
 import { parseTracks, parseUser, Track, User } from '../helpers/spotifyParsers';
@@ -126,6 +126,14 @@ export default function Rabbit({ code }: RabbitProps) {
 
     const newRecommnedations = await parseTracks(recommendations?.tracks);
 
+    // we always want previewTrack to be at the start of the recommendation list,
+    // but we don't want any duplicates, so remove the track if it exists before unshifting it
+    const index = newRecommnedations.findIndex(t => t.id === previewTrack.id);
+
+    if (index !== -1) {
+      newRecommnedations.splice(index, 1);
+    }
+
     newRecommnedations.unshift({ ...previewTrack });
 
     setRecommendations(newRecommnedations);
@@ -208,98 +216,83 @@ export default function Rabbit({ code }: RabbitProps) {
       savingTrackId: savingTrackId,
       setPreviewTrack: setPreviewTrack,
     }}>
-      <div className='flex inset-0 fixed select-none'>
-        <div className='grow flex flex-col text-center items-center truncate'>
-          <div className='w-full flex p-3 gap-3'>
-            <div className='flex flex-col gap-2 grow'>
-              <div className='flex gap-3 items-center' key='recommendations-controls'>
-                <button
-                  className='bg-green-500 disabled:bg-neutral-500 text-black p-3 text-2xl rounded-full enabled:hover:bg-green-300 transition'
-                  disabled={disableGetTracks || !previewTrack}
-                  onClick={async () => await getRecommendations()}
-                >
-                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
-                  </svg>
-                </button>
-                {featureControls.map(featureControl => (
-                  <FeatureControlComponent
-                    featureControl={featureControl}
-                    key={featureControl.key}
-                    rotateValue={() => setFeatureControls(prevFeatureControls => {
-                      const newFeatureControls = [...prevFeatureControls];
+      <div className='sticky top-0 bg-neutral-900'>
+        <div className='flex w-full py-2 px-3 gap-3 items-center'>
+          <button
+            className='bg-green-500 disabled:bg-neutral-500 text-black p-3 text-2xl rounded-full enabled:hover:bg-green-300 transition'
+            disabled={disableGetTracks || !previewTrack}
+            onClick={async () => await getRecommendations()}
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
+            </svg>
+          </button>
+          <div className='flex gap-3 grow overflow-x-scroll'>
+            {featureControls.map(featureControl => (
+              <FeatureControlComponent
+                featureControl={featureControl}
+                key={featureControl.key}
+                rotateValue={() => setFeatureControls(prevFeatureControls => {
+                  const newFeatureControls = [...prevFeatureControls];
 
-                      const featureControlToRotate = newFeatureControls.find(f => f.key === featureControl.key);
+                  const featureControlToRotate = newFeatureControls.find(f => f.key === featureControl.key);
 
-                      if (featureControlToRotate) {
-                        featureControlToRotate.value = (featureControlToRotate.value + 1) % 3;
-                      }
+                  if (featureControlToRotate) {
+                    featureControlToRotate.value = (featureControlToRotate.value + 1) % 3;
+                  }
 
-                      return newFeatureControls;
-                    })}
-                    track={previewTrack}
-                  />
-                ))}
-              </div>
-              {/* } */}
-            </div>
-            <div className='flex truncate h-min'>
-              <FormattedUser user={user} />
-              <button
-                className='text-neutral-400 p-3 text-2xl rounded-full hover:bg-neutral-700 transition'
-                onClick={() => logOut()}
-              >
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15M12 9l-3 3m0 0l3 3m-3-3h12.75" />
-                </svg>
-              </button>
-            </div>
-          </div>
-          <div className='flex justify-center w-full px-2 pb-2'>
-            {!previewTrack ?
-              <span className='flex items-center justify-center w-full border border-neutral-700 rounded-md text-lg h-16'>
-                Select a track to begin
-              </span>
-              :
-              <div className='flex items-center w-full border border-neutral-700 hover:bg-neutral-700 transition py-1 pr-4 pl-2 gap-4 rounded-md h-16'>
-                <FormattedTrack track={previewTrack} />
-              </div>
-            }
-          </div>
-          <div className='grow flex flex-col items-center text-center w-full overflow-y-scroll px-2 pb-2'>
-            {recommendations.map(track => (
-              <div className='w-full hover:bg-neutral-700 transition py-1 pr-4 pl-2 rounded-md' key={`recommended-track-${track.id}`}>
-                <FormattedTrack track={track} />
-              </div>
+                  return newFeatureControls;
+                })}
+                track={previewTrack}
+              />
             ))}
-            {showMyTracks &&
-              <div className='flex gap-3 mt-2' key='my-tracks-controls'>
-                <button
-                  className='bg-green-500 disabled:bg-neutral-500 text-black p-3 text-2xl rounded-full enabled:hover:bg-green-300 transition'
-                  disabled={disableGetTracks || !myTracksPage}
-                  onClick={async () => {
-                    await loadMyTracks(myTracksPage - 1);
-                  }}
-                >
-                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
-                  </svg>
-                </button>
-                <button
-                  className='bg-green-500 disabled:bg-neutral-500 text-black p-3 text-2xl rounded-full enabled:hover:bg-green-300 transition'
-                  disabled={disableGetTracks}
-                  onClick={async () => {
-                    await loadMyTracks(myTracksPage + 1);
-                  }}
-                >
-                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
-                  </svg>
-                </button>
-              </div>
-            }
           </div>
+          <Profile user={user} />
         </div>
+        <div className='flex justify-center w-full px-2 pb-2'>
+          {!previewTrack ?
+            <span className='flex items-center justify-center w-full border border-neutral-700 rounded-md text-lg h-16'>
+              Select a track to begin
+            </span>
+            :
+            <div className='flex items-center w-full border border-neutral-700 hover:bg-neutral-700 transition py-1 pr-4 pl-2 gap-4 rounded-md h-16'>
+              <FormattedTrack track={previewTrack} />
+            </div>
+          }
+        </div>
+      </div>
+      <div className='flex flex-col items-center text-center w-full px-2 pb-2'>
+        {recommendations.map(track => (
+          <div className='w-full hover:bg-neutral-700 transition py-1 pr-4 pl-2 rounded-md' key={`recommended-track-${track.id}`}>
+            <FormattedTrack track={track} />
+          </div>
+        ))}
+        {showMyTracks &&
+          <div className='flex gap-3 mt-2'>
+            <button
+              className='bg-green-500 disabled:bg-neutral-500 text-black p-3 text-2xl rounded-full enabled:hover:bg-green-300 transition'
+              disabled={disableGetTracks || !myTracksPage}
+              onClick={async () => {
+                await loadMyTracks(myTracksPage - 1);
+              }}
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
+              </svg>
+            </button>
+            <button
+              className='bg-green-500 disabled:bg-neutral-500 text-black p-3 text-2xl rounded-full enabled:hover:bg-green-300 transition'
+              disabled={disableGetTracks}
+              onClick={async () => {
+                await loadMyTracks(myTracksPage + 1);
+              }}
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+              </svg>
+            </button>
+          </div>
+        }
       </div>
     </RabbitContext.Provider>
   );
