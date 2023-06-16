@@ -47,25 +47,26 @@ function FeatureControlValueSvg({ featureControlValue }: { featureControlValue: 
 interface FeatureControlComponentProps {
   featureControl: FeatureControl;
   rotateValue: () => void;
-  track: Track;
+  track: Track | undefined;
 }
 
 export default function FeatureControlComponent({ featureControl, rotateValue, track }: FeatureControlComponentProps) {
   return (
     <button
       className={classNames(
-        'flex flex-col items-center p-2 gap-1 text-xl border rounded-2xl cursor-pointer transition hover:bg-neutral-800',
+        'flex flex-col items-center p-2 gap-1 text-xl border rounded-2xl enabled:cursor-pointer transition enabled:hover:bg-neutral-800',
         { 'text-neutral-500 border-neutral-500': featureControl.value === FeatureControlValue.NONE },
         { 'text-green-500 border-green-500': featureControl.value === FeatureControlValue.UP },
         { 'text-red-500 border-red-500': featureControl.value === FeatureControlValue.DOWN },
       )}
+      disabled={!track}
       onClick={rotateValue}
     >
       <div className='flex gap-3'>
         {emojiMap[featureControl.key]}
         <FeatureControlValueSvg featureControlValue={featureControl.value} />
       </div>
-      <span className='text-xs'>{track.features[featureControl.key]}</span>
+      <span className='text-xs'>{track?.features[featureControl.key] ?? '-'}</span>
     </button>
   );
 }

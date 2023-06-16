@@ -22,7 +22,7 @@ export async function redirectToAuthCodeFlow() {
     code_challenge_method: 'S256',
     redirect_uri: getCurrentUri(),
     response_type: 'code',
-    scope: 'user-read-private playlist-modify-private user-library-read',
+    scope: 'user-library-read user-library-modify',
   })}`;
 }
 
