@@ -21,10 +21,10 @@ export default function MusicCard({
   title,
 }: MusicCardProps) {
   return (
-    <div className='flex flex-wrap justify-center gap-8 border border-neutral-700 rounded-lg hover:bg-black transition hover:scale-105 p-6 w-min sm:w-fit'>
+    <div className='flex flex-wrap justify-center gap-8 rounded-lg p-6 w-min sm:w-fit'>
       <Image
         alt={title}
-        className='shadow-lg w-48 h-48'
+        className='shadow-lg w-48 h-48 rounded-md'
         height={192}
         src={src.startsWith('http') ? src : `/music/${src}`}
         style={{
@@ -48,16 +48,16 @@ export default function MusicCard({
         })}
         <div className='flex gap-2'>
           {hrefSoundCloud && <a target='_blank' rel='noreferrer' href={hrefSoundCloud} className='w-fit h-6 w-6 flex items-center'>
-            <Image alt='soundcloud' src='/soundcloud.png' width='32' height='32' className='w-6' style={{
+            <Image alt='soundcloud' src='/soundcloud.png' width='32' height='32' className='w-7' style={{
               WebkitFilter: 'invert(100%)',
               filter: 'invert(100%)',
             }} />
           </a>}
           {hrefSpotify && <a target='_blank' rel='noreferrer' href={hrefSpotify} className='w-fit'>
-            <Image alt='spotify' src='/spotify.png' width='32' height='32' className='w-6' />
+            <Image alt='spotify' src='/spotify.png' width='32' height='32' className='w-7' />
           </a>}
           {hrefAppleMusic && <a target='_blank' rel='noreferrer' href={hrefAppleMusic} className='w-fit'>
-            <Image alt='apple music' src='/applemusic.svg' width='32' height='32' className='w-6' />
+            <Image alt='apple music' src='/applemusic.svg' width='32' height='32' className='w-7' />
           </a>}
         </div>
       </div>

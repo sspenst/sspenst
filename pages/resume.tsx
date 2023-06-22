@@ -10,8 +10,8 @@ export default function Resume() {
         href='https://docs.google.com/document/d/1a5Q5fjh4X7p8USJ1YaxuNtsuflQN3chaUBPWK7YmSQw/edit?usp=sharing'
         rel='noreferrer'
         style={{
-          WebkitMaskImage: 'linear-gradient(to bottom , black, rgba(0, 0, 0, 0.7))',
-          maskImage: 'linear-gradient(to bottom , black, rgba(0, 0, 0, 0.7))',
+          WebkitMaskImage: 'linear-gradient(to bottom , black, rgba(0, 0, 0, 0.8))',
+          maskImage: 'linear-gradient(to bottom , black, rgba(0, 0, 0, 0.8))',
         }}
         target='_blank'
       >
@@ -24,7 +24,7 @@ export default function Resume() {
         <div className='w-11 flex justify-center' style={{
           minWidth: '2.75rem',
         }}>
-          <div className='w-0.5 rounded bg-neutral-700 h-full' />
+          <div className='w-px rounded-full bg-neutral-400 h-full' />
         </div>
         <div className='grow flex flex-col my-1 gap-6'>
           <ExperienceCard

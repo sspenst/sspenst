@@ -7,7 +7,7 @@ export default function Projects() {
       <div className='flex flex-col lg:grid lg:grid-cols-5 items-center gap-4'>
         <div className='col-span-3 flex justify-center lg:justify-end max-w-full'>
           <a
-            className='hover:opacity-70 transition p-4 m-4 max-w-full w-fit rounded-xl border border-neutral-700'
+            className='hover:opacity-70 transition p-4 m-4 max-w-full w-fit rounded-xl border border-neutral-700 hover:scale-[1.01]'
             href='https://pathology.gg'
             rel='noreferrer'
             style={{
@@ -40,7 +40,7 @@ export default function Projects() {
       <div className='flex flex-col lg:grid lg:grid-cols-5 items-center gap-4'>
         <div className='col-span-3 flex justify-center lg:justify-end max-w-full'>
           <a
-            className='bg-black hover:opacity-70 transition p-4 m-4 max-w-full w-fit rounded-xl border border-neutral-700'
+            className='bg-black hover:opacity-70 transition p-4 m-4 max-w-full w-fit rounded-xl border border-neutral-700 hover:scale-[1.01]'
             href='https://rabbit.sspenst.com'
             rel='noreferrer'
             target='_blank'
