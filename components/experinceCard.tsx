@@ -21,7 +21,7 @@ export default function ExperienceCard({
 }: ExperienceCardProps) {
   return (<>
     <TimelineDate date={date} />
-    <div className='flex flex-row items-start gap-3'>
+    <div className='flex items-start gap-3'>
       <Image alt={src.split('.')[0]} src={src} width='32' height='32' className='w-8' style={{
         minWidth: '2rem',
       }} />

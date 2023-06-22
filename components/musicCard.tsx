@@ -21,7 +21,7 @@ export default function MusicCard({
   title,
 }: MusicCardProps) {
   return (
-    <div className='flex flex-row flex-wrap justify-center gap-4'>
+    <div className='flex flex-wrap justify-center gap-4'>
       <Image
         alt={title}
         className='rounded-lg shadow-lg w-48 h-48'
@@ -46,7 +46,7 @@ export default function MusicCard({
             </div>
           );
         })}
-        <div className='flex flex-row gap-2'>
+        <div className='flex gap-2'>
           {hrefSoundCloud && <a target='_blank' rel='noreferrer' href={hrefSoundCloud} className='w-fit'>
             <Image alt='soundcloud' src='/soundcloud.svg' width='32' height='32' className='w-6' />
           </a>}

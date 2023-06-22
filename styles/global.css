@@ -6,20 +6,6 @@
   color-scheme: dark;
 }
 
-.animateSS {
-  animation-name: animateSS;
-  animation-duration: 1.5s;
-  animation-fill-mode: both;
-  -webkit-backface-visibility: hidden;
-  backface-visibility: hidden;
-}
-
-@keyframes animateSS {
-  0% { opacity: 1; }
-  90% { opacity: 1; }
-  100% { opacity: 0; }
-}
-
 .animateSSPath {
   stroke-dasharray: 168.26;
   stroke-dashoffset: 168.26;
@@ -28,18 +14,4 @@
 
 @keyframes dash {
   to { stroke-dashoffset: 0; }
-}
-
-.animateMain {
-  animation-name: animateMain;
-  animation-duration: 2s;
-  animation-fill-mode: both;
-  -webkit-backface-visibility: hidden;
-  backface-visibility: hidden;
-}
-
-@keyframes animateMain {
-  0% { opacity: 0; }
-  70% { opacity: 0; }
-  100% { opacity: 1; }
 }

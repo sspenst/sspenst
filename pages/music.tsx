@@ -1,26 +1,25 @@
 import Image from 'next/image';
 import React from 'react';
 import MusicCard from '../components/musicCard';
-import Page from '../components/page';
 
 export default function Music() {
   return (
-    <Page>
-      <div className='flex flex-row flex-wrap justify-center gap-6 text-lg -my-2'>
-        <a target='_blank' rel='noreferrer' href='https://soundcloud.com/sspenst' className='hover:underline flex flex-row gap-3 items-center'>
+    <div className='flex flex-col items-center gap-12'>
+      <div className='flex flex-wrap justify-center gap-6 text-lg -my-2'>
+        <a target='_blank' rel='noreferrer' href='https://soundcloud.com/sspenst' className='hover:underline flex gap-3 items-center'>
           <Image alt='soundcloud' src='/soundcloud.svg' width='32' height='32' className='w-6' />
           SoundCloud
         </a>
-        <a target='_blank' rel='noreferrer' href='https://open.spotify.com/artist/7yWCWPWpYoj22kUps71yey?si=24Yjcju9Qi6J4sri7XkSZw' className='hover:underline flex flex-row gap-3 items-center'>
+        <a target='_blank' rel='noreferrer' href='https://open.spotify.com/artist/7yWCWPWpYoj22kUps71yey?si=24Yjcju9Qi6J4sri7XkSZw' className='hover:underline flex gap-3 items-center'>
           <Image alt='spotify' src='/spotify.svg' width='32' height='32' className='w-6' />
           Spotify
         </a>
-        <a target='_blank' rel='noreferrer' href='https://music.apple.com/us/artist/sspenst/1592620337' className='hover:underline flex flex-row gap-3 items-center'>
+        <a target='_blank' rel='noreferrer' href='https://music.apple.com/us/artist/sspenst/1592620337' className='hover:underline flex gap-3 items-center'>
           <Image alt='music' src='/music.svg' width='32' height='32' className='w-6' />
             Apple Music
         </a>
       </div>
-      <div className='grow flex flex-row flex-wrap justify-center my-1 gap-12 max-w-3xl'>
+      <div className='grow flex flex-wrap justify-center my-1 gap-12 max-w-3xl'>
         <MusicCard
           hrefAppleMusic='https://music.apple.com/us/album/turbine/1652622865?i=1652622866'
           hrefSoundCloud='https://soundcloud.com/sspenst/turbine'
@@ -52,6 +51,6 @@ export default function Music() {
           title='uplift'
         />
       </div>
-    </Page>
+    </div>
   );
 }
