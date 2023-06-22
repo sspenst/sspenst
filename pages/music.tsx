@@ -4,22 +4,22 @@ import MusicCard from '../components/musicCard';
 
 export default function Music() {
   return (
-    <div className='flex flex-col items-center gap-12'>
+    <div className='flex flex-col items-center gap-12 m-12'>
       <div className='flex flex-wrap justify-center gap-6 text-lg -my-2'>
         <a target='_blank' rel='noreferrer' href='https://soundcloud.com/sspenst' className='hover:underline flex gap-3 items-center'>
-          <Image alt='soundcloud' src='/soundcloud.svg' width='32' height='32' className='w-6' />
-          SoundCloud
+          <Image alt='sspenst soundcloud' src='/soundcloud.png' width='32' height='32' className='w-10' style={{
+            WebkitFilter: 'invert(100%)',
+            filter: 'invert(100%)',
+          }} />
         </a>
         <a target='_blank' rel='noreferrer' href='https://open.spotify.com/artist/7yWCWPWpYoj22kUps71yey?si=24Yjcju9Qi6J4sri7XkSZw' className='hover:underline flex gap-3 items-center'>
-          <Image alt='spotify' src='/spotify.svg' width='32' height='32' className='w-6' />
-          Spotify
+          <Image alt='sspenst spotify' src='/spotify.png' width='32' height='32' className='w-10' />
         </a>
         <a target='_blank' rel='noreferrer' href='https://music.apple.com/us/artist/sspenst/1592620337' className='hover:underline flex gap-3 items-center'>
-          <Image alt='music' src='/music.svg' width='32' height='32' className='w-6' />
-            Apple Music
+          <Image alt='sspenst apple music' src='/applemusic.svg' width='32' height='32' className='w-10' />
         </a>
       </div>
-      <div className='grow flex flex-wrap justify-center my-1 gap-12 max-w-3xl'>
+      <div className='flex flex-col justify-center my-1 gap-12 max-w-3xl'>
         <MusicCard
           hrefAppleMusic='https://music.apple.com/us/album/turbine/1652622865?i=1652622866'
           hrefSoundCloud='https://soundcloud.com/sspenst/turbine'
