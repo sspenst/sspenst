@@ -36,7 +36,7 @@ export default function App({ Component, pageProps }: AppProps) {
       <Head>
         <title>Spencer Spenst</title>
       </Head>
-      <header className='sticky flex justify-center top-0 left-0 right-0 mb-8 z-20'>
+      <header className='fixed flex justify-center top-0 left-0 right-0 mb-8 z-20'>
         <nav className='z-20'>
           <div className='flex items-center gap-6 h-14 px-4 font-medium'>
             <Link aria-label='Home' href='/' className='flex gap-2 text-white w-8 h-8 hover:text-neutral-400 transition'>
@@ -122,7 +122,12 @@ export default function App({ Component, pageProps }: AppProps) {
           width: '20%',
         }} />
       </div>
-      <Component {...pageProps} />
+      <div style={{
+        // height of header + blur layer
+        marginTop: 89,
+      }}>
+        <Component {...pageProps} />
+      </div>
       <footer className='flex flex-col gap-8 items-center m-8 text-neutral-400 text-sm text-center'>
         <div className='w-full h-px' style={{
           backgroundImage: 'linear-gradient(to right, transparent, rgb(100 100 100) 20%, rgb(100 100 100) 80%, transparent)',
