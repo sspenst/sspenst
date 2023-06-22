@@ -4,13 +4,16 @@ import SS from '../components/icons/ss';
 export default function Index() {
   return (<>
     <div className='flex items-center justify-center text-center font-semibold text-7xl' style={{
-      height: 'calc(100vh - 140px)',
+      height: 'calc(100vh - 160px)',
       minHeight: 300,
     }}>
       <div className='flex w-48 h-48 relative'>
         <div className='absolute w-full h-full text-white ssoverlay' style={{
           mixBlendMode: 'overlay',
         }}>
+          <SS />
+        </div>
+        <div className='absolute w-full h-full text-neutral-800 ssstamp'>
           <SS />
         </div>
         <div className='absolute w-full h-full animateSSPath text-transparent stroke-white' style={{

@@ -64,10 +64,10 @@ export default function App({ Component, pageProps }: AppProps) {
       </header>
       {/* noise layer above bg gradient */}
       <div className='fixed w-full h-screen' style={{
-        WebkitMaskImage: 'linear-gradient(to bottom, transparent, transparent 56px, black 20%, black 80%, transparent)',
+        WebkitMaskImage: 'linear-gradient(to bottom, transparent, black 20%, black 80%, transparent)',
         backgroundImage: 'url(noise.png)',
         backgroundRepeat: 'repeat',
-        maskImage: 'linear-gradient(to bottom, transparent, transparent 56px, black 20%, black 80%, transparent)',
+        maskImage: 'linear-gradient(to bottom, transparent, transparent, black 20%, black 80%, transparent)',
         opacity: '20%',
         top: 0,
         zIndex: -1,
@@ -124,7 +124,7 @@ export default function App({ Component, pageProps }: AppProps) {
       </div>
       <div style={{
         // height of header + blur layer
-        marginTop: 89,
+        marginTop: 100,
       }}>
         <Component {...pageProps} />
       </div>

@@ -32,15 +32,19 @@
 @keyframes ssoverlay {
   0% {
     opacity: 0%;
-    transform: translateY(-300%);
+    transform: translateY(-300%) scale(1.1);
   }
-  50% {
+  40% {
     opacity: 100%;
-    transform: translateY(0);
+    transform: translateY(0) scale(1.1);
   }
-  53% {
+  52% {
     opacity: 100%;
-    transform: scale(0.8);
+    transform: scale(1.3);
+  }
+  55% {
+    opacity: 100%;
+    transform: scale(1);
   }
   90% {
     opacity: 0%;
@@ -48,6 +52,27 @@
   100% {
     opacity: 0%;
     transform: scale(5);
+  }
+}
+
+.ssstamp {
+  animation: ssstamp 2s ease forwards;
+}
+
+@keyframes ssstamp {
+  0% {
+    opacity: 0%;
+  }
+  54% {
+    opacity: 0%;
+  }
+  55% {
+    opacity: 80%;
+  }
+  90% {
+  }
+  100% {
+    opacity: 0%;
   }
 }
 
