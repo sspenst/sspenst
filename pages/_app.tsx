@@ -17,7 +17,7 @@ const inter = Inter({
 });
 
 export default function App({ Component, pageProps }: AppProps) {
-  const [size, setSize] = useState([0, 0]);
+  const [size, setSize] = useState([4000, 2000]);
 
   useEffect(() => {
     function updateSize() {
@@ -72,54 +72,55 @@ export default function App({ Component, pageProps }: AppProps) {
         zIndex: -1,
       }} />
       {/* blurred gradient background */}
-      {size[0] !== 0 &&
-        <div className='absolute w-full h-full' style={{
-          filter: `blur(${size[0] / 5}px)`,
-          opacity: '90%',
-          top: 0,
-          zIndex: -2,
-        }}>
-          <div className='absolute spin' style={{
-            backgroundColor: 'rgb(255, 50, 0)',
-            height: '40%',
-            left: '65%',
-            top: '10%',
-            transform: 'rotate(45deg)',
-            width: '30%',
-          }} />
-          <div className='absolute spin' style={{
-            backgroundColor: 'rgb(255, 197, 104)',
-            height: '30%',
-            left: '20%',
-            top: '10%',
-            transform: 'rotate(-45deg)',
-            width: '30%',
-          }} />
-          <div className='absolute spin' style={{
-            backgroundColor: 'rgb(255, 172, 0)',
-            height: '30%',
-            left: '30%',
-            top: '50%',
-            width: '40%',
-          }} />
-          <div className='absolute spin' style={{
-            backgroundColor: 'rgb(255, 172, 200)',
-            height: '40%',
-            left: '0%',
-            top: '50%',
-            transform: 'rotate(45deg)',
-            width: '30%',
-          }} />
-          <div className='absolute spin' style={{
-            backgroundColor: 'rgb(144, 196, 103)',
-            height: '20%',
-            left: '70%',
-            top: '70%',
-            transform: 'rotate(45deg)',
-            width: '20%',
-          }} />
-        </div>
-      }
+      <div className='absolute w-full h-full overflow-hidden' style={{
+        filter: `blur(${size[0] / 4}px)`,
+        opacity: '90%',
+        top: 0,
+        zIndex: -2,
+      }}>
+        <div className='absolute spin2' style={{
+          backgroundColor: 'rgb(255, 50, 0)',
+          height: '40%',
+          left: '65%',
+          top: '10%',
+          width: '30%',
+        }} />
+        <div className='absolute spin' style={{
+          backgroundColor: 'rgb(255, 197, 104)',
+          height: '30%',
+          left: '20%',
+          top: '10%',
+          width: '30%',
+        }} />
+        <div className='absolute spin2' style={{
+          backgroundColor: 'rgb(255, 172, 0)',
+          height: '30%',
+          left: '30%',
+          top: '50%',
+          width: '40%',
+        }} />
+        <div className='absolute spin' style={{
+          backgroundColor: 'rgb(255, 172, 200)',
+          height: '40%',
+          left: '0%',
+          top: '50%',
+          width: '30%',
+        }} />
+        <div className='absolute spin2' style={{
+          backgroundColor: 'rgb(144, 196, 103)',
+          height: '20%',
+          left: '70%',
+          top: '70%',
+          width: '20%',
+        }} />
+        <div className='absolute spin' style={{
+          backgroundColor: 'rgb(146, 215, 225)',
+          height: '20%',
+          left: '0%',
+          top: '10%',
+          width: '20%',
+        }} />
+      </div>
       <Component {...pageProps} />
       <footer className='flex flex-col gap-8 items-center m-8 text-neutral-400 text-sm text-center'>
         <div className='w-full h-px' style={{

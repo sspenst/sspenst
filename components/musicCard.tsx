@@ -46,12 +46,9 @@ export default function MusicCard({
             </div>
           );
         })}
-        <div className='flex gap-2'>
+        <div className='flex gap-3'>
           {hrefSoundCloud && <a target='_blank' rel='noreferrer' href={hrefSoundCloud} className='w-fit h-6 w-6 flex items-center'>
-            <Image alt='soundcloud' src='/soundcloud.png' width='32' height='32' className='w-7' style={{
-              WebkitFilter: 'invert(100%)',
-              filter: 'invert(100%)',
-            }} />
+            <Image alt='soundcloud' src='/soundcloud.png' width='32' height='32' className='w-7 invert' />
           </a>}
           {hrefSpotify && <a target='_blank' rel='noreferrer' href={hrefSpotify} className='w-fit'>
             <Image alt='spotify' src='/spotify.png' width='32' height='32' className='w-7' />

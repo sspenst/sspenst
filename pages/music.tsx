@@ -7,10 +7,7 @@ export default function Music() {
     <div className='flex flex-col items-center gap-12 m-12'>
       <div className='flex flex-wrap justify-center gap-6 text-lg -my-2'>
         <a target='_blank' rel='noreferrer' href='https://soundcloud.com/sspenst' className='hover:underline flex gap-3 items-center'>
-          <Image alt='sspenst soundcloud' src='/soundcloud.png' width='32' height='32' className='w-10' style={{
-            WebkitFilter: 'invert(100%)',
-            filter: 'invert(100%)',
-          }} />
+          <Image alt='sspenst soundcloud' src='/soundcloud.png' width='32' height='32' className='w-10 invert' />
         </a>
         <a target='_blank' rel='noreferrer' href='https://open.spotify.com/artist/7yWCWPWpYoj22kUps71yey?si=24Yjcju9Qi6J4sri7XkSZw' className='hover:underline flex gap-3 items-center'>
           <Image alt='sspenst spotify' src='/spotify.png' width='32' height='32' className='w-10' />

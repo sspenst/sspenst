@@ -7,12 +7,19 @@ export default function Index() {
       height: 'calc(100vh - 140px)',
       minHeight: 300,
     }}>
-      <div className='flex w-48 h-48 animateSSPath text-transparent stroke-white' style={{
-        strokeLinecap: 'round',
-        strokeLinejoin: 'round',
-        strokeWidth: 0.25,
-      }}>
-        <SS />
+      <div className='flex w-48 h-48 relative'>
+        <div className='absolute w-full h-full text-white ssoverlay' style={{
+          mixBlendMode: 'overlay',
+        }}>
+          <SS />
+        </div>
+        <div className='absolute w-full h-full animateSSPath text-transparent stroke-white' style={{
+          strokeLinecap: 'round',
+          strokeLinejoin: 'round',
+          strokeWidth: 0.25,
+        }}>
+          <SS />
+        </div>
       </div>
     </div>
     <div className='flex flex-col items-center my-16 mx-8 gap-8 text-center'>
