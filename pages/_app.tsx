@@ -25,7 +25,7 @@ export default function App({ Component, pageProps }: AppProps) {
       <header className='sticky flex justify-center top-0 left-0 right-0 mb-8 z-20'>
         <nav className='z-20'>
           <div className='flex items-center gap-6 h-14 px-4 font-medium'>
-            <Link href='/' className='flex gap-2 text-white w-8 h-8 hover:text-neutral-400 transition'>
+            <Link aria-label='Home' href='/' className='flex gap-2 text-white w-8 h-8 hover:text-neutral-400 transition'>
               <SS />
             </Link>
             <Link href='/projects' className='hover:text-neutral-400 transition'>
