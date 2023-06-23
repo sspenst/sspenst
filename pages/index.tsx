@@ -8,9 +8,7 @@ export default function Index() {
       minHeight: 300,
     }}>
       <div className='flex w-48 h-48 relative'>
-        <div className='absolute w-full h-full text-white ssoverlay' style={{
-          mixBlendMode: 'overlay',
-        }}>
+        <div className='absolute w-full h-full text-white ssoverlay'>
           <SS />
         </div>
         <div className='absolute w-full h-full text-neutral-800 ssstamp'>

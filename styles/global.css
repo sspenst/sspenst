@@ -33,6 +33,7 @@
   0% {
     opacity: 0%;
     transform: translateY(-300%) scale(1.1);
+    mix-blend-mode: overlay;
   }
   40% {
     opacity: 100%;
@@ -48,10 +49,13 @@
   }
   90% {
     opacity: 0%;
+    mix-blend-mode: overlay;
+    transform: scale(5);
   }
   100% {
     opacity: 0%;
-    transform: scale(5);
+    transform: scale(1);
+    mix-blend-mode: normal;
   }
 }
 
