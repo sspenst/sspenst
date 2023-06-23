@@ -13,7 +13,8 @@ class MyDocument extends Document {
       <Html lang='en'>
         <Head>
           <link rel='manifest' href='/manifest.json' />
-          <link rel='icon' href='/ss.png' />
+          <link rel='icon' href='/ss-48.png' />
+          <link rel='apple-touch-icon' href='ss-180.png' />
           <meta name='description' content='sspenst.com' />
           <meta name='theme-color' content='rgb(23 23 23)' />
         </Head>
