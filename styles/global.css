@@ -107,3 +107,11 @@
     transform: rotate(360deg) translate(0) scale(1);
   }
 }
+
+.nav-border {
+  background-image: linear-gradient(to right, transparent, black 20%, black 80%, transparent);
+}
+
+.dark .nav-border {
+  background-image: linear-gradient(to right, transparent, white 20%, white 80%, transparent);
+}

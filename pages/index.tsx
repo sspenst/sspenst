@@ -8,13 +8,13 @@ export default function Index() {
       minHeight: 300,
     }}>
       <div className='flex w-48 h-48 relative'>
-        <div className='absolute w-full h-full text-white ssoverlay'>
+        <div className='absolute w-full h-full text-black dark:text-white ssoverlay'>
           <SS />
         </div>
-        <div className='absolute w-full h-full text-neutral-800 ssstamp'>
+        <div className='absolute w-full h-full text-neutral-500 dark:text-neutral-800 ssstamp'>
           <SS />
         </div>
-        <div className='absolute w-full h-full animateSSPath text-transparent stroke-white' style={{
+        <div className='absolute w-full h-full animateSSPath text-transparent stroke-black dark:stroke-white' style={{
           strokeLinecap: 'round',
           strokeLinejoin: 'round',
           strokeWidth: 0.25,

@@ -18,7 +18,7 @@ class MyDocument extends Document {
           <meta name='description' content='sspenst.com' />
           <meta name='theme-color' content='rgb(23 23 23)' />
         </Head>
-        <body className='bg-neutral-900 text-white'>
+        <body className='bg-white dark:bg-neutral-900 text-black dark:text-white'>
           <Main />
           <NextScript />
         </body>

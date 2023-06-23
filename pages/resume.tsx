@@ -6,7 +6,7 @@ export default function Resume() {
   return (
     <div className='flex flex-col items-center gap-8'>
       <a
-        className='bg-neutral-700 hover:bg-neutral-500 transition border border-neutral-500 font-medium rounded-full px-4 py-1 text-sm flex gap-2 items-center'
+        className='bg-neutral-200 dark:bg-neutral-700 hover:bg-neutral-400 dark:hover:bg-neutral-500 transition border border-neutral-500 font-medium rounded-full px-4 py-1 text-sm flex gap-2 items-center'
         href='https://docs.google.com/document/d/1a5Q5fjh4X7p8USJ1YaxuNtsuflQN3chaUBPWK7YmSQw/edit?usp=sharing'
         rel='noreferrer'
         style={{
@@ -24,7 +24,7 @@ export default function Resume() {
         <div className='w-11 flex justify-center' style={{
           minWidth: '2.75rem',
         }}>
-          <div className='w-px rounded-full bg-neutral-400 h-full' />
+          <div className='w-px rounded-full bg-neutral-700 dark:bg-neutral-400 h-full' />
         </div>
         <div className='grow flex flex-col my-1 gap-6'>
           <ExperienceCard
