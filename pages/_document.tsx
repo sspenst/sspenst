@@ -12,8 +12,10 @@ class MyDocument extends Document {
     return (
       <Html lang='en'>
         <Head>
-          <link rel='icon' href='/ss.svg' />
+          <link rel='manifest' href='/manifest.json' />
+          <link rel='icon' href='/ss.png' />
           <meta name='description' content='sspenst.com' />
+          <meta name='theme-color' content='rgb(23 23 23)' />
         </Head>
         <body className='bg-neutral-900 text-white'>
           <Main />
