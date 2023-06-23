@@ -4,8 +4,8 @@ import MusicCard from '../components/musicCard';
 
 export default function Music() {
   return (
-    <div className='flex flex-col items-center gap-12 m-12'>
-      <div className='flex flex-wrap justify-center gap-6 text-lg -my-2'>
+    <div className='flex flex-col items-center gap-6'>
+      <div className='flex flex-wrap justify-center gap-6 text-lg m-2'>
         <a target='_blank' rel='noreferrer' href='https://soundcloud.com/sspenst' className='flex gap-3 items-center hover:scale-110 transition'>
           <Image alt='sspenst soundcloud' src='/soundcloud.png' width='32' height='32' className='w-10 dark:invert ' />
         </a>
@@ -16,38 +16,36 @@ export default function Music() {
           <Image alt='sspenst apple music' src='/applemusic.svg' width='32' height='32' className='w-10' />
         </a>
       </div>
-      <div className='flex flex-col justify-center my-1 gap-12 max-w-3xl'>
-        <MusicCard
-          hrefAppleMusic='https://music.apple.com/us/album/turbine/1652622865?i=1652622866'
-          hrefSoundCloud='https://soundcloud.com/sspenst/turbine'
-          hrefSpotify='https://open.spotify.com/track/36svwtlEoExlHUPJnhk9TG?si=00111c0436c040c2'
-          info={['Single - 2022', '1:52']}
-          src='turbine.png'
-          title='turbine'
-        />
-        <MusicCard
-          feature='N E T W O R K'
-          hrefSoundCloud='https://soundcloud.com/n_e_t_w_o_r_k/expanse-w-sspenst'
-          info={['Single - 2022', '2:02']}
-          src='expanse.jpeg'
-          title='expanse'
-        />
-        <MusicCard
-          hrefAppleMusic='https://music.apple.com/us/album/re-ep/1592628164'
-          hrefSoundCloud='https://soundcloud.com/sspenst/sets/re_ep'
-          hrefSpotify='https://open.spotify.com/album/3NQEsxiwMrpQF1pN9w7XbR?si=XqMIqu-1SEu6yHxrrNL4DQ'
-          info={['EP - 2021', '4 songs', '7:11']}
-          src='re.png'
-          title='re'
-        />
-        <MusicCard
-          feature='N E T W O R K'
-          hrefSoundCloud='https://soundcloud.com/n_e_t_w_o_r_k/uplift-w-sspenst'
-          info={['Single - 2022', '2:04']}
-          src='uplift.jpeg'
-          title='uplift'
-        />
-      </div>
+      <MusicCard
+        hrefAppleMusic='https://music.apple.com/us/album/turbine/1652622865?i=1652622866'
+        hrefSoundCloud='https://soundcloud.com/sspenst/turbine'
+        hrefSpotify='https://open.spotify.com/track/36svwtlEoExlHUPJnhk9TG?si=00111c0436c040c2'
+        info={['Single - 2022', '1:52']}
+        src='turbine.png'
+        title='turbine'
+      />
+      <MusicCard
+        feature='N E T W O R K'
+        hrefSoundCloud='https://soundcloud.com/n_e_t_w_o_r_k/expanse-w-sspenst'
+        info={['Single - 2022', '2:02']}
+        src='expanse.jpeg'
+        title='expanse'
+      />
+      <MusicCard
+        hrefAppleMusic='https://music.apple.com/us/album/re-ep/1592628164'
+        hrefSoundCloud='https://soundcloud.com/sspenst/sets/re_ep'
+        hrefSpotify='https://open.spotify.com/album/3NQEsxiwMrpQF1pN9w7XbR?si=XqMIqu-1SEu6yHxrrNL4DQ'
+        info={['EP - 2021', '4 songs', '7:11']}
+        src='re.png'
+        title='re'
+      />
+      <MusicCard
+        feature='N E T W O R K'
+        hrefSoundCloud='https://soundcloud.com/n_e_t_w_o_r_k/uplift-w-sspenst'
+        info={['Single - 2022', '2:04']}
+        src='uplift.jpeg'
+        title='uplift'
+      />
     </div>
   );
 }
