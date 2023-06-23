@@ -6,13 +6,13 @@ export default function Music() {
   return (
     <div className='flex flex-col items-center gap-12 m-12'>
       <div className='flex flex-wrap justify-center gap-6 text-lg -my-2'>
-        <a target='_blank' rel='noreferrer' href='https://soundcloud.com/sspenst' className='hover:underline flex gap-3 items-center'>
-          <Image alt='sspenst soundcloud' src='/soundcloud.png' width='32' height='32' className='w-10 invert' />
+        <a target='_blank' rel='noreferrer' href='https://soundcloud.com/sspenst' className='flex gap-3 items-center hover:scale-110 transition'>
+          <Image alt='sspenst soundcloud' src='/soundcloud.png' width='32' height='32' className='w-10 invert ' />
         </a>
-        <a target='_blank' rel='noreferrer' href='https://open.spotify.com/artist/7yWCWPWpYoj22kUps71yey?si=24Yjcju9Qi6J4sri7XkSZw' className='hover:underline flex gap-3 items-center'>
+        <a target='_blank' rel='noreferrer' href='https://open.spotify.com/artist/7yWCWPWpYoj22kUps71yey?si=24Yjcju9Qi6J4sri7XkSZw' className='flex gap-3 items-center hover:scale-110 transition'>
           <Image alt='sspenst spotify' src='/spotify.png' width='32' height='32' className='w-10' />
         </a>
-        <a target='_blank' rel='noreferrer' href='https://music.apple.com/us/artist/sspenst/1592620337' className='hover:underline flex gap-3 items-center'>
+        <a target='_blank' rel='noreferrer' href='https://music.apple.com/us/artist/sspenst/1592620337' className='flex gap-3 items-center hover:scale-110 transition'>
           <Image alt='sspenst apple music' src='/applemusic.svg' width='32' height='32' className='w-10' />
         </a>
       </div>

@@ -93,7 +93,7 @@ export default function App({ Component, pageProps }: AppProps) {
           top: '10%',
           width: '30%',
         }} />
-        <div className='absolute spin2' style={{
+        <div className='absolute spin3' style={{
           backgroundColor: 'rgb(255, 172, 0)',
           height: '30%',
           left: '30%',
@@ -114,7 +114,7 @@ export default function App({ Component, pageProps }: AppProps) {
           top: '70%',
           width: '20%',
         }} />
-        <div className='absolute spin' style={{
+        <div className='absolute spin3' style={{
           backgroundColor: 'rgb(146, 215, 225)',
           height: '20%',
           left: '0%',
@@ -122,10 +122,7 @@ export default function App({ Component, pageProps }: AppProps) {
           width: '20%',
         }} />
       </div>
-      <div style={{
-        // height of header + blur layer
-        marginTop: 100,
-      }}>
+      <div className='mt-24'>
         <Component {...pageProps} />
       </div>
       <footer className='flex flex-col gap-8 items-center m-8 text-neutral-400 text-sm text-center'>
