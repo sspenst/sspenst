@@ -1,9 +1,14 @@
+import Head from 'next/head';
 import React from 'react';
 import ExperienceCard from '../components/experinceCard';
 import TimelineDate from '../components/timelineDate';
 
 export default function Resume() {
-  return (
+  return (<>
+    <Head>
+      <title>Resume</title>
+      <meta name='description' content='Spencer Spenst' />
+    </Head>
     <div className='flex flex-col items-center gap-8'>
       <a
         className='bg-neutral-200 dark:bg-neutral-700 hover:bg-neutral-400 dark:hover:bg-neutral-500 transition border border-neutral-500 font-medium rounded-full px-4 py-1 text-sm flex gap-2 items-center'
@@ -72,5 +77,5 @@ export default function Resume() {
         </div>
       </div>
     </div>
-  );
+  </>);
 }

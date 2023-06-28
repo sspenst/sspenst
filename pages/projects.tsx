@@ -1,8 +1,13 @@
+import Head from 'next/head';
 import React from 'react';
 import Project from '../components/project';
 
 export default function Projects() {
-  return (
+  return (<>
+    <Head>
+      <title>Projects</title>
+      <meta name='description' content='Spencer Spenst' />
+    </Head>
     <div className='flex flex-col gap-16 p-8 items-center'>
       <Project
         bgColor='rgb(38 38 38)'
@@ -17,5 +22,5 @@ export default function Projects() {
         title='Rabbit'
       />
     </div>
-  );
+  </>);
 }

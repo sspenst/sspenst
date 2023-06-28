@@ -2,10 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  color-scheme: dark;
-}
-
 .animateSSPath {
   stroke-dasharray: 168.26;
   stroke-dashoffset: 168.26;

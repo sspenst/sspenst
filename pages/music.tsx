@@ -1,9 +1,14 @@
+import Head from 'next/head';
 import Image from 'next/image';
 import React from 'react';
 import MusicCard from '../components/musicCard';
 
 export default function Music() {
-  return (
+  return (<>
+    <Head>
+      <title>Music</title>
+      <meta name='description' content='Spencer Spenst' />
+    </Head>
     <div className='flex flex-col items-center gap-6'>
       <div className='flex flex-wrap justify-center gap-6 text-lg m-2'>
         <a target='_blank' rel='noreferrer' href='https://soundcloud.com/sspenst' className='flex gap-3 items-center hover:scale-110 transition'>
@@ -42,10 +47,10 @@ export default function Music() {
       <MusicCard
         feature='N E T W O R K'
         hrefSoundCloud='https://soundcloud.com/n_e_t_w_o_r_k/uplift-w-sspenst'
-        info={['Single - 2022', '2:04']}
+        info={['Single - 2021', '2:04']}
         src='uplift.jpeg'
         title='uplift'
       />
     </div>
-  );
+  </>);
 }

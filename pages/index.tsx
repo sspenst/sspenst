@@ -1,8 +1,13 @@
+import Head from 'next/head';
 import React from 'react';
 import SS from '../components/icons/ss';
 
 export default function Index() {
   return (<>
+    <Head>
+      <title>Spencer Spenst</title>
+      <meta name='description' content='Software Engineer' />
+    </Head>
     <div className='flex items-center justify-center text-center font-semibold text-7xl' style={{
       height: 'calc(100vh - 160px)',
       minHeight: 300,

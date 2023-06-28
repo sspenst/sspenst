@@ -2,7 +2,6 @@ import '../styles/global.css';
 import classNames from 'classnames';
 import type { AppProps } from 'next/app';
 import { Inter } from 'next/font/google';
-import Head from 'next/head';
 import Link from 'next/link';
 import { ThemeProvider, useTheme } from 'next-themes';
 import React, { useEffect, useState } from 'react';
@@ -100,9 +99,6 @@ export default function App({ Component, pageProps }: AppProps) {
 
   return (
     <main className={classNames(inter.className, 'overflow-hidden')}>
-      <Head>
-        <title>Spencer Spenst</title>
-      </Head>
       <ThemeProvider attribute='class'>
         {/* blurred gradient background - NOTE: hiding this in firefox because the max supported
         blur radius is only 100px (50px on high DPI screens), but i want high values like 360px */}
