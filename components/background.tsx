@@ -3,7 +3,8 @@ import React from 'react';
 export default function Background() {
   return (<>
     {/* radial gradient background */}
-    <div className='fixed w-full h-full overflow-hidden opacity-70' style={{
+    <div className='fixed w-full overflow-hidden opacity-70' style={{
+      height: '100lvh',
       zIndex: -2,
     }}>
       {/* green */}
