@@ -21,12 +21,9 @@ export default function Header() {
       }} />
       {/* noise layer above blur */}
       <div className='absolute w-full h-20' style={{
-        WebkitMaskImage: 'linear-gradient(to bottom, black 80%, transparent)',
         backgroundImage: 'url(noise.png)',
         backgroundRepeat: 'repeat',
-        maskImage: 'linear-gradient(to bottom, transparent, black 80%, transparent)',
         opacity: '20%',
-        top: 0,
         zIndex: -1,
       }} />
       <nav>
