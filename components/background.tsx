@@ -1,79 +1,38 @@
-import React, { useEffect, useState } from 'react';
-
-declare const InstallTrigger: unknown;
+import React from 'react';
 
 export default function Background() {
-  const [isFirefox, setIsFirefox] = useState<boolean>();
-  const [size, setSize] = useState([4000, 2000]);
-
-  useEffect(() => {
-    function updateSize() {
-      setSize([window.innerWidth, window.innerHeight]);
-    }
-
-    window.addEventListener('resize', updateSize);
-    updateSize();
-
-    // https://stackoverflow.com/questions/9847580/how-to-detect-safari-chrome-ie-firefox-and-opera-browsers
-    setIsFirefox(typeof InstallTrigger !== 'undefined');
-
-    return () => window.removeEventListener('resize', updateSize);
-  }, []);
-
   return (<>
-    {/* blurred gradient background - NOTE: hiding this in firefox because the max supported
-    blur radius is only 100px (50px on high DPI screens), but i want high values like 360px */}
-    {isFirefox === false &&
-      <div className='absolute w-full h-full overflow-hidden' style={{
-        filter: `blur(${size[0] / 4}px)`,
-        opacity: '90%',
-        top: 0,
-        zIndex: -2,
-      }}>
-        <div className='absolute spin2' style={{
-          backgroundColor: 'rgb(255, 50, 0)',
-          height: '40%',
-          left: '65%',
-          top: '10%',
-          width: '30%',
-        }} />
-        <div className='absolute spin' style={{
-          backgroundColor: 'rgb(255, 197, 104)',
-          height: '30%',
-          left: '20%',
-          top: '10%',
-          width: '30%',
-        }} />
-        <div className='absolute spin3' style={{
-          backgroundColor: 'rgb(255, 172, 0)',
-          height: '30%',
-          left: '30%',
-          top: '50%',
-          width: '40%',
-        }} />
-        <div className='absolute spin' style={{
-          backgroundColor: 'rgb(255, 172, 200)',
-          height: '40%',
-          left: '0%',
-          top: '50%',
-          width: '30%',
-        }} />
-        <div className='absolute spin2' style={{
-          backgroundColor: 'rgb(144, 196, 103)',
-          height: '20%',
-          left: '70%',
-          top: '70%',
-          width: '20%',
-        }} />
-        <div className='absolute spin3' style={{
-          backgroundColor: 'rgb(146, 215, 225)',
-          height: '20%',
-          left: '0%',
-          top: '10%',
-          width: '20%',
-        }} />
-      </div>
-    }
+    {/* radial gradient background */}
+    <div className='fixed w-full h-full overflow-hidden opacity-70' style={{
+      zIndex: -2,
+    }}>
+      {/* green */}
+      <div className='absolute h-full w-full opacity-80' style={{
+        backgroundImage: 'radial-gradient(at 90% 90%, rgb(144, 230, 103), transparent)',
+      }} />
+      {/* red */}
+      <div className='absolute h-full w-full opacity-90' style={{
+        backgroundImage: 'radial-gradient(at 90% 20%, rgb(255, 50, 0), transparent)',
+      }} />
+      {/* blue */}
+      <div className='absolute h-full w-full opacity-50' style={{
+        backgroundImage: 'radial-gradient(at 0% 10%, rgb(146, 215, 225), transparent, transparent)',
+      }} />
+      {/* pink */}
+      <div className='absolute h-full w-full' style={{
+        backgroundImage: 'radial-gradient(at 0% 90%, rgb(255, 172, 200), transparent, transparent)',
+      }} />
+      {/* orange */}
+      <div className='absolute h-full w-full opacity-30' style={{
+        backgroundImage: 'radial-gradient(at 30% 50%, rgb(255, 172, 0), transparent)',
+      }} />
+      {/* beige */}
+      <div className='absolute h-full w-full opacity-30' style={{
+        backgroundImage: 'radial-gradient(at 20% 10%, rgb(255, 197, 104), transparent)',
+      }} />
+      {/* black */}
+      <div className='absolute h-full w-full opacity-80 background-radial' />
+    </div>
     {/* noise layer above bg gradient */}
     <div className='fixed w-full h-screen' style={{
       WebkitMaskImage: 'linear-gradient(to bottom, transparent 80px, black 80px, black 80%, transparent)',
