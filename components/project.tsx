@@ -15,7 +15,7 @@ export default function Project({ bgColor, description, href, title }: ProjectPr
     <div className='flex flex-col lg:grid lg:grid-cols-5 items-start lg:items-center gap-8 lg:max-w-screen-lg lg:w-full w-fit max-w-full'>
       <div className='col-span-3 flex justify-center max-w-full'>
         <a
-          className='hover:opacity-70 transition p-4 max-w-full w-fit rounded-xl border border-neutral-700 hover:scale-[1.01]'
+          className='hover:opacity-70 transition p-4 max-w-full w-full rounded-xl border border-neutral-700 hover:scale-[1.01]'
           href={href}
           rel='noreferrer'
           style={{
@@ -24,14 +24,25 @@ export default function Project({ bgColor, description, href, title }: ProjectPr
           target='_blank'
         >
           <div className='flex items-center max-w-full aspect-video overflow-hidden'>
-            <Image alt={`${title} Preview`} src={`/${titleLower}-preview.png`} width={512} height={1} className='lg:w-full' />
+            <Image alt={`${title} Preview`} src={`/${titleLower}-preview.png`} width={512} height={1} className='lg:w-full' priority />
           </div>
         </a>
       </div>
-      <div className='col-span-2 flex gap-8 mx-4 w-full'>
-        <Image alt={title} src={`/${titleLower}.svg`} width='32' height='32' className='w-10' style={{
-          minWidth: 40,
-        }} />
+      <div className='col-span-2 flex gap-8 mx-4 w-full items-center'>
+        <a
+          className='p-3 shadow-lg rounded-lg flex items-center justify-center hover:scale-105 transition'
+          href={href}
+          rel='noreferrer'
+          style={{
+            backgroundColor: bgColor,
+          }}
+          target='_blank'
+        >
+          <Image alt={title} src={`/${titleLower}.svg`} width='32' height='32' style={{
+            minHeight: 32,
+            minWidth: 32,
+          }} />
+        </a>
         <div className='flex flex-col gap-2'>
           <a
             className='hover:underline text-3xl font-medium w-fit'
