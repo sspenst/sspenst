@@ -10,6 +10,7 @@ export default function Resume() {
       <meta name='description' content='Spencer Spenst' />
     </Head>
     <div className='flex flex-col items-center gap-8'>
+      <h1 className='text-4xl font-medium'>Resume</h1>
       <a
         className='bg-neutral-200 dark:bg-neutral-700 hover:bg-neutral-400 dark:hover:bg-neutral-500 transition border border-neutral-500 font-medium rounded-full px-4 py-1 text-sm flex gap-2 items-center'
         href='https://docs.google.com/document/d/1a5Q5fjh4X7p8USJ1YaxuNtsuflQN3chaUBPWK7YmSQw/edit?usp=sharing'

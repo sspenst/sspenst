@@ -10,6 +10,7 @@ export default function Music() {
       <meta name='description' content='Spencer Spenst' />
     </Head>
     <div className='flex flex-col items-center gap-6'>
+      <h1 className='text-4xl font-medium'>Music</h1>
       <div className='flex flex-wrap justify-center gap-6 text-lg m-2'>
         <a target='_blank' rel='noreferrer' href='https://soundcloud.com/sspenst' className='flex gap-3 items-center hover:scale-110 transition'>
           <Image alt='sspenst soundcloud' src='/soundcloud.png' width='32' height='32' className='w-10 dark:invert ' />

@@ -8,7 +8,8 @@ export default function Projects() {
       <title>Projects</title>
       <meta name='description' content='Spencer Spenst' />
     </Head>
-    <div className='flex flex-col gap-16 p-8 items-center'>
+    <div className='flex flex-col gap-16 pb-8 items-center'>
+      <h1 className='text-4xl font-medium'>Projects</h1>
       <Project
         bgColor='rgb(38 38 38)'
         description='Shortest path puzzle game'

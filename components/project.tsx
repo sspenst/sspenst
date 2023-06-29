@@ -12,7 +12,7 @@ export default function Project({ bgColor, description, href, title }: ProjectPr
   const titleLower = title.toLowerCase();
 
   return (
-    <div className='flex flex-col lg:grid lg:grid-cols-5 items-start lg:items-center gap-8 lg:max-w-screen-lg lg:w-full w-fit max-w-full'>
+    <div className='flex flex-col lg:grid lg:grid-cols-5 items-start lg:items-center gap-8 lg:max-w-screen-lg lg:w-full w-fit max-w-full px-8'>
       <div className='col-span-3 flex justify-center max-w-full'>
         <a
           className='hover:opacity-70 transition p-4 max-w-full w-full rounded-xl border border-neutral-700 hover:scale-[1.01]'

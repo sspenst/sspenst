@@ -30,8 +30,8 @@ export default function Index() {
       </div>
     </div>
     <div className='flex flex-col items-center mb-16 mx-8 gap-8 text-center'>
-      <span className='text-6xl font-light'>Spencer Spenst</span>
-      <span className='text-2xl font-light'>Software Engineer</span>
+      <h1 className='text-6xl font-light'>Spencer Spenst</h1>
+      <h2 className='text-2xl font-light'>Software Engineer</h2>
     </div>
   </>);
 }
