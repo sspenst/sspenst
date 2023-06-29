@@ -111,3 +111,11 @@
 .dark .nav-border {
   background-image: linear-gradient(to right, transparent, white 20%, white 80%, transparent);
 }
+
+.footer-border {
+  background-image: linear-gradient(to right, transparent, rgb(100 100 100) 20%, rgb(100 100 100) 80%, transparent);
+}
+
+.dark .footer-border {
+  background-image: linear-gradient(to right, transparent, rgb(150 150 150) 20%, rgb(150 150 150) 80%, transparent);
+}
