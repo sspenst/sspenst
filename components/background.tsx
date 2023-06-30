@@ -37,10 +37,10 @@ export default function Background() {
     </div>
     {/* noise layer above bg gradient */}
     <div className='fixed w-full opacity-20 bg-repeat' style={{
-      WebkitMaskImage: 'linear-gradient(to bottom, transparent 80px, black 80px)',
+      WebkitMaskImage: 'linear-gradient(to bottom, transparent 80px, black 80px, black 80%, transparent)',
       backgroundImage: 'url(noise.png)',
-      height: '100lvh',
-      maskImage: 'linear-gradient(to bottom, transparent 80px, black 80px)',
+      height: '100svh',
+      maskImage: 'linear-gradient(to bottom, transparent 80px, black 80px, black 80%, transparent)',
       zIndex: -1,
     }} />
   </>);
