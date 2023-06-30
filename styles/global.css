@@ -97,3 +97,11 @@
 .dark .background-radial {
   background-image: radial-gradient(at 50% 30%, rgba(0, 0, 0, 0.2), rgb(0, 0, 0));
 }
+
+.background-bottom {
+  background-image: linear-gradient(to bottom, transparent, white);
+}
+
+.dark .background-bottom {
+  background-image: linear-gradient(to bottom, transparent, rgb(23 23 23));
+}

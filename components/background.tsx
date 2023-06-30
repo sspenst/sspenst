@@ -3,9 +3,9 @@ import React from 'react';
 export default function Background() {
   return (<>
     {/* radial gradient background */}
-    <div className='fixed w-full opacity-70' style={{
+    <div className='absolute w-full opacity-70' style={{
       height: '100lvh',
-      zIndex: -2,
+      zIndex: -1,
     }}>
       {/* green */}
       <div className='absolute h-full w-full opacity-80' style={{
@@ -33,15 +33,14 @@ export default function Background() {
       }} />
       {/* black */}
       <div className='absolute h-full w-full opacity-80 background-radial' />
+      <div className='absolute h-full w-full background-bottom' />
     </div>
     {/* noise layer above bg gradient */}
-    <div className='fixed w-full' style={{
-      WebkitMaskImage: 'linear-gradient(to bottom, transparent 80px, black 80px, black 80%, transparent)',
+    <div className='fixed w-full opacity-20 bg-repeat' style={{
+      WebkitMaskImage: 'linear-gradient(to bottom, transparent 80px, black 80px)',
       backgroundImage: 'url(noise.png)',
-      backgroundRepeat: 'repeat',
       height: '100lvh',
-      maskImage: 'linear-gradient(to bottom, transparent 80px, black 80px, black 80%, transparent)',
-      opacity: '20%',
+      maskImage: 'linear-gradient(to bottom, transparent 80px, black 80px)',
       zIndex: -1,
     }} />
   </>);
