@@ -30,7 +30,7 @@ export default function Project({ bgColor, description, href, title }: ProjectPr
       </div>
       <div className='col-span-2 flex gap-8 mx-4 w-full items-center'>
         <a
-          className='p-3 shadow-lg rounded-lg flex items-center justify-center hover:scale-105 transition'
+          className='border border-neutral-700 p-3 shadow-lg rounded-lg flex items-center justify-center hover:scale-105 transition'
           href={href}
           rel='noreferrer'
           style={{
