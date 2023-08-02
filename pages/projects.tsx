@@ -6,7 +6,7 @@ export default function Projects() {
   return (<>
     <Head>
       <title>Projects</title>
-      <meta name='description' content='Spencer Spenst' />
+      <meta name='robots' content='nosnippet' />
     </Head>
     <div className='flex flex-col gap-16 pb-8 items-center'>
       <h1 className='text-4xl font-medium'>Projects</h1>

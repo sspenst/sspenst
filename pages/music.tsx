@@ -7,7 +7,7 @@ export default function Music() {
   return (<>
     <Head>
       <title>Music</title>
-      <meta name='description' content='Spencer Spenst' />
+      <meta name='robots' content='nosnippet' />
     </Head>
     <div className='flex flex-col items-center gap-6'>
       <h1 className='text-4xl font-medium'>Music</h1>

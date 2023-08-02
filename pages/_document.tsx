@@ -13,8 +13,8 @@ class MyDocument extends Document {
       <Html lang='en'>
         <Head>
           <link rel='manifest' href='/manifest.json' />
-          <link rel='icon' href='/ss-48.png' />
-          <link rel='apple-touch-icon' href='ss-180.png' />
+          <link rel='apple-touch-icon' href='/ss-192-maskable.png' />
+          <link rel='shortcut icon' href='/ss-48.png' />
           <meta name='theme-color' content='rgb(23 23 23)' />
         </Head>
         <body className='bg-white dark:bg-neutral-900 text-black dark:text-white'>

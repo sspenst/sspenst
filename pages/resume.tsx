@@ -7,7 +7,7 @@ export default function Resume() {
   return (<>
     <Head>
       <title>Resume</title>
-      <meta name='description' content='Spencer Spenst' />
+      <meta name='robots' content='nosnippet' />
     </Head>
     <div className='flex flex-col items-center gap-8'>
       <h1 className='text-4xl font-medium'>Resume</h1>
