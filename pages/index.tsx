@@ -9,7 +9,7 @@ export default function Index() {
       <meta name='description' content='Spencer Spenst - sspenst - Software Engineer' />
     </Head>
     <div className='flex items-center justify-center text-center font-semibold text-7xl' style={{
-      height: 'calc(100svh - 56px)',
+      height: 'calc(100svh - 220px)',
       marginTop: -40,
       minHeight: 400,
     }}>
