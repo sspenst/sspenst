@@ -2,6 +2,7 @@ import React from 'react';
 import Email from './icons/email';
 import Github from './icons/github';
 import LinkedIn from './icons/linkedin';
+import X from './icons/x';
 
 export default function Footer() {
   return (
@@ -35,6 +36,19 @@ export default function Footer() {
           <LinkedIn />
         </a>
         <a
+          aria-label='sspenst x'
+          className='w-7 h-7 hover:text-black dark:hover:text-white transition'
+          href='https://x.com/spencerspenst'
+          rel='noreferrer'
+          style={{
+            minHeight: 28,
+            minWidth: 28,
+          }}
+          target='_blank'
+        >
+          <X />
+        </a>
+        <a
           aria-label='sspenst linkedin'
           className='w-8 h-8 hover:text-black dark:hover:text-white transition'
           href='mailto:spencerspenst@gmail.com'
@@ -47,10 +61,10 @@ export default function Footer() {
         >
           <Email />
         </a>
+        <span>
+          © 2023 Spencer Spenst
+        </span>
       </div>
-      <span>
-        © {(new Date()).getFullYear()} Spencer Spenst
-      </span>
     </footer>
   );
 }
