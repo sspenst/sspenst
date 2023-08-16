@@ -9,7 +9,7 @@ export default function Index() {
       <meta name='description' content='Spencer Spenst - sspenst - Software Engineer' />
     </Head>
     <div className='flex items-center justify-center text-center font-semibold text-7xl' style={{
-      height: 'calc(100svh - 210px)',
+      height: 'calc(100svh - 342px)',
       marginTop: -40,
       minHeight: 400,
     }}>
@@ -30,8 +30,8 @@ export default function Index() {
       </div>
     </div>
     <div className='flex flex-col items-center mb-16 mx-8 gap-8 text-center'>
-      <h1 className='text-6xl font-light'>Spencer Spenst</h1>
-      <h2 className='text-2xl font-light'>Software Engineer</h2>
+      <h1 className='text-6xl'>Spencer Spenst</h1>
+      <h2 className='text-2xl'>Software Engineer</h2>
     </div>
   </>);
 }
