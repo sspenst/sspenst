@@ -9,17 +9,10 @@ export default function Index() {
       <meta name='description' content='Spencer Spenst - sspenst - Software Engineer' />
     </Head>
     <div className='flex items-center justify-center text-center font-semibold text-7xl' style={{
-      height: 'calc(100svh - 342px)',
       marginTop: -40,
-      minHeight: 400,
+      minHeight: 500,
     }}>
       <div className='flex w-48 h-48 relative'>
-        <div className='absolute w-full h-full text-black dark:text-white ssoverlay'>
-          <SS />
-        </div>
-        <div className='absolute w-full h-full text-neutral-500 dark:text-neutral-800 ssstamp'>
-          <SS />
-        </div>
         <div className='absolute w-full h-full animateSSPath text-transparent stroke-black dark:stroke-white' style={{
           strokeLinecap: 'round',
           strokeLinejoin: 'round',
@@ -29,9 +22,9 @@ export default function Index() {
         </div>
       </div>
     </div>
-    <div className='flex flex-col items-center mb-16 mx-8 gap-8 text-center'>
-      <h1 className='text-6xl'>Spencer Spenst</h1>
-      <h2 className='text-2xl'>Software Engineer</h2>
+    <div className='flex flex-col items-center mb-20 mx-8 gap-12 text-center'>
+      <h1 className='text-7xl font-medium m-12'>Spencer Spenst</h1>
+      <h2 className='text-3xl'>Software Engineer</h2>
     </div>
   </>);
 }

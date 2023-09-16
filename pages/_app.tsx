@@ -1,5 +1,4 @@
 import '../styles/global.css';
-import classNames from 'classnames';
 import type { AppProps } from 'next/app';
 import { Inter } from 'next/font/google';
 import { ThemeProvider } from 'next-themes';
@@ -17,7 +16,7 @@ const inter = Inter({
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
-    <div className={classNames(inter.className, 'overflow-hidden')}>
+    <div className={inter.className}>
       <ThemeProvider attribute='class'>
         <Background />
         <Header />
