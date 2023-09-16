@@ -10,14 +10,27 @@
 
 @keyframes dash {
   0% {
-    stroke-dashoffset: 0;
+    stroke-dashoffset: 336.52;
   }
   30% {
-    stroke-dashoffset: 0;
+    stroke-dashoffset: 336.52;
   }
   100% {
-    stroke-dashoffset: -336.52;
+    stroke-dashoffset: 0;
   }
+}
+
+.fadeIn {
+  animation-name: fadeIn;
+  animation-duration: 1s;
+  animation-fill-mode: both;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+
+@keyframes fadeIn {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
 }
 
 .gradient-border {

@@ -12,7 +12,7 @@ export default function Index() {
       marginTop: -40,
       minHeight: 500,
     }}>
-      <div className='flex w-48 h-48 relative'>
+      <div className='flex w-48 h-48 relative fadeIn'>
         <div className='absolute w-full h-full animateSSPath text-transparent stroke-black dark:stroke-white' style={{
           strokeLinecap: 'round',
           strokeLinejoin: 'round',
