@@ -35,7 +35,7 @@ export default function Footer() {
         <div className='w-full h-px gradient-border' />
         <div className='flex flex-wrap justify-center w-full max-w-xl gap-x-12 gap-y-8 items-center px-8'>
           <span>
-            © 2023 Spencer Spenst
+            © 2024 Spencer Spenst
           </span>
           <div className='flex flex-wrap gap-6 items-center justify-center'>
             <FooterIcon ariaLabel='sspenst github' href={'https://github.com/sspenst'}>

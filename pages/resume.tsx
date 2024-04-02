@@ -34,11 +34,11 @@ export default function Resume() {
         </div>
         <div className='grow flex flex-col my-1 gap-6'>
           <ExperienceCard
-            company='Pathology'
+            company='Thinky.gg'
             date='Jan 2022 - Present'
-            description='Shortest path puzzle game'
-            href='https://pathology.gg'
-            src='/pathology.svg'
+            description='A platform dedicated to high-quality puzzle games'
+            href='https://thinky.gg'
+            src='/thinky.svg'
             title='Founder'
           />
           <ExperienceCard
