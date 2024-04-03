@@ -41,11 +41,16 @@ function Code({ children }: { children: React.ReactNode }) {
 
 function CodeBlock({ code }: { code: string }) {
   const { resolvedTheme } = useTheme();
+  const [theme, setTheme] = useState(themes.vsDark);
+
+  useEffect(() => {
+    setTheme(resolvedTheme === 'dark' ? themes.vsDark : themes.vsLight);
+  }, [resolvedTheme]);
 
   return (
     <div className='px-4'>
       <Highlight
-        theme={resolvedTheme === 'dark' ? themes.vsDark : themes.vsLight}
+        theme={theme}
         code={code}
         language='tsx'
       >
@@ -239,7 +244,7 @@ export default function Tailwind() {
                 {/* <ImagePlus bgColor='rgb(51 51 51)' caption='2005 - Original Flash game' src='/psychopath-42.png' title='Psychopath Preview' /> */}
                 <ImagePlus bgColor='rgb(38 38 38)' caption='Pathology level screen: Jacoby Transfer by davidspencer6174' src='jacoby-transfer.png' title='Pathology Preview' />
               </div>
-              <p>All of the development for Pathology has been public and open-source, and the community has contributed to improving the game. These contributions gave me the opportunity to mentor an aspiring software engineer. I helped onboard him to get the app running locally, and gave guidance where needed to help with contributing and shipping cool features like <a className='text-blue-600 hover:text-blue-400 dark:text-blue-400 dark:hover:text-blue-200 font-medium transition' href='https://github.com/sspenst/pathology/pull/766' rel='noreferrer' target='_blank'>Achievements</a>. He was even able to use his work on Pathology to help land a junior position!</p>
+              <p>All of the development for Pathology has been public and open-source, and the community has contributed to improving the game. The collaborative nature of the project gave me the opportunity to mentor an aspiring software engineer. I helped onboard him to get the app running locally, and gave guidance where needed to help with contributing and shipping new features like <a className='text-blue-600 hover:text-blue-400 dark:text-blue-400 dark:hover:text-blue-200 font-medium transition' href='https://github.com/sspenst/pathology/pull/766' rel='noreferrer' target='_blank'>Achievements</a>. He was even able to use his work on Pathology to help land a junior position!</p>
             </Section>
             <Section id='thinky' title='Thinky.gg'>
               <p>I was able to get in contact with the original creator of the flash game and we ended up working on Pathology together. We realized the infrastructure we had built for Pathology may have some potential as a puzzle game platform, so we extended it to support multiple games and rebranded it to <a className='text-blue-600 hover:text-blue-400 dark:text-blue-400 dark:hover:text-blue-200 font-medium transition' href='https://thinky.gg' rel='noreferrer' target='_blank'>Thinky.gg</a>.</p>
