@@ -55,7 +55,7 @@ function CodeBlock({ code }: { code: string }) {
         language='tsx'
       >
         {({ tokens, getLineProps, getTokenProps }) => (
-          <pre className='text-sm border border-neutral-300 dark:border-neutral-700 bg-neutral-100 dark:bg-neutral-900 py-2 px-4 rounded-md break-words whitespace-pre-wrap'>
+          <pre className='text-sm border border-neutral-300 dark:border-neutral-700 bg-white dark:bg-neutral-800 py-2 px-4 rounded-md break-words whitespace-pre-wrap'>
             {tokens.map((line, i) => (
               <div key={i} {...getLineProps({ line })}>
                 {line.map((token, key) => (
@@ -242,7 +242,7 @@ export default function Tailwind() {
               <p>After Microsoft I gave myself the chance to dive into the areas of software I found the most interesting. One of the first projects I started making was called Pathology, which is a remake of a flash game from 2005 where the goal is to reach the exit in the least number of moves. The project gained some niche popularity and steadily gained users. It became a playground for me to experiment with Next.js, React, Tailwind CSS, and more, all while listening to user feedback and improving the game.</p>
               <div className='flex gap-12 py-4 flex-wrap justify-center'>
                 {/* <ImagePlus bgColor='rgb(51 51 51)' caption='2005 - Original Flash game' src='/psychopath-42.png' title='Psychopath Preview' /> */}
-                <ImagePlus bgColor='rgb(38 38 38)' caption='Pathology level screen: Jacoby Transfer by davidspencer6174' src='jacoby-transfer.png' title='Pathology Preview' />
+                <ImagePlus bgColor='rgb(38 38 38)' caption='Pathology level page - Jacoby Transfer by davidspencer6174' src='jacoby-transfer.png' title='Pathology Preview' />
               </div>
               <p>All of the development for Pathology has been public and open-source, and the community has contributed to improving the game. The collaborative nature of the project gave me the opportunity to mentor an aspiring software engineer. I helped onboard him to get the app running locally, and gave guidance where needed to help with contributing and shipping new features like <a className='text-blue-600 hover:text-blue-400 dark:text-blue-400 dark:hover:text-blue-200 font-medium transition' href='https://github.com/sspenst/pathology/pull/766' rel='noreferrer' target='_blank'>Achievements</a>. He was even able to use his work on Pathology to help land a junior position!</p>
             </Section>
