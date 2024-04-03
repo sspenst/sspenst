@@ -77,7 +77,7 @@ export default function Tailwind() {
         const rect = project.getBoundingClientRect();
 
         // NB: corresponds to scroll-mt-20
-        if (rect.top <= 80) {
+        if (rect.top <= 81) {
           setActiveSection(project.id);
           break;
         }
@@ -105,11 +105,16 @@ export default function Tailwind() {
       y: 0,
     });
 
-    tl.to(title, {
+    tl.fromTo(title, {
       duration: 1,
-      scale: 0.7,
-      x: -310,
-      y: -25,
+      scale: 1.3,
+      x: 295,
+      y: 120,
+    }, {
+      duration: 1,
+      scale: 1,
+      x: 0,
+      y: 0,
     }, '<');
 
     const handleScroll = () => {
@@ -133,48 +138,45 @@ export default function Tailwind() {
     </Head>
     <div className='flex justify-center'>
       <div className='flex w-full max-w-7xl'>
-        <aside className='hidden lg:flex flex-col gap-8 sticky top-24 w-72 px-8 font-medium h-fit' ref={asideRef} style={{
-          paddingTop: 110,
+        <aside className='hidden lg:flex flex-col gap-8 sticky top-24 w-72 font-medium h-fit' ref={asideRef} style={{
           visibility: isMounted ? 'visible' : 'hidden',
         }}>
-          <div className='flex items-center max-w-full overflow-hidden rounded-full w-48 h-48 shadow-lg'>
-            <Image alt='Spencer Spenst headshot' src='me.jpeg' width={2360} height={2360} priority />
-          </div>
-          <Sidebar
-            activeId={activeSection}
-            links={[
-              { id: 'intro', text: 'Intro' },
-              { id: 'history', text: 'How did I get here?' },
-              { id: 'pathology', text: 'Pathology' },
-              { id: 'thinky', text: 'Thinky.gg' },
-              { id: 'spotify', text: 'Spotify Web API SDK' },
-              { id: 'rabbit', text: 'Rabbit' },
-              { id: 'future', text: 'What\'s next?' },
-              { id: 'outro', text: 'Outro' },
-            ]}
-          />
-        </aside>
-        <div className='flex flex-col gap-4 px-8 top-0 max-w-full'>
-          <div className='fixed lg:flex hidden flex-col items-center lg:items-start gap-4' ref={titleRef} style={{
+          <div className='lg:flex hidden flex-col items-start gap-3 pl-6' ref={titleRef} style={{
             visibility: isMounted ? 'visible' : 'hidden',
           }}>
-            <div className='lg:hidden flex items-center max-w-full overflow-hidden rounded-full w-48 h-48 shadow-lg'>
-              <Image alt='Spencer Spenst headshot' src='me.jpeg' width={2360} height={2360} priority />
-            </div>
-            <span className='text-3xl mb-6 lg:hidden block'>Spencer Spenst</span>
             <div className='flex gap-4 items-center'>
               <div className='border border-slate-300 dark:border-slate-700 p-2 shadow-lg rounded-xl flex items-center justify-center bg-white dark:bg-slate-900 h-fit'>
-                <Image alt='tailwind labs logo' src='tailwind.png' width='40' height='40' style={{
-                  minHeight: 40,
-                  minWidth: 40,
+                <Image alt='tailwind labs logo' src='tailwind.png' width='30' height='30' style={{
+                  minHeight: 30,
+                  minWidth: 30,
                 }} />
               </div>
               <div className='flex flex-col gap-2'>
-                <h1 className='text-4xl font-medium'>Tailwind Labs</h1>
+                <h1 className='text-2xl font-medium'>Tailwind Labs</h1>
               </div>
             </div>
-            <h2 className='text-2xl'>Design Engineer Application</h2>
+            <h2 className='text-md'>Design Engineer Application</h2>
           </div>
+          <div className='flex flex-col gap-8 px-8'>
+            <div className='flex items-center max-w-full overflow-hidden rounded-full w-48 h-48 shadow-lg'>
+              <Image alt='Spencer Spenst headshot' src='me.jpeg' width={2360} height={2360} priority />
+            </div>
+            <Sidebar
+              activeId={activeSection}
+              links={[
+                { id: 'intro', text: 'Intro' },
+                { id: 'history', text: 'How did I get here?' },
+                { id: 'pathology', text: 'Pathology' },
+                { id: 'thinky', text: 'Thinky.gg' },
+                { id: 'spotify', text: 'Spotify Web API SDK' },
+                { id: 'rabbit', text: 'Rabbit' },
+                { id: 'future', text: 'What\'s next?' },
+                { id: 'outro', text: 'Outro' },
+              ]}
+            />
+          </div>
+        </aside>
+        <div className='flex flex-col gap-4 px-8 top-0 max-w-full'>
           <div className='lg:hidden flex flex-col items-center lg:items-start gap-4'>
             <div className='lg:hidden flex items-center max-w-full overflow-hidden rounded-full w-48 h-48 shadow-lg'>
               <Image alt='Spencer Spenst headshot' src='me.jpeg' width={2360} height={2360} priority />
@@ -217,7 +219,7 @@ export default function Tailwind() {
               <div className='flex justify-center'>
                 <LevelCard />
               </div>
-              <p>With a growing userbase I wanted to make sure these components were accessible and robust. The title has <Code>line-clamp-2</Code> to ensure long titles do not disrupt the UX and so that surrounding components are positioned in a predictable way. It also has <Code>break-words</Code> to ensure single words don&apos;t extend past the edge of the title area. You can almost guarantee there will be users that will push the boundaries of a system (and indeed, a level was published with the maximum title length and every character was the longest unicode character: ﷽), so handling these cases is important.</p>
+              <p>With a growing userbase I wanted to make sure these components were accessible and robust. The title has <Code>line-clamp-2</Code> to ensure long titles do not disrupt the UX and so that surrounding components are positioned in a predictable way. It also has <Code>break-words</Code> to ensure single words don&apos;t extend past the edge of the title area. You can almost guarantee there will be users that will push the boundaries of a system (and indeed, a level was published with the maximum title length with every character as the longest unicode character: ﷽), so handling these cases is important.</p>
               <p>Another important note is the checkmark in the corner when the level is solved. This was added to handle deuteranomaly color blindness, so those users could more easily see which levels have been solved vs unoptimized.</p>
             </Section>
             <Section id='spotify' title='Spotify Web API SDK'>
