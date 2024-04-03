@@ -1,7 +1,9 @@
+import { useGSAP } from '@gsap/react';
+import gsap from 'gsap';
 import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import SS from '../components/icons/ss';
 import LevelCard from '../components/levelCard';
 import Rabbit from '../components/rabbit';
@@ -62,6 +64,9 @@ function ImagePlus({ bgColor, caption, src, title }: ImagePlusProps) {
 
 export default function Tailwind() {
   const [activeSection, setActiveSection] = useState<string | undefined>('intro');
+  const asideRef = useRef<HTMLDivElement>(null);
+  const titleRef = useRef<HTMLDivElement>(null);
+  const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
     function findActiveProject() {
@@ -82,8 +87,40 @@ export default function Tailwind() {
     window.addEventListener('scroll', findActiveProject);
 
     findActiveProject();
+    setIsMounted(true);
 
     return () => window.removeEventListener('scroll', findActiveProject);
+  }, []);
+
+  useGSAP(() => {
+    const aside = asideRef.current;
+    const title = titleRef.current;
+    const tl = gsap.timeline({ paused: true });
+
+    tl.to(aside, {
+      duration: 1,
+      y: 110,
+    });
+
+    tl.to(title, {
+      duration: 1,
+      scale: 0.7,
+      x: -310,
+      y: -25,
+    }, '<');
+
+    const handleScroll = () => {
+      const scrollY = window.scrollY;
+      const progress = Math.min(scrollY / 150, 1);
+
+      tl.progress(progress);
+    };
+
+    handleScroll();
+
+    window.addEventListener('scroll', handleScroll);
+
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   return (<>
@@ -93,7 +130,9 @@ export default function Tailwind() {
     </Head>
     <div className='flex justify-center'>
       <div className='w-full max-w-7xl'>
-        <aside className='hidden lg:flex flex-col gap-8 fixed w-72 px-8 font-medium'>
+        <aside className='hidden lg:flex flex-col gap-8 fixed w-72 px-8 font-medium max-h-full' ref={asideRef} style={{
+          visibility: isMounted ? 'visible' : 'hidden',
+        }}>
           <div className='flex items-center max-w-full overflow-hidden rounded-full w-48 h-48 shadow-lg'>
             <Image alt='Spencer Spenst headshot' src='me.jpeg' width={2360} height={2360} priority />
           </div>
@@ -112,7 +151,9 @@ export default function Tailwind() {
           />
         </aside>
         <div className='flex flex-col lg:pl-72 gap-4 px-8'>
-          <div className='flex flex-col items-center w-full lg:items-start gap-4'>
+          <div className='fixed lg:flex hidden flex-col items-center lg:items-start gap-4' ref={titleRef} style={{
+            visibility: isMounted ? 'visible' : 'hidden',
+          }}>
             <div className='lg:hidden flex items-center max-w-full overflow-hidden rounded-full w-48 h-48 shadow-lg'>
               <Image alt='Spencer Spenst headshot' src='me.jpeg' width={2360} height={2360} priority />
             </div>
@@ -130,7 +171,25 @@ export default function Tailwind() {
             </div>
             <h2 className='text-2xl'>Design Engineer Application</h2>
           </div>
-          <article className='flex flex-col gap-6 my-2 leading-relaxed'>
+          <div className='lg:hidden flex flex-col items-center lg:items-start gap-4'>
+            <div className='lg:hidden flex items-center max-w-full overflow-hidden rounded-full w-48 h-48 shadow-lg'>
+              <Image alt='Spencer Spenst headshot' src='me.jpeg' width={2360} height={2360} priority />
+            </div>
+            <span className='text-3xl mb-6 lg:hidden block'>Spencer Spenst</span>
+            <div className='flex gap-4 items-center'>
+              <div className='border border-slate-300 dark:border-slate-700 p-2 shadow-lg rounded-xl flex items-center justify-center bg-white dark:bg-slate-900 h-fit'>
+                <Image alt='tailwind labs logo' src='tailwind.png' width='40' height='40' style={{
+                  minHeight: 40,
+                  minWidth: 40,
+                }} />
+              </div>
+              <div className='flex flex-col gap-2'>
+                <h1 className='text-4xl font-medium'>Tailwind Labs</h1>
+              </div>
+            </div>
+            <h2 className='text-2xl'>Design Engineer Application</h2>
+          </div>
+          <article className='flex flex-col gap-6 lg:mt-32 mt-4 mb-2 leading-relaxed'>
             <Section id='intro'>
               <p>Hey! My name is Spencer Spenst. I started using Tailwind CSS in January 2022 and since then it has been a part of every project I&apos;ve worked on. I first heard about this position through <a className='text-blue-500 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-200 font-medium transition' href='https://twitter.com/adamwathan/status/1773341818773540949' rel='noreferrer' target='_blank'>Adam&apos;s tweet</a> on March 28 and immediately knew I had to apply. After an Easter weekend eating ham and visiting family I went straight to work on this application.</p>
               <p>A quick logistical intro, I am currently a self-employed software developer based in Abbotsford, BC, Canada (UTC-7). I am willing to make any hours work to effectively collaborate with the team and I have no issues working as an independent contractor! Okay, now let&apos;s get to the more interesting parts.</p>
@@ -174,8 +233,8 @@ export default function Tailwind() {
               <p>Designing and building new components for Catalyst, along with interactive microsites and documentation pages, are some of the points that got me the most excited from the job posting. To be honest, all of the projects that I would have worked on + the upcoming projects sound fun to me, and I would love to be the one to implement them.</p>
             </Section>
             <Section id='outro' title='Outro'>
-              <p>It&apos;s a rare chance that you get to use all of the technology requirements for a position in the application itself! This page is built with Next.js, React, TypeScript, and Tailwind CSS. This page also gets a X% score on Lighthouse, uses semantic HTML elements, and even uses GSAP! (TODO)</p>
-              <p>Hopefully you now have a bit of insight into who I am and what drives me! Would love to continue this conversation soon and talk more about the position.</p>
+              <p>It&apos;s a rare chance that you get to use all of the technology requirements for a position in the application itself! This page is built with Next.js, React, TypeScript, and Tailwind CSS. This page also gets a 100 score on all Lighthouse categories (performance, accessibility, best practices, SEO), uses semantic HTML elements, can be installed as a PWA, and even uses GSAP!</p>
+              <p>Hopefully you now have a bit of insight into who I am and what drives me. I would love to continue this conversation soon and talk more about the position.</p>
             </Section>
             <Link aria-label='Home' href='/' className='flex items-center gap-4 mt-6 w-fit font-medium text-black dark:text-white hover:text-neutral-400 dark:hover:text-neutral-400 transition'>
               <div className='flex gap-2 w-8 h-8'>
