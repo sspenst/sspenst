@@ -5,7 +5,9 @@ module.exports = {
     './pages/**/*.{ts,tsx}',
   ],
   darkMode: 'class',
-  plugins: [],
+  plugins: [
+    require('@headlessui/tailwindcss')
+  ],
   theme: {
     extend: {},
   },

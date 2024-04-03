@@ -1,36 +1,8 @@
-import classNames from 'classnames';
 import Head from 'next/head';
 import React, { useEffect, useState } from 'react';
 import Project from '../components/project';
 import ProjectImage from '../components/projectImage';
-
-interface SidebarLink {
-  id: string;
-  text: string;
-}
-
-interface SidebarProps {
-  activeId?: string;
-  links: SidebarLink[];
-}
-
-function Sidebar({ activeId, links }: SidebarProps) {
-  return (
-    <div className='hidden lg:flex flex-col gap-2 fixed w-72 px-8 py-4 font-medium' id='sidebar'>
-      {links.map(link => {
-        return (
-          <a
-            className={classNames('hover:text-rose-500 transition w-fit', { 'text-rose-500': activeId === link.id })}
-            href={`#${link.id}`}
-            key={`sidebar-link-${link.id}`}
-          >
-            {link.text}
-          </a>
-        );
-      })}
-    </div>
-  );
-}
+import Sidebar from '../components/sidebar';
 
 export default function Projects() {
   const [activeProject, setActiveProject] = useState<string | undefined>('thinky');
@@ -65,15 +37,17 @@ export default function Projects() {
     </Head>
     <div className='flex justify-center'>
       <div className='w-full max-w-7xl'>
-        <Sidebar
-          activeId={activeProject}
-          links={[
-            { id: 'thinky', text: 'Thinky.gg' },
-            { id: 'rabbit', text: 'Rabbit' },
-            { id: 'simplify-youtube', text: 'Simplify YouTube' },
-            { id: 'spotify', text: 'Spotify Web API SDK' },
-          ]}
-        />
+        <aside className='hidden lg:block fixed w-72 px-8 py-4'>
+          <Sidebar
+            activeId={activeProject}
+            links={[
+              { id: 'thinky', text: 'Thinky.gg' },
+              { id: 'rabbit', text: 'Rabbit' },
+              { id: 'simplify-youtube', text: 'Simplify YouTube' },
+              { id: 'spotify', text: 'Spotify Web API SDK' },
+            ]}
+          />
+        </aside>
         <div className='flex flex-col lg:pl-72'>
           <h1 className='text-4xl font-medium px-8'>Projects</h1>
           <div className='flex flex-col pb-8' id='projects'>
