@@ -55,7 +55,7 @@ function CodeBlock({ code }: { code: string }) {
         language='tsx'
       >
         {({ tokens, getLineProps, getTokenProps }) => (
-          <pre className='text-sm border border-neutral-300 dark:border-neutral-700 bg-neutral-200 dark:bg-neutral-800 py-2 px-4 rounded-md break-words whitespace-pre-wrap'>
+          <pre className='text-sm border border-neutral-300 dark:border-neutral-700 bg-neutral-100 dark:bg-neutral-900 py-2 px-4 rounded-md break-words whitespace-pre-wrap'>
             {tokens.map((line, i) => (
               <div key={i} {...getLineProps({ line })}>
                 {line.map((token, key) => (
@@ -299,7 +299,7 @@ useEffect(() => {
               <p>Designing and building new components for Catalyst, along with interactive microsites and documentation pages, are some of the points that got me the most excited from the job posting. To be honest, all of the projects that I would have worked on + the upcoming projects sound fun to me, and I would love to be the one to implement them.</p>
             </Section>
             <Section id='outro' title='Outro'>
-              <p>It&apos;s a rare chance that you get to use all of the technology requirements for a position in the application itself! This page is built with Next.js, React, TypeScript, and Tailwind CSS. This page also gets a 100 from Lighthouse on accessibility, uses semantic HTML elements, can be installed as a PWA, and even uses GSAP for the title!</p>
+              <p>It&apos;s a rare chance that you get to use all of the technology requirements for a position in the application itself! This page is built with Next.js, React, TypeScript, and Tailwind CSS. It also gets a 100 from Lighthouse on accessibility, uses semantic HTML elements, can be installed as a PWA, and even uses GSAP for the title!</p>
               <p>Hopefully this gives you a bit of insight into who I am and what drives me. I would love to continue this conversation soon and talk more about the position.</p>
             </Section>
             <Link aria-label='Home' href='/' className='flex items-center gap-4 mt-6 w-fit font-medium text-black dark:text-white hover:text-neutral-400 dark:hover:text-neutral-400 transition'>
