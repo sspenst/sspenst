@@ -48,7 +48,7 @@ function CodeBlock({ code }: { code: string }) {
   }, [resolvedTheme]);
 
   return (
-    <div className='px-4'>
+    <div className=''>
       <Highlight
         theme={theme}
         code={code}
@@ -88,7 +88,7 @@ function ImagePlus({ bgColor, caption, src, title }: ImagePlusProps) {
       <div className='flex items-center max-w-full overflow-hidden rounded-md'>
         <Image alt={`${title} Preview`} src={src} width={756} height={1} />
       </div>
-      <div className='text-neutral-200 text-sm'>
+      <div className='text-neutral-200 text-sm text-center'>
         {caption}
       </div>
     </div>
