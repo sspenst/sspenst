@@ -3,6 +3,8 @@ import gsap from 'gsap';
 import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useTheme } from 'next-themes';
+import { Highlight, themes } from 'prism-react-renderer';
 import React, { useEffect, useRef, useState } from 'react';
 import SS from '../components/icons/ss';
 import LevelCard from '../components/levelCard';
@@ -37,12 +39,28 @@ function Code({ children }: { children: React.ReactNode }) {
   );
 }
 
-function CodeBlock({ children }: { children: React.ReactNode }) {
+function CodeBlock({ code }: { code: string }) {
+  const { resolvedTheme } = useTheme();
+
   return (
     <div className='px-4'>
-      <pre className='text-sm border border-neutral-300 dark:border-neutral-700 bg-neutral-200 dark:bg-neutral-800 py-2 px-4 rounded-md break-words whitespace-pre-wrap'>
-        {children}
-      </pre>
+      <Highlight
+        theme={resolvedTheme === 'dark' ? themes.vsDark : themes.vsLight}
+        code={code}
+        language='tsx'
+      >
+        {({ tokens, getLineProps, getTokenProps }) => (
+          <pre className='text-sm border border-neutral-300 dark:border-neutral-700 bg-neutral-200 dark:bg-neutral-800 py-2 px-4 rounded-md break-words whitespace-pre-wrap'>
+            {tokens.map((line, i) => (
+              <div key={i} {...getLineProps({ line })}>
+                {line.map((token, key) => (
+                  <span key={key} {...getTokenProps({ token })} />
+                ))}
+              </div>
+            ))}
+          </pre>
+        )}
+      </Highlight>
     </div>
   );
 }
@@ -221,10 +239,10 @@ export default function Tailwind() {
                 {/* <ImagePlus bgColor='rgb(51 51 51)' caption='2005 - Original Flash game' src='/psychopath-42.png' title='Psychopath Preview' /> */}
                 <ImagePlus bgColor='rgb(38 38 38)' caption='Pathology level screen: Jacoby Transfer by davidspencer6174' src='jacoby-transfer.png' title='Pathology Preview' />
               </div>
-              <p>All of the development for Pathology has been public and open-source, and the community has contributed to improving the game. These contributions gave me the opportunity to mentor an aspiring software engineer. I helped onboard him to get the app running locally, and gave guidance where needed to help with contributing and shipping cool new features like <a className='text-blue-600 hover:text-blue-400 dark:text-blue-400 dark:hover:text-blue-200 font-medium transition' href='https://github.com/sspenst/pathology/pull/766' rel='noreferrer' target='_blank'>Achievements</a>. He was even able to use his work on Pathology to help land a junior position!</p>
+              <p>All of the development for Pathology has been public and open-source, and the community has contributed to improving the game. These contributions gave me the opportunity to mentor an aspiring software engineer. I helped onboard him to get the app running locally, and gave guidance where needed to help with contributing and shipping cool features like <a className='text-blue-600 hover:text-blue-400 dark:text-blue-400 dark:hover:text-blue-200 font-medium transition' href='https://github.com/sspenst/pathology/pull/766' rel='noreferrer' target='_blank'>Achievements</a>. He was even able to use his work on Pathology to help land a junior position!</p>
             </Section>
             <Section id='thinky' title='Thinky.gg'>
-              <p>I was able to get in contact with the original creator of the flash game and we ended up working on the new game together. We realized the infrastructure we had built for Pathology may have some potential as a puzzle game platform, so we extended it to support multiple games and rebranded it to <a className='text-blue-600 hover:text-blue-400 dark:text-blue-400 dark:hover:text-blue-200 font-medium transition' href='https://thinky.gg' rel='noreferrer' target='_blank'>Thinky.gg</a>.</p>
+              <p>I was able to get in contact with the original creator of the flash game and we ended up working on Pathology together. We realized the infrastructure we had built for Pathology may have some potential as a puzzle game platform, so we extended it to support multiple games and rebranded it to <a className='text-blue-600 hover:text-blue-400 dark:text-blue-400 dark:hover:text-blue-200 font-medium transition' href='https://thinky.gg' rel='noreferrer' target='_blank'>Thinky.gg</a>.</p>
               <p>With my affinity for front-end and his preference for backend, I was able to focus more of my efforts on user-facing elements. It gave me a good chance to design and expirement with clean components that could be reused across games. One of my favorites is this <Code>LevelCard</Code> component:</p>
               <div className='flex justify-center'>
                 <LevelCard />
@@ -236,8 +254,7 @@ export default function Tailwind() {
               <p>I have always been a big fan of music, from playing piano to finding obscure genres to producing my own songs. I wanted a better way to discover new tracks, and I noticed Spotify&apos;s API had some interesting options to query for music.</p>
               <p>When looking for a library to use I found there was a new package that had only recently been created by a Spotify employee. It was still underdeveloped and lacking the functionality I needed for my project, so I started making PRs and ended up becoming the top contributor besides the original creator!</p>
               <p><a className='text-blue-600 hover:text-blue-400 dark:text-blue-400 dark:hover:text-blue-200 font-medium transition' href='https://github.com/spotify/spotify-web-api-ts-sdk/pull/12' rel='noreferrer' target='_blank'>This PR</a> was a useful one that allowed me to optimize the initial page load. Previously you would authenticate like this:</p>
-              <CodeBlock>
-                {`const [spotifyApi, setSpotifyApi] = useState<SpotifyApi | null>();
+              <CodeBlock code={`const [spotifyApi, setSpotifyApi] = useState<SpotifyApi | null>();
 
 useEffect(() => {
   const api = SpotifyApi.withUserAuthorization(clientId, redirectUri, scopes);
@@ -246,12 +263,10 @@ useEffect(() => {
     () => setSpotifyApi(api),
     () => setSpotifyApi(null),
   );
-}, []);`}
-              </CodeBlock>
-              <p><Code>spotifyApi</Code> is your way to call Spotify&apos;s APIs through the SDK. Requests to APIs through <Code>spotifyApi</Code> will return 401 until you have authenticated successfully. This sounds fine, until you find out the way <Code>authenticate()</Code> was implemented did not guarantee the authentication flow had completed by the time the function had returned. There was no way to actually confirm you had authenticated successfully, so the first requests sent immediately after authenticating would almost always return 401 and would need to be retried.</p>
-              <p>I wanted to get the page to load as fast as possible without wasting any API calls, so my PR exposes a <Code>getAccessToken()</Code> function which you can use to infer if the authentication has completed. With this change merged, I was able to update my code to the following:</p>
-              <CodeBlock>
-                {`const [spotifyApi, setSpotifyApi] = useState<SpotifyApi | null>();
+}, []);`} />
+              <p><Code>spotifyApi</Code> is your way to call Spotify&apos;s APIs through the SDK. Requests to APIs through <Code>spotifyApi</Code> will return 401 until you have authenticated successfully. This sounds fine, until you find out the way <Code>authenticate</Code> was implemented did not guarantee the authentication flow had completed by the time the function had returned. There was no way to actually confirm you had authenticated successfully, so the first requests sent immediately after <Code>setSpotifyApi</Code> would almost always return 401 and would need to be retried.</p>
+              <p>I wanted to load pages as fast as possible without wasting any API calls, so my PR exposes a <Code>getAccessToken</Code> function which you can use to infer if the authentication has completed. With this change merged, I was able to update my code to the following:</p>
+              <CodeBlock code={`const [spotifyApi, setSpotifyApi] = useState<SpotifyApi | null>();
 
 useEffect(() => {
   const api = SpotifyApi.withUserAuthorization(clientId, redirectUri, scopes);
@@ -264,8 +279,7 @@ useEffect(() => {
     },
     () => setSpotifyApi(null),
   );
-}, []);`}
-              </CodeBlock>
+}, []);`} />
               <p>Now we can <Code>await</Code> until the access token is confirmed to exist, then we can call <Code>setSpotifyApi</Code> and make our requests immediately!</p>
             </Section>
             <Section id='rabbit' title='Rabbit'>
@@ -280,8 +294,8 @@ useEffect(() => {
               <p>Designing and building new components for Catalyst, along with interactive microsites and documentation pages, are some of the points that got me the most excited from the job posting. To be honest, all of the projects that I would have worked on + the upcoming projects sound fun to me, and I would love to be the one to implement them.</p>
             </Section>
             <Section id='outro' title='Outro'>
-              <p>It&apos;s a rare chance that you get to use all of the technology requirements for a position in the application itself! This page is built with Next.js, React, TypeScript, and Tailwind CSS. This page also gets a 100 score on all Lighthouse categories (performance, accessibility, best practices, SEO), uses semantic HTML elements, can be installed as a PWA, and even uses GSAP!</p>
-              <p>Hopefully you now have a bit of insight into who I am and what drives me. I would love to continue this conversation soon and talk more about the position.</p>
+              <p>It&apos;s a rare chance that you get to use all of the technology requirements for a position in the application itself! This page is built with Next.js, React, TypeScript, and Tailwind CSS. This page also gets a 100 from Lighthouse on accessibility, uses semantic HTML elements, can be installed as a PWA, and even uses GSAP for the title!</p>
+              <p>Hopefully this gives you a bit of insight into who I am and what drives me. I would love to continue this conversation soon and talk more about the position.</p>
             </Section>
             <Link aria-label='Home' href='/' className='flex items-center gap-4 mt-6 w-fit font-medium text-black dark:text-white hover:text-neutral-400 dark:hover:text-neutral-400 transition'>
               <div className='flex gap-2 w-8 h-8'>

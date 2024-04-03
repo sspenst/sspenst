@@ -52,7 +52,6 @@ function FormattedUser({ className, onClick, userName }: FormattedUserProps) {
     <div className={classNames('flex items-center gap-2 truncate w-fit max-w-full font-bold', className)}>
       <div className='flex items-center gap-2 truncate w-fit'>
         <a
-          aria-label='hi19hi19&apos;s profile'
           className='hover:underline truncate'
           href={getProfileSlug(userName)}
           onClick={onClick}
@@ -176,7 +175,7 @@ export default function LevelCard() {
         </a>
         <div className='flex justify-between'>
           <div className='flex gap-3 overflow-hidden'>
-            <a className='h-fit' href={getProfileSlug(user.name)} rel='noreferrer' target='_blank'>
+            <a aria-label='hi19hi19&apos;s profile' className='h-fit' href={getProfileSlug(user.name)} rel='noreferrer' target='_blank'>
               <ProfileAvatar userId={user._id} />
             </a>
             <h2 className='flex flex-col gap-0.5 overflow-hidden break-words'>

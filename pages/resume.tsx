@@ -34,6 +34,13 @@ export default function Resume() {
         </div>
         <div className='grow flex flex-col my-1 gap-6'>
           <ExperienceCard
+            company='Spencer Spenst'
+            date='Jan 2024 - Present'
+            href='https://sspenst.com'
+            src='/ss.svg'
+            title='Freelance software developer'
+          />
+          <ExperienceCard
             company='Thinky.gg'
             date='Jan 2022 - Present'
             description='A platform dedicated to high-quality puzzle games'

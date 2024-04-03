@@ -5,10 +5,10 @@ import TimelineDate from './timelineDate';
 interface ExperienceCardProps {
   company: string;
   date: string;
-  description: string;
+  description?: string;
   href: string;
   src: string;
-  title: string;
+  title?: string;
 }
 
 export default function ExperienceCard({
@@ -29,12 +29,16 @@ export default function ExperienceCard({
         <a target='_blank' rel='noreferrer' href={href} className='hover:underline text-2xl font-medium w-fit'>
           {company}
         </a>
-        <div className='text-xl italic'>
-          {title}
-        </div>
-        <div className='text-lg mt-3'>
-          {description}
-        </div>
+        {title &&
+          <div className='text-xl italic'>
+            {title}
+          </div>
+        }
+        {description &&
+          <div className='text-lg mt-3'>
+            {description}
+          </div>
+        }
       </div>
     </div>
   </>);
