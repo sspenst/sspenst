@@ -1,6 +1,7 @@
 import Head from 'next/head';
 import React from 'react';
 import ExperienceCard from '../components/experinceCard';
+import SS from '../components/icons/ss';
 import TimelineDate from '../components/timelineDate';
 
 export default function Resume() {
@@ -37,7 +38,15 @@ export default function Resume() {
             company='Spencer Spenst'
             date='Jan 2024 - Present'
             href='https://sspenst.com'
-            src='/ss.svg'
+            img={
+              <div className='w-8 h-8' style={{
+                minHeight: 32,
+                minWidth: 32,
+              }}>
+                <SS />
+              </div>
+            }
+            src='ss.svg'
             title='Freelance software developer'
           />
           <ExperienceCard

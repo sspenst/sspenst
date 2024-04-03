@@ -7,6 +7,7 @@ interface ExperienceCardProps {
   date: string;
   description?: string;
   href: string;
+  img?: React.ReactNode;
   src: string;
   title?: string;
 }
@@ -16,15 +17,18 @@ export default function ExperienceCard({
   date,
   description,
   href,
+  img,
   src,
   title,
 }: ExperienceCardProps) {
   return (<>
     <TimelineDate date={date} />
     <div className='flex items-start gap-3'>
-      <Image alt={src.split('.')[0]} src={src} width='32' height='32' className='w-8' style={{
-        minWidth: '2rem',
-      }} />
+      {img ? img :
+        <Image alt={src.split('.')[0]} src={src} width='32' height='32' className='w-8' style={{
+          minWidth: '2rem',
+        }} />
+      }
       <div className='flex flex-col'>
         <a target='_blank' rel='noreferrer' href={href} className='hover:underline text-2xl font-medium w-fit'>
           {company}
