@@ -3,6 +3,8 @@ import Image from 'next/image';
 import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
 import SS from '../components/icons/ss';
+import LevelCard from '../components/levelCard';
+import Rabbit from '../components/rabbit';
 import Sidebar from '../components/sidebar';
 
 interface SectionProps {
@@ -22,6 +24,39 @@ function Section({ children, id, title }: SectionProps) {
       }
       {children}
     </section>
+  );
+}
+
+function Code({ children }: { children: React.ReactNode }) {
+  return (
+    <code className='text-sm bg-neutral-300 dark:bg-neutral-700 py-1 px-2 rounded-md'>
+      {children}
+    </code>
+  );
+}
+
+interface ImagePlusProps {
+  bgColor: string;
+  caption: string;
+  src: string;
+  title: string;
+}
+
+function ImagePlus({ bgColor, caption, src, title }: ImagePlusProps) {
+  return (
+    <div
+      className='flex flex-col gap-4 items-center p-4 max-w-full rounded-xl border border-neutral-700'
+      style={{
+        backgroundColor: bgColor,
+      }}
+    >
+      <div className='flex items-center max-w-full overflow-hidden'>
+        <Image alt={`${title} Preview`} src={src} width={512} height={1} priority />
+      </div>
+      <div className='text-neutral-200 text-sm'>
+        {caption}
+      </div>
+    </div>
   );
 }
 
@@ -103,29 +138,39 @@ export default function Tailwind() {
             <Section id='history' title='How did I get here?'>
               <p>And what has led me to apply for this position? We can start at the beginning. The first computer I was able to get my hands on was an HP Mini netbook at the age of 12. With the netbook in one hand and the latest Java for Dummies book in the other I started to play with code. Two years later I was able to save up enough to build my own PC, and this has set me off on a journey to where I am today.</p>
               <p>Since then I&apos;ve always been involved with programming in some way - whether it was designing websites, solving coding challenges like <a className='text-blue-500 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-200 font-medium transition' href='https://projecteuler.net/' rel='noreferrer' target='_blank'>Project Euler</a>, or building small pieces of software - so it was only natural that I ended up graduating from UBC in Computer Engineering.</p>
-              <p>I found myself in the classic Big Tech career path, which was exciting at first but also helped me realize it wasn&apos;t the kind of software development I was truly passionate about. Your point about &quot;we say no to great opportunities if there&apos;s any chance it would make our days less fun&quot; really resonates with me since this is the mindset I was arriving at when I decided to leave Microsoft. I want to work on products that I find fun and useful and I want to make these products look great.</p>
+              <p>I found myself in the classic Big Tech career path, which was exciting at first but also helped me realize it wasn&apos;t the kind of software development I was truly passionate about. Your point that says <i>&quot;we say no to great opportunities if there&apos;s any chance it would make our days less fun&quot;</i> really resonates with me since this is the mindset I was arriving at when I decided to leave Microsoft. I want to work on products that I find fun and useful and I want to make these products look great.</p>
             </Section>
             <Section id='pathology' title='Pathology'>
-              <p>After Microsoft I gave myself the chance to dive into the areas of software I found the most interesting. One of the first projects I started making was called Pathology, which was a remake of a flash game from 2005 where the goal is to reach the exit in the least number of moves. The project gained some niche popularity and steadily gained users. It became a playground for me to experiment with Next.js, React, Tailwind CSS, MongoDB, all while listening to user feedback and improving the game.</p>
-              <p>Include before/after images</p>
-              <p>All of the development for Pathology has been public and open-source, and the community has contributed to improving the game. These contributions gave me the opportunity to mentor an aspiring software engineer. I helped onboard him to get the app running locally, and gave guidance where needed to contribute and ship new features like <a className='text-blue-500 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-200 font-medium transition' href='https://github.com/sspenst/pathology/pull/766' rel='noreferrer' target='_blank'>Achievements</a>. He was even able to use his work on Pathology to help land a junior position!</p>
+              <p>After Microsoft I gave myself the chance to dive into the areas of software I found the most interesting. One of the first projects I started making was called Pathology, which was a remake of a flash game from 2005 where the goal is to reach the exit in the least number of moves. The project gained some niche popularity and steadily gained users. It became a playground for me to experiment with Next.js, React, Tailwind CSS, and more, all while listening to user feedback and improving the game.</p>
+              <div className='flex gap-12 py-4 flex-wrap justify-center'>
+                <ImagePlus bgColor='rgb(51 51 51)' caption='2005 - Original Flash game' src='/psychopath-42.png' title='Psychopath Preview' />
+                <ImagePlus bgColor='rgb(38 38 38)' caption='2024 - Modern HTML remake' src='/pathology-42.png' title='Pathology Preview' />
+              </div>
+              <p>All of the development for Pathology has been public and open-source, and the community has contributed to improving the game. These contributions gave me the opportunity to mentor an aspiring software engineer. I helped onboard him to get the app running locally, and gave guidance where needed to help with contributing and shipping cool new features like <a className='text-blue-500 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-200 font-medium transition' href='https://github.com/sspenst/pathology/pull/766' rel='noreferrer' target='_blank'>Achievements</a>. He was even able to use his work on Pathology to help land a junior position!</p>
             </Section>
             <Section id='thinky' title='Thinky.gg'>
-              <p>I was able to get in contact with the original creator of the flash game and we ended up becoming equal owners of Pathology. We realized the infrastructure we had built for Pathology may have some potential as a puzzle game platform, so we extended it to be able to support multiple games and called it Thinky.gg. With my affinity for front-end and his preference for backend, I was able to focus more of my efforts on UX and front-end facing components. It gave me a good chance to design and expirement with reusable and clean components that could be used across games. Here is one of components I am quite happy with:</p>
-              <p>Level card component (interactive in some way???)</p>
+              <p>I was able to get in contact with the original creator of the flash game and we ended up becoming equal owners of Pathology. We realized the infrastructure we had built for Pathology may have some potential as a puzzle game platform, so we extended it to support multiple games and rebranded it to <a className='text-blue-500 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-200 font-medium transition' href='https://thinky.gg' rel='noreferrer' target='_blank'>Thinky.gg</a>.</p>
+              <p>With my affinity for front-end and his preference for backend, I was able to focus more of my efforts on user-facing components. It gave me a good chance to design and expirement with clean components that could be reused across games. One of my favorites is this <Code>LevelCard</Code> component:</p>
+              <div className='flex justify-center'>
+                <LevelCard />
+              </div>
+              <p>With a growing userbase I wanted to make sure these components were accessible and robust. The title has <Code>line-clamp-2</Code> to ensure the title length does not get too long and so that surrounding components are positioned in a predictable way. It also has <Code>break-words</Code> to ensure single words don&apos;t extend past the edge of the title area. You can almost guarantee there will be users that will publish levels with troll names, so handling these cases is important.</p>
+              <p>Another important note is the checkmark in the corner when the level is solved. This was added to handle deuteranomaly color blindness, so those users could more easily see which levels have been solved vs unoptimized.</p>
             </Section>
             <Section id='spotify' title='Spotify Web API SDK'>
-              <p>I have always been a big fan of music, from playing piano to finding obscure genres to producing my own songs. With my endless thirst for music I was looking for a better way to discover new songs. I noticed Spotify&apos;s API had some interesting options to query for music so I wanted to make a website that would let you query with these options.</p>
-              <p>When looking for a library to interface with Spotify&apos;s API I found there was a new package that had only recently been created by a Spotify employee. It was still underdeveloped and lacking the functionality I needed for my project, so I started making PRs. I can happily say I am now the top contributor besides the original creator!</p>
-              <p>An interesting feature I added was (something to do with auth?) put a bunch of code snippets and explain how it works</p>
+              <p>I have always been a big fan of music, from playing piano to finding obscure genres to producing my own songs. I wanted a better way to discover new songs, and I noticed Spotify&apos;s API had some interesting options to query for music.</p>
+              <p>When looking for a library to interface with Spotify&apos;s API I found there was a new package that had only recently been created by a Spotify employee. It was still underdeveloped and lacking the functionality I needed for my project, so I started making PRs and ended up becoming the top contributor besides the original creator!</p>
+              <p>https://github.com/spotify/spotify-web-api-ts-sdk/pull/12 put a bunch of code snippets and explain how it works</p>
             </Section>
             <Section id='rabbit' title='Rabbit'>
-              <p>With the Spotify Web API SDK fleshed out with all the features I needed, I was able to build Rabbit - a quick way to discover new tracks. This is probably my favorite project I&apos;ve released from a design perspective. My goal was to put out a simple but refined product with intentional and cohesive design.</p>
-              <p>Component</p>
-              <p>Here is the main component for discovering songs. Feel free to play around with the buttons here! It even has a help modal that uses the same components as the actual page, to add to the cohesion and intuitiveness of the design.</p>
+              <p>With the Spotify Web API SDK fleshed out with all the features I needed, I was able to build Rabbit - a quick way to discover new tracks. This is probably my favorite project I&apos;ve released from a UX perspective. My goal was to put out a simple but refined product with intentional and cohesive design.</p>
+              <div className='flex justify-center'>
+                <Rabbit />
+              </div>
+              <p>This is the main component for discovering songs. Feel free to play around with the buttons here! It even has a help modal that uses the same components as the actual page. Most of the icons come from <a className='text-blue-500 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-200 font-medium transition' href='https://heroicons.com' rel='noreferrer' target='_blank'>Heroicons</a> and the help dialog is made with the <a className='text-blue-500 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-200 font-medium transition' href='https://headlessui.com/react/dialog' rel='noreferrer' target='_blank'>Headless UI</a>.</p>
             </Section>
             <Section id='future' title='What&apos;s next?'>
-              <p>As you can probably tell from the examples I have shared and this application itself, I put a lot of care into the projects I work on. I love to optimize and simplify wherever possible, but at the same time I want things to look good visually and be intuitive for others. Balancing all of these things on pages and components is where I have the most fun.</p>
+              <p>As I have hopefully shown from the projects I&apos;ve shared and this page itself, I put a lot of care into the projects I work on. I love to optimize and simplify wherever possible, but at the same time I want things to look good and be intuitive for others. Balancing all of these things on pages and in components is where I have the most fun.</p>
               <p>Designing and building new components for Catalyst, along with interactive microsites and documentation pages, are some of the points that got me the most excited from the job posting. To be honest, all of the projects that I would have worked on + the upcoming projects sound fun to me, and I would love to be the one to implement them.</p>
             </Section>
             <Section id='outro' title='Outro'>
