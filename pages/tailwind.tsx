@@ -52,8 +52,8 @@ function ImagePlus({ bgColor, caption, src, title }: ImagePlusProps) {
         backgroundColor: bgColor,
       }}
     >
-      <div className='flex items-center max-w-full overflow-hidden'>
-        <Image alt={`${title} Preview`} src={src} width={512} height={1} priority />
+      <div className='flex items-center max-w-full overflow-hidden rounded-md'>
+        <Image alt={`${title} Preview`} src={src} width={756} height={1} />
       </div>
       <div className='text-neutral-200 text-sm'>
         {caption}
@@ -97,9 +97,12 @@ export default function Tailwind() {
     const title = titleRef.current;
     const tl = gsap.timeline({ paused: true });
 
-    tl.to(aside, {
+    tl.fromTo(aside, {
       duration: 1,
-      y: 110,
+      y: -110,
+    }, {
+      duration: 1,
+      y: 0,
     });
 
     tl.to(title, {
@@ -129,8 +132,9 @@ export default function Tailwind() {
       <meta name='robots' content='nosnippet' />
     </Head>
     <div className='flex justify-center'>
-      <div className='w-full max-w-7xl'>
-        <aside className='hidden lg:flex flex-col gap-8 fixed w-72 px-8 font-medium max-h-full' ref={asideRef} style={{
+      <div className='flex w-full max-w-7xl'>
+        <aside className='hidden lg:flex flex-col gap-8 sticky top-24 w-72 px-8 font-medium h-fit' ref={asideRef} style={{
+          paddingTop: 110,
           visibility: isMounted ? 'visible' : 'hidden',
         }}>
           <div className='flex items-center max-w-full overflow-hidden rounded-full w-48 h-48 shadow-lg'>
@@ -150,7 +154,7 @@ export default function Tailwind() {
             ]}
           />
         </aside>
-        <div className='flex flex-col lg:pl-72 gap-4 px-8'>
+        <div className='flex flex-col gap-4 px-8 top-0 max-w-full'>
           <div className='fixed lg:flex hidden flex-col items-center lg:items-start gap-4' ref={titleRef} style={{
             visibility: isMounted ? 'visible' : 'hidden',
           }}>
@@ -200,20 +204,20 @@ export default function Tailwind() {
               <p>I found myself in the classic Big Tech career path, which was exciting at first but also helped me realize it wasn&apos;t the kind of software development I was truly passionate about. Your point that says <i>&quot;we say no to great opportunities if there&apos;s any chance it would make our days less fun&quot;</i> really resonates with me since this is the mindset I was arriving at when I decided to leave Microsoft. I want to work on products that I find fun and useful and I want to make these products look great.</p>
             </Section>
             <Section id='pathology' title='Pathology'>
-              <p>After Microsoft I gave myself the chance to dive into the areas of software I found the most interesting. One of the first projects I started making was called Pathology, which was a remake of a flash game from 2005 where the goal is to reach the exit in the least number of moves. The project gained some niche popularity and steadily gained users. It became a playground for me to experiment with Next.js, React, Tailwind CSS, and more, all while listening to user feedback and improving the game.</p>
+              <p>After Microsoft I gave myself the chance to dive into the areas of software I found the most interesting. One of the first projects I started making was called Pathology, which is a remake of a flash game from 2005 where the goal is to reach the exit in the least number of moves. The project gained some niche popularity and steadily gained users. It became a playground for me to experiment with Next.js, React, Tailwind CSS, and more, all while listening to user feedback and improving the game.</p>
               <div className='flex gap-12 py-4 flex-wrap justify-center'>
-                <ImagePlus bgColor='rgb(51 51 51)' caption='2005 - Original Flash game' src='/psychopath-42.png' title='Psychopath Preview' />
-                <ImagePlus bgColor='rgb(38 38 38)' caption='2024 - Modern HTML remake' src='/pathology-42.png' title='Pathology Preview' />
+                {/* <ImagePlus bgColor='rgb(51 51 51)' caption='2005 - Original Flash game' src='/psychopath-42.png' title='Psychopath Preview' /> */}
+                <ImagePlus bgColor='rgb(38 38 38)' caption='Pathology level screen: Jacoby Transfer by davidspencer6174' src='jacoby-transfer.png' title='Pathology Preview' />
               </div>
               <p>All of the development for Pathology has been public and open-source, and the community has contributed to improving the game. These contributions gave me the opportunity to mentor an aspiring software engineer. I helped onboard him to get the app running locally, and gave guidance where needed to help with contributing and shipping cool new features like <a className='text-blue-500 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-200 font-medium transition' href='https://github.com/sspenst/pathology/pull/766' rel='noreferrer' target='_blank'>Achievements</a>. He was even able to use his work on Pathology to help land a junior position!</p>
             </Section>
             <Section id='thinky' title='Thinky.gg'>
-              <p>I was able to get in contact with the original creator of the flash game and we ended up becoming equal owners of Pathology. We realized the infrastructure we had built for Pathology may have some potential as a puzzle game platform, so we extended it to support multiple games and rebranded it to <a className='text-blue-500 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-200 font-medium transition' href='https://thinky.gg' rel='noreferrer' target='_blank'>Thinky.gg</a>.</p>
-              <p>With my affinity for front-end and his preference for backend, I was able to focus more of my efforts on user-facing components. It gave me a good chance to design and expirement with clean components that could be reused across games. One of my favorites is this <Code>LevelCard</Code> component:</p>
+              <p>I was able to get in contact with the original creator of the flash game and we ended up working on the new game together. We realized the infrastructure we had built for Pathology may have some potential as a puzzle game platform, so we extended it to support multiple games and rebranded it to <a className='text-blue-500 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-200 font-medium transition' href='https://thinky.gg' rel='noreferrer' target='_blank'>Thinky.gg</a>.</p>
+              <p>With my affinity for front-end and his preference for backend, I was able to focus more of my efforts on user-facing elements. It gave me a good chance to design and expirement with clean components that could be reused across games. One of my favorites is this <Code>LevelCard</Code> component:</p>
               <div className='flex justify-center'>
                 <LevelCard />
               </div>
-              <p>With a growing userbase I wanted to make sure these components were accessible and robust. The title has <Code>line-clamp-2</Code> to ensure the title length does not get too long and so that surrounding components are positioned in a predictable way. It also has <Code>break-words</Code> to ensure single words don&apos;t extend past the edge of the title area. You can almost guarantee there will be users that will publish levels with troll names, so handling these cases is important.</p>
+              <p>With a growing userbase I wanted to make sure these components were accessible and robust. The title has <Code>line-clamp-2</Code> to ensure long titles do not disrupt the UX and so that surrounding components are positioned in a predictable way. It also has <Code>break-words</Code> to ensure single words don&apos;t extend past the edge of the title area. You can almost guarantee there will be users that will push the boundaries of a system (and indeed, a level was published with the maximum title length and every character was the longest unicode character: ﷽), so handling these cases is important.</p>
               <p>Another important note is the checkmark in the corner when the level is solved. This was added to handle deuteranomaly color blindness, so those users could more easily see which levels have been solved vs unoptimized.</p>
             </Section>
             <Section id='spotify' title='Spotify Web API SDK'>

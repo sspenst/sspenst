@@ -401,7 +401,7 @@ export default function Rabbit() {
 
   return (
     <div className='flex flex-col items-center gap-4 max-w-full'>
-      <div className='bg-neutral-100 dark:bg-neutral-900 border-neutral-200 dark:border-neutral-800 border rounded-md px-2 pt-2 pb-1 flex flex-col gap-1 max-w-full' style={{
+      <div className='bg-neutral-100 dark:bg-neutral-900 border-neutral-200 dark:border-neutral-800 border rounded-xl p-2 flex flex-col gap-1 max-w-full' style={{
         width: 770,
       }}>
         <div className='flex justify-center w-full'>

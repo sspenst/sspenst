@@ -127,6 +127,19 @@ export default function LevelCard() {
     name: 'hi19hi19',
   };
 
+  // const level = {
+  //   _id: '6503ec90cacd2a6899641e12',
+  //   isRanked: true,
+  //   leastMoves: 44,
+  //   name: 'Your Hats Look Different Today',
+  //   slug: 'mathmasterzach/your-hats-look-different-today',
+  // };
+
+  // const user = {
+  //   _id: '636dbd2a0bf3aa9c6f6810ea',
+  //   name: 'mathmasterzach',
+  // };
+
   const color = userMoves === undefined ? undefined : userMoves === level.leastMoves ? 'rgb(0, 200, 0)' : 'rgb(230, 200, 20)';
 
   return (
@@ -210,22 +223,37 @@ export default function LevelCard() {
         </div>
       </div>
       <div className='flex flex-col gap-4 p-4 border border-neutral-300 dark:border-neutral-700 rounded-xl'>
-        <button className={classNames(
-          'px-4 py-2 rounded-md font-medium border border-neutral-300 dark:border-neutral-700 bg-neutral-200 dark:bg-neutral-800 hover:bg-neutral-300 dark:hover:bg-neutral-700 transition',
-          { 'border-emerald-500 bg-emerald-400 hover:bg-emerald-300 dark:border-emerald-700 dark:bg-emerald-600 dark:hover:bg-emerald-500': userMoves === undefined },
-        )} onClick={() => { setUserMoves(undefined);}}>
+        <button
+          className={classNames(
+            'px-4 py-2 rounded-md font-medium border transition',
+            userMoves === undefined ?
+              'border-emerald-500 bg-emerald-400 hover:bg-emerald-300 dark:border-emerald-700 dark:bg-emerald-600 dark:hover:bg-emerald-500' :
+              'border-neutral-300 dark:border-neutral-700 bg-neutral-200 dark:bg-neutral-800 hover:bg-neutral-300 dark:hover:bg-neutral-700'
+          )}
+          onClick={() => { setUserMoves(undefined);}}
+        >
           Unattempted
         </button>
-        <button className={classNames(
-          'px-4 py-2 rounded-md font-medium border border-neutral-300 dark:border-neutral-700 bg-neutral-200 dark:bg-neutral-800 hover:bg-neutral-300 dark:hover:bg-neutral-700 transition',
-          { 'border-emerald-500 bg-emerald-400 hover:bg-emerald-300 dark:border-emerald-700 dark:bg-emerald-600 dark:hover:bg-emerald-500': userMoves === 45 },
-        )} onClick={() => { setUserMoves(45);}}>
+        <button
+          className={classNames(
+            'px-4 py-2 rounded-md font-medium border transition',
+            userMoves === 45 ?
+              'border-emerald-500 bg-emerald-400 hover:bg-emerald-300 dark:border-emerald-700 dark:bg-emerald-600 dark:hover:bg-emerald-500' :
+              'border-neutral-300 dark:border-neutral-700 bg-neutral-200 dark:bg-neutral-800 hover:bg-neutral-300 dark:hover:bg-neutral-700'
+          )}
+          onClick={() => { setUserMoves(45);}}
+        >
           Unoptimized
         </button>
-        <button className={classNames(
-          'px-4 py-2 rounded-md font-medium border border-neutral-300 dark:border-neutral-700 bg-neutral-200 dark:bg-neutral-800 hover:bg-neutral-300 dark:hover:bg-neutral-700 transition',
-          { 'border-emerald-500 bg-emerald-400 hover:bg-emerald-300 dark:border-emerald-700 dark:bg-emerald-600 dark:hover:bg-emerald-500': userMoves === 33 },
-        )} onClick={() => { setUserMoves(33);}}>
+        <button
+          className={classNames(
+            'px-4 py-2 rounded-md font-medium border transition',
+            userMoves === 33 ?
+              'border-emerald-500 bg-emerald-400 hover:bg-emerald-300 dark:border-emerald-700 dark:bg-emerald-600 dark:hover:bg-emerald-500' :
+              'border-neutral-300 dark:border-neutral-700 bg-neutral-200 dark:bg-neutral-800 hover:bg-neutral-300 dark:hover:bg-neutral-700'
+          )}
+          onClick={() => { setUserMoves(33);}}
+        >
           Solved
         </button>
       </div>
