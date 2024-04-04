@@ -288,7 +288,7 @@ useEffect(() => {
               <p>Now we can <Code>await</Code> until the access token is confirmed to exist, then we can call <Code>setSpotifyApi</Code> and make our requests immediately!</p>
             </Section>
             <Section id='rabbit' title='Rabbit'>
-              <p>With the Spotify Web API SDK enhanced with all the features I needed, I was able to build Rabbit - a quick way to discover new tracks. This is probably my favorite project I&apos;ve released from a UX perspective. My goal was to put out a simple but refined product with intentional and cohesive design.</p>
+              <p>With the Spotify Web API SDK enhanced with all the features I needed, I was able to build <a className='text-blue-600 hover:text-blue-400 dark:text-blue-400 dark:hover:text-blue-200 font-medium transition' href='https://rabbit.sspenst.com' rel='noreferrer' target='_blank'>Rabbit</a> - a quick way to discover new tracks. This is probably my favorite project I&apos;ve released from a UX perspective. My goal was to put out a simple but refined product with intentional and cohesive design.</p>
               <div className='flex justify-center'>
                 <Rabbit />
               </div>
