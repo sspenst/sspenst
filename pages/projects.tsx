@@ -53,7 +53,7 @@ export default function Projects() {
           <div className='flex flex-col pb-8' id='projects'>
             <Project
               bgColor='#12033C'
-              githubHref='https://github.com/sspenst/pathology'
+              githubHref='https://github.com/sspenst/thinky.gg'
               href='https://thinky.gg'
               id='thinky'
               srcIcon='/thinky.svg'
