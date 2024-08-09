@@ -10,28 +10,28 @@
   },
   "dependencies": {
     "@gsap/react": "^2.1.1",
-    "@headlessui/react": "^1.7.19",
-    "@headlessui/tailwindcss": "^0.2.0",
+    "@headlessui/react": "^2.1.2",
+    "@headlessui/tailwindcss": "^0.2.1",
     "classnames": "^2.5.1",
-    "next": "^14.2.3",
+    "next": "^14.2.5",
     "next-themes": "^0.3.0",
     "prism-react-renderer": "^2.3.1",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
-    "sharp": "^0.33.3"
+    "sharp": "^0.33.4"
   },
   "devDependencies": {
-    "@types/node": "^20.12.7",
-    "@types/react": "^18.3.1",
+    "@types/node": "^22.2.0",
+    "@types/react": "^18.3.3",
     "@types/react-dom": "^18.3.0",
-    "@typescript-eslint/eslint-plugin": "^7.7.1",
-    "@typescript-eslint/parser": "^7.7.1",
-    "autoprefixer": "^10.4.19",
+    "@typescript-eslint/eslint-plugin": "^7.18.0",
+    "@typescript-eslint/parser": "^7.18.0",
+    "autoprefixer": "^10.4.20",
     "eslint": "^8.57.0",
-    "eslint-config-next": "^14.2.3",
-    "eslint-plugin-simple-import-sort": "^12.1.0",
-    "postcss": "^8.4.38",
-    "tailwindcss": "^3.4.3",
-    "typescript": "^5.4.5"
+    "eslint-config-next": "^14.2.5",
+    "eslint-plugin-simple-import-sort": "^12.1.1",
+    "postcss": "^8.4.41",
+    "tailwindcss": "^3.4.9",
+    "typescript": "^5.5.4"
   }
 }

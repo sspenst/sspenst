@@ -2,7 +2,6 @@ import React from 'react';
 import Email from './icons/email';
 import Github from './icons/github';
 import LinkedIn from './icons/linkedin';
-import X from './icons/x';
 
 interface FooterIconProps {
   ariaLabel: string;
@@ -40,9 +39,6 @@ export default function Footer() {
           <div className='flex flex-wrap gap-6 items-center justify-center'>
             <FooterIcon ariaLabel='sspenst github' href={'https://github.com/sspenst'}>
               <Github />
-            </FooterIcon>
-            <FooterIcon ariaLabel='sspenst x' href={'https://x.com/spencerspenst'}>
-              <X />
             </FooterIcon>
             <FooterIcon ariaLabel='sspenst linkedin' href={'https://linkedin.com/in/sspenst'}>
               <LinkedIn />
