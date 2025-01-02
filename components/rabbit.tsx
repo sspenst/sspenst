@@ -2,7 +2,7 @@
 import { Dialog, Transition } from '@headlessui/react';
 import classNames from 'classnames';
 import Image from 'next/image';
-import React, { Fragment, useState } from 'react';
+import React, { Fragment, JSX, useState } from 'react';
 
 function formatDurationMs(ms: number) {
   const seconds = Math.round(ms / 1000);

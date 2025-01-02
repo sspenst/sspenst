@@ -1,3 +1,5 @@
+import headlessui from '@headlessui/tailwindcss';
+
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
@@ -6,7 +8,7 @@ module.exports = {
   ],
   darkMode: 'class',
   plugins: [
-    require('@headlessui/tailwindcss')
+    headlessui,
   ],
   theme: {
     extend: {},
