@@ -59,7 +59,7 @@ function TrackComponent({ saved, setSaved }: TrackComponentProps){
         aria-label={'add to liked songs'}
         className={classNames('disabled:text-green-600', saved ?
           'text-green-500 hover:text-green-300' :
-          'text-neutral-500 hover:text-black hover:dark:text-white'
+          'text-neutral-500 hover:text-black dark:hover:text-white'
         )}
         onClick={() => setSaved(!saved)}
       >
@@ -75,7 +75,7 @@ function TrackComponent({ saved, setSaved }: TrackComponentProps){
       </button>
       <a
         aria-label='listen on Spotify'
-        className='font-bold text-lg w-fit hover:underline text-neutral-500 hover:text-black hover:dark:text-white'
+        className='font-bold text-lg w-fit hover:underline text-neutral-500 hover:text-black dark:hover:text-white'
         href={'https://open.spotify.com/track/05hEXDGG1iIXYRwH5qvyuz'}
         rel='noreferrer'
         target='_blank'
@@ -251,7 +251,7 @@ function AudioFeatureComponent({
   return (<>
     <button
       className={classNames(
-        'flex flex-col gap-0.5 items-center p-2 text-xl rounded-md enabled:cursor-pointer transition-[background-color] enabled:hover:bg-neutral-300 enabled:hover:dark:bg-neutral-700',
+        'flex flex-col gap-0.5 items-center p-2 text-xl rounded-md enabled:cursor-pointer transition-[background-color] enabled:hover:bg-neutral-300 dark:enabled:hover:bg-neutral-700',
         { 'text-neutral-600 dark:text-neutral-400': audioFeature.state === AudioFeatureState.NONE },
         { 'text-green-500': audioFeature.state === AudioFeatureState.UP },
         { 'text-red-500': audioFeature.state === AudioFeatureState.DOWN },
@@ -282,7 +282,7 @@ function HelpModal({ audioFeatures, isOpen, onClose }: ModalProps) {
     <Transition appear show={isOpen} as={Fragment}>
       <Dialog
         as='div'
-        className='fixed inset-0 z-20 overflow-y-auto backdrop-blur-sm'
+        className='fixed inset-0 z-20 overflow-y-auto backdrop-blur-xs'
         onClose={onClose}
       >
         <Transition.Child
@@ -312,7 +312,7 @@ function HelpModal({ audioFeatures, isOpen, onClose }: ModalProps) {
               </Dialog.Title>
               <div className='flex flex-col gap-4'>
                 <span>1. Select a track to begin</span>
-                <div className='flex gap-4 w-full items-center truncate bg-neutral-100 dark:bg-neutral-900 rounded-md pl-2 pr-4 py-1 hover:bg-neutral-300 hover:dark:bg-neutral-700 transition'>
+                <div className='flex gap-4 w-full items-center truncate bg-neutral-100 dark:bg-neutral-900 rounded-md pl-2 pr-4 py-1 hover:bg-neutral-300 dark:hover:bg-neutral-700 transition'>
                   <TrackInfo />
                 </div>
                 <span>2. Discover related tracks</span>
@@ -366,7 +366,7 @@ function HelpModal({ audioFeatures, isOpen, onClose }: ModalProps) {
                 </div>
               </div>
               <button
-                className='inline-flex justify-center px-4 py-2 mt-2 text-sm font-medium border border-transparent rounded-md bg-neutral-200 dark:bg-neutral-800 hover:bg-neutral-400 hover:dark:bg-neutral-600 transition'
+                className='inline-flex justify-center px-4 py-2 mt-2 text-sm font-medium border border-transparent rounded-md bg-neutral-200 dark:bg-neutral-800 hover:bg-neutral-400 dark:hover:bg-neutral-600 transition'
                 onClick={onClose}
                 type='button'
               >
@@ -418,7 +418,7 @@ export default function Rabbit() {
             />
             :
             <>
-              <div className='flex items-center w-full hover:bg-neutral-300 hover:dark:bg-neutral-700 transition-[background-color] py-1 pr-4 pl-2 gap-4 rounded-md h-14'>
+              <div className='flex items-center w-full hover:bg-neutral-300 dark:hover:bg-neutral-700 transition-[background-color] py-1 pr-4 pl-2 gap-4 rounded-md h-14'>
                 <TrackComponent saved={saved} setSaved={setSaved} />
                 <button
                   aria-label='clear'
@@ -426,7 +426,7 @@ export default function Rabbit() {
                     setUseInput(true);
                   }}
                 >
-                  <svg className='text-neutral-500 hover:text-black hover:dark:text-white w-6 h-6 -mx-1 cursor-pointer' xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' strokeWidth={1.5} stroke='currentColor'>
+                  <svg className='text-neutral-500 hover:text-black dark:hover:text-white w-6 h-6 -mx-1 cursor-pointer' xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' strokeWidth={1.5} stroke='currentColor'>
                     <path strokeLinecap='round' strokeLinejoin='round' d='M6 18L18 6M6 6l12 12' />
                   </svg>
                 </button>
