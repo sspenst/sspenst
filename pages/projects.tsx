@@ -72,6 +72,9 @@ export default function Projects() {
                   Thinky.gg&apos;s second game is called Sokopath. Sokopath is a take on the classic Sokoban block pushing game with the addition of Pathology&apos;s block types. The goal is to push boxes onto every target square. You can also try to optimize your path to compete against other players!
                 </span>
               </p>
+              <span className='text-sm text-neutral-600 dark:text-neutral-400'>
+                January 2022 - Present
+              </span>
             </Project>
             <Project
               bgColor='black'
@@ -85,6 +88,9 @@ export default function Projects() {
               <span>
                 Discover new tracks using Spotify&apos;s audio features. Select a track to listen to a short preview, then click discover to find similar tracks. Refine your search with audio features and save tracks you enjoy! Rabbit has been approved by the Spotify Developer Platform.
               </span>
+              <span className='text-sm text-neutral-600 dark:text-neutral-400'>
+                June 2023 - August 2023
+              </span>
             </Project>
             <Project
               bgColor='black'
@@ -94,8 +100,11 @@ export default function Projects() {
               srcIcon='/simplify-youtube.svg'
               title='Simplify YouTube'
             >
-              <span>
+              <p>
                 Chrome extension to hide YouTube features. Hide Shorts, comments, subscriptions, and more.
+              </p>
+              <span className='text-sm text-neutral-600 dark:text-neutral-400'>
+                March 2024
               </span>
             </Project>
             <Project
@@ -106,12 +115,15 @@ export default function Projects() {
               srcIcon='https://raw.githubusercontent.com/npm/logos/master/npm%20square/n-64.png'
               title='Spotify Web API SDK'
             >
-              <span>
+              <p>
                 {'Top contributor to '}
                 <span className='font-mono text-sm bg-neutral-300 dark:bg-neutral-700 px-1 py-0.5 rounded-md'>@spotify/web-api-ts-sdk</span>
                 {' - Spotify\'s official TypeScript SDK for the Spotify Web API. '}
                 <a className='hover:text-rose-500 transition font-medium' href='#rabbit'>Rabbit</a>
                 {' uses this npm package.'}
+              </p>
+              <span className='text-sm text-neutral-600 dark:text-neutral-400'>
+                June 2023 - July 2023
               </span>
             </Project>
           </div>

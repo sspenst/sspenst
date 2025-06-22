@@ -1,6 +1,6 @@
 import { FlatCompat } from '@eslint/eslintrc';
 import js from '@eslint/js';
-import stylisticTs from '@stylistic/eslint-plugin-ts';
+import stylistic from '@stylistic/eslint-plugin';
 import tsParser from '@typescript-eslint/parser';
 import react from 'eslint-plugin-react';
 import simpleImportSort from 'eslint-plugin-simple-import-sort';
@@ -38,12 +38,12 @@ const eslintConfig = [...compat.extends(
     sourceType: 'module',
   },
   plugins: {
-    '@stylistic/ts': stylisticTs,
+    '@stylistic': stylistic,
     react,
     'simple-import-sort': simpleImportSort,
   },
   rules: {
-    '@stylistic/ts/type-annotation-spacing': 'warn',
+    '@stylistic/type-annotation-spacing': 'warn',
     '@typescript-eslint/no-unused-vars': 'warn',
     'arrow-spacing': 'warn',
     'comma-spacing': 'warn',

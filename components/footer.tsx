@@ -1,5 +1,6 @@
+import { EnvelopeIcon, MusicalNoteIcon } from '@heroicons/react/24/solid';
+import Link from 'next/link';
 import React, { JSX } from 'react';
-import Email from './icons/email';
 import Github from './icons/github';
 import LinkedIn from './icons/linkedin';
 
@@ -36,7 +37,7 @@ export default function Footer() {
           <span>
             © 2025 Spencer Spenst
           </span>
-          <div className='flex flex-wrap gap-6 items-center justify-center'>
+          <div className='flex flex-wrap gap-10 items-center justify-center'>
             <FooterIcon ariaLabel='sspenst github' href={'https://github.com/sspenst'}>
               <Github />
             </FooterIcon>
@@ -44,8 +45,17 @@ export default function Footer() {
               <LinkedIn />
             </FooterIcon>
             <FooterIcon ariaLabel='sspenst email' href={'mailto:spencerspenst@gmail.com'}>
-              <Email />
+              <EnvelopeIcon />
             </FooterIcon>
+            <Link href={'/music'}>
+              <MusicalNoteIcon
+                className='w-6 h-6 hover:text-black dark:hover:text-white transition'
+                style={{
+                  minHeight: 24,
+                  minWidth: 24,
+                }}
+              />
+            </Link>
           </div>
         </div>
       </div>
