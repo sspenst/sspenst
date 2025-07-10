@@ -76,8 +76,9 @@ export default function Index() {
             </div>
           </section>
           <div className='flex flex-col items-center mb-20 mx-8 gap-12 text-center'>
-            <h1 className='text-7xl font-medium m-12'>Spencer Spenst</h1>
-            <h2 className='text-3xl'>Software Engineer</h2>
+            <h1 className='text-6xl font-semibold'>Spencer Spenst</h1>
+            <h2 className='text-3xl font-medium'>Software Engineer</h2>
+            <h2 className='text-xl'>Abbotsford, BC, Canada</h2>
           </div>
           <section id='resume' className='flex flex-col gap-8 pt-20'>
             <h1 className='text-4xl font-medium'>Resume</h1>
