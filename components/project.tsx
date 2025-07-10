@@ -13,7 +13,7 @@ interface ProjectProps {
 
 export default function Project({ bgColor, children, githubHref, href, id, srcIcon, title }: ProjectProps) {
   return (
-    <div className='flex flex-col items-start gap-8 w-fit max-w-full px-8 pt-20' id={id}>
+    <section className='flex flex-col items-start gap-8 w-fit max-w-full px-8 pt-20' id={id}>
       <h2 className='flex gap-4 items-center'>
         <div
           className='border border-neutral-700 p-2.5 shadow-lg rounded-lg flex items-center justify-center'
@@ -50,6 +50,6 @@ export default function Project({ bgColor, children, githubHref, href, id, srcIc
           </svg>
         </a>
       }
-    </div>
+    </section>
   );
 }

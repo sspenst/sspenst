@@ -94,7 +94,6 @@ const eslintConfig = [...compat.extends(
     'simple-import-sort/imports': ['warn', {
       groups: [['^\\u0000', '^@?\\w', '^[^.]', '^\\.']],
     }],
-    'sort-keys': 'warn',
     'space-infix-ops': 'warn',
   },
 }];

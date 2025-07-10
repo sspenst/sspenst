@@ -1,32 +1,9 @@
 import { EnvelopeIcon, MusicalNoteIcon } from '@heroicons/react/24/solid';
 import Link from 'next/link';
-import React, { JSX } from 'react';
+import React from 'react';
+import IconLink from './iconLink';
 import Github from './icons/github';
 import LinkedIn from './icons/linkedin';
-
-interface FooterIconProps {
-  ariaLabel: string;
-  children: JSX.Element;
-  href: string;
-}
-
-function FooterIcon({ ariaLabel, children, href }: FooterIconProps) {
-  return (
-    <a
-      aria-label={ariaLabel}
-      className='w-6 h-6 hover:text-black dark:hover:text-white transition'
-      href={href}
-      rel='noreferrer'
-      style={{
-        minHeight: 24,
-        minWidth: 24,
-      }}
-      target='_blank'
-    >
-      {children}
-    </a>
-  );
-}
 
 export default function Footer() {
   return (
@@ -38,15 +15,15 @@ export default function Footer() {
             © 2025 Spencer Spenst
           </span>
           <div className='flex flex-wrap gap-10 items-center justify-center'>
-            <FooterIcon ariaLabel='sspenst github' href={'https://github.com/sspenst'}>
+            <IconLink ariaLabel='sspenst github' className='hover:text-black dark:hover:text-white' href={'https://github.com/sspenst'}>
               <Github />
-            </FooterIcon>
-            <FooterIcon ariaLabel='sspenst linkedin' href={'https://linkedin.com/in/sspenst'}>
+            </IconLink>
+            <IconLink ariaLabel='sspenst linkedin' className='hover:text-black dark:hover:text-white' href={'https://linkedin.com/in/sspenst'}>
               <LinkedIn />
-            </FooterIcon>
-            <FooterIcon ariaLabel='sspenst email' href={'mailto:spencerspenst@gmail.com'}>
+            </IconLink>
+            <IconLink ariaLabel='sspenst email' className='hover:text-black dark:hover:text-white' href={'mailto:spencerspenst@gmail.com'}>
               <EnvelopeIcon />
-            </FooterIcon>
+            </IconLink>
             <Link href={'/music'}>
               <MusicalNoteIcon
                 className='w-6 h-6 hover:text-black dark:hover:text-white transition'

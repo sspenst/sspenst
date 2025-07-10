@@ -1,6 +1,10 @@
+import { EnvelopeIcon } from '@heroicons/react/24/solid';
 import Link from 'next/link';
 import { useTheme } from 'next-themes';
 import React, { useEffect } from 'react';
+import IconLink from './iconLink';
+import Github from './icons/github';
+import LinkedIn from './icons/linkedin';
 import SS from './icons/ss';
 
 export default function Header() {
@@ -39,13 +43,16 @@ export default function Header() {
             </span>
           </Link>
           <div className='flex items-center gap-6 h-14 px-4 font-medium'>
-            <nav className='flex items-center gap-6'>
-              <Link href='/resume' className='hover:text-neutral-400 transition'>
-                Resume
-              </Link>
-              <Link href='/projects' className='hover:text-neutral-400 transition'>
-                Projects
-              </Link>
+            <nav className='flex items-center gap-8'>
+              <IconLink ariaLabel='sspenst github' className='text-black dark:text-white hover:text-neutral-400 dark:hover:text-neutral-400' href={'https://github.com/sspenst'}>
+                <Github />
+              </IconLink>
+              <IconLink ariaLabel='sspenst linkedin' className='text-black dark:text-white hover:text-neutral-400 dark:hover:text-neutral-400' href={'https://linkedin.com/in/sspenst'}>
+                <LinkedIn />
+              </IconLink>
+              <IconLink ariaLabel='sspenst email' className='text-black dark:text-white hover:text-neutral-400 dark:hover:text-neutral-400' href={'mailto:spencerspenst@gmail.com'}>
+                <EnvelopeIcon />
+              </IconLink>
             </nav>
           </div>
         </div>

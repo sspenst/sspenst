@@ -1,4 +1,3 @@
-/* eslint-disable sort-keys */
 import { Dialog, Transition } from '@headlessui/react';
 import classNames from 'classnames';
 import Image from 'next/image';

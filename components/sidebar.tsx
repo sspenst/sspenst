@@ -2,6 +2,7 @@ import classNames from 'classnames';
 import React from 'react';
 
 interface SidebarLink {
+  className?: string;
   id: string;
   text: string;
 }
@@ -17,7 +18,7 @@ export default function Sidebar({ activeId, links }: SidebarProps) {
       {links.map(link => {
         return (
           <a
-            className={classNames('hover:text-rose-500 w-fit', { 'text-rose-500': activeId === link.id })}
+            className={classNames('hover:text-rose-500 w-fit', link.className, { 'text-rose-500': activeId === link.id })}
             href={`#${link.id}`}
             key={`sidebar-link-${link.id}`}
           >
