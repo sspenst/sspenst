@@ -178,7 +178,7 @@ export default function LevelCard() {
             <a aria-label='hi19hi19&apos;s profile' className='h-fit' href={getProfileSlug(user.name)} rel='noreferrer' target='_blank'>
               <ProfileAvatar userId={user._id} />
             </a>
-            <h2 className='flex flex-col gap-0.5 overflow-hidden break-words'>
+            <h2 className='flex flex-col gap-0.5 overflow-hidden wrap-break-word'>
               <a
                 className='font-bold line-clamp-2 w-fit max-w-full'
                 href={`https://pathology.thinky.gg/level/${level.slug}`}
@@ -216,7 +216,7 @@ export default function LevelCard() {
             </div>
             {level.isRanked && <>
               <span className='font-normal text-lg cursor-pointer'>
-              🏅
+                🏅
               </span>
             </>}
           </div>

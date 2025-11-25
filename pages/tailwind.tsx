@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/set-state-in-effect */
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
 import Head from 'next/head';
@@ -55,7 +56,7 @@ function CodeBlock({ code }: { code: string }) {
         language='tsx'
       >
         {({ tokens, getLineProps, getTokenProps }) => (
-          <pre className='text-sm border border-neutral-300 dark:border-neutral-700 bg-white dark:bg-neutral-800 py-2 px-4 rounded-md break-words whitespace-pre-wrap'>
+          <pre className='text-sm border border-neutral-300 dark:border-neutral-700 bg-white dark:bg-neutral-800 py-2 px-4 rounded-md wrap-break-word whitespace-pre-wrap'>
             {tokens.map((line, i) => (
               <div key={i} {...getLineProps({ line })}>
                 {line.map((token, key) => (
@@ -170,7 +171,7 @@ export default function Tailwind() {
       <meta name='robots' content='nosnippet' />
     </Head>
     <div className='flex justify-center'>
-      <div className='flex w-full max-w-7xl'>
+      <div className='flex w-full max-w-6xl'>
         <aside className='hidden lg:flex flex-col gap-8 sticky top-24 w-72 font-medium h-fit' ref={asideRef} style={{
           visibility: isMounted ? 'visible' : 'hidden',
         }}>
@@ -252,7 +253,7 @@ export default function Tailwind() {
               <div className='flex justify-center'>
                 <LevelCard />
               </div>
-              <p>With a growing userbase I wanted to make sure these components were accessible and robust. The title has <Code>line-clamp-2</Code> to ensure long titles do not disrupt the UX and so that surrounding components are positioned in a predictable way. It also has <Code>break-words</Code> to ensure single words don&apos;t extend past the edge of the title area. You can almost guarantee there will be users that will push the boundaries of a system (and indeed, a level was published at the maximum title length with 50 of the longest unicode character: ﷽), so handling these cases is important.</p>
+              <p>With a growing userbase I wanted to make sure these components were accessible and robust. The title has <Code>line-clamp-2</Code> to ensure long titles do not disrupt the UX and so that surrounding components are positioned in a predictable way. It also has <Code>wrap-break-word</Code> to ensure single words don&apos;t extend past the edge of the title area. You can almost guarantee there will be users that will push the boundaries of a system (and indeed, a level was published at the maximum title length with 50 of the longest unicode character: ﷽), so handling these cases is important.</p>
               <p>Another important note is the checkmark in the corner when the level is solved. This was added to handle deuteranomaly color blindness, so those users could more easily see which levels have been solved vs unoptimized.</p>
             </Section>
             <Section id='spotify' title='Spotify Web API SDK'>

@@ -8,7 +8,7 @@ import LinkedIn from './icons/linkedin';
 export default function Footer() {
   return (
     <footer className='flex justify-center'>
-      <div className='flex flex-col gap-8 items-center my-8 text-neutral-600 dark:text-neutral-400 text-sm text-center w-full max-w-7xl'>
+      <div className='flex flex-col gap-8 items-center my-8 text-neutral-600 dark:text-neutral-400 text-sm text-center w-full max-w-6xl'>
         <div className='w-full h-px gradient-border' />
         <div className='flex flex-wrap justify-center w-full max-w-xl gap-x-12 gap-y-8 items-center px-8'>
           <span>

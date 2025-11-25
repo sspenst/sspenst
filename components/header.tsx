@@ -1,4 +1,4 @@
-import { EnvelopeIcon } from '@heroicons/react/24/solid';
+import { EnvelopeIcon, MusicalNoteIcon } from '@heroicons/react/24/solid';
 import Link from 'next/link';
 import { useTheme } from 'next-themes';
 import React, { useEffect } from 'react';
@@ -32,7 +32,7 @@ export default function Header() {
         opacity: '20%',
         zIndex: -1,
       }} />
-      <div className='w-full max-w-7xl'>
+      <div className='w-full max-w-6xl'>
         <div className='flex justify-between'>
           <Link aria-label='Home' href='/' className='flex items-center gap-4 h-14 px-4 font-medium text-black dark:text-white hover:text-neutral-400 dark:hover:text-neutral-400 transition'>
             <div className='flex gap-2 w-8 h-8'>
@@ -53,6 +53,15 @@ export default function Header() {
               <IconLink ariaLabel='sspenst email' className='text-black dark:text-white hover:text-neutral-400 dark:hover:text-neutral-400' href={'mailto:spencerspenst@gmail.com'}>
                 <EnvelopeIcon />
               </IconLink>
+              <Link href={'/music'}>
+                <MusicalNoteIcon
+                  className='w-6 h-6 text-black dark:text-white hover:text-neutral-400 dark:hover:text-neutral-400 transition'
+                  style={{
+                    minHeight: 24,
+                    minWidth: 24,
+                  }}
+                />
+              </Link>
             </nav>
           </div>
         </div>
