@@ -8,9 +8,9 @@ import { useTheme } from 'next-themes';
 import { Highlight, themes } from 'prism-react-renderer';
 import React, { useEffect, useRef, useState } from 'react';
 import SS from '../components/icons/ss';
-import LevelCard from '../components/levelCard';
-import Rabbit from '../components/rabbit';
-import Sidebar from '../components/sidebar';
+import LevelCard from '../components/tailwind/levelCard';
+import Rabbit from '../components/tailwind/rabbit';
+import Sidebar from '../components/tailwind/sidebar';
 
 interface SectionProps {
   children: React.ReactNode;

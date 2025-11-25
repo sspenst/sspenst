@@ -20,7 +20,7 @@
     "incremental": true
   },
   "include": [
-    "**.config.*js",
+    "**.config.mjs",
     "**/*.ts",
     "**/*.tsx"
   ],
