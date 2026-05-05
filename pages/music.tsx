@@ -22,10 +22,18 @@ export default function Music() {
           <Image alt='sspenst apple music' src='/applemusic.svg' width='32' height='32' className='w-10' />
         </a>
       </div>
-      <MusicCard
+      {/* <MusicCard
         hrefAppleMusic='https://music.apple.com/us/album/turbine/1652622865?i=1652622866'
         hrefSoundCloud='https://soundcloud.com/sspenst/turbine'
         hrefSpotify='https://open.spotify.com/track/36svwtlEoExlHUPJnhk9TG?si=00111c0436c040c2'
+        info={['Album - 2026', '15 songs', '12:34']}
+        src='200930.jpeg'
+        title='ephemeral'
+      /> */}
+      <MusicCard
+        hrefAppleMusic='https://music.apple.com/us/album/turbine/1652622865'
+        hrefSoundCloud='https://soundcloud.com/sspenst/turbine'
+        hrefSpotify='https://open.spotify.com/album/4r6LvBdQFye0qBfdm9BuT3'
         info={['Single - 2022', '1:52']}
         src='turbine.png'
         title='turbine'
@@ -40,7 +48,7 @@ export default function Music() {
       <MusicCard
         hrefAppleMusic='https://music.apple.com/us/album/re-ep/1592628164'
         hrefSoundCloud='https://soundcloud.com/sspenst/sets/re_ep'
-        hrefSpotify='https://open.spotify.com/album/3NQEsxiwMrpQF1pN9w7XbR?si=XqMIqu-1SEu6yHxrrNL4DQ'
+        hrefSpotify='https://open.spotify.com/album/3NQEsxiwMrpQF1pN9w7XbR'
         info={['EP - 2021', '4 songs', '7:11']}
         src='re.png'
         title='re'
@@ -51,6 +59,14 @@ export default function Music() {
         info={['Single - 2021', '2:04']}
         src='uplift.jpeg'
         title='uplift'
+      />
+      <MusicCard
+        hrefAppleMusic='https://music.apple.com/us/album/practice-single/1895442355'
+        hrefSoundCloud='https://soundcloud.com/sspenst/practice'
+        hrefSpotify='https://open.spotify.com/album/0AYabae2TkwyL0nrG30MQH'
+        info={['Single - 2021', '1:37']}
+        src='200930.jpeg'
+        title='practice'
       />
     </div>
   </>);
