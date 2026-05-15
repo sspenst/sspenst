@@ -15,14 +15,14 @@ export default function Music() {
         <a target='_blank' rel='noreferrer' href='https://sspenst.bandcamp.com' className='flex gap-3 items-center hover:scale-110 transition'>
           <Image alt='sspenst bandcamp' src='/bandcamp.svg' width='32' height='32' className='w-10' />
         </a>
-        <a target='_blank' rel='noreferrer' href='https://soundcloud.com/sspenst' className='flex gap-3 items-center hover:scale-110 transition'>
-          <Image alt='sspenst soundcloud' src='/soundcloud.png' width='32' height='32' className='w-10 dark:invert ' />
-        </a>
-        <a target='_blank' rel='noreferrer' href='https://open.spotify.com/artist/7yWCWPWpYoj22kUps71yey?si=24Yjcju9Qi6J4sri7XkSZw' className='flex gap-3 items-center hover:scale-110 transition'>
+        <a target='_blank' rel='noreferrer' href='https://open.spotify.com/artist/7yWCWPWpYoj22kUps71yey' className='flex gap-3 items-center hover:scale-110 transition'>
           <Image alt='sspenst spotify' src='/spotify.png' width='32' height='32' className='w-10' />
         </a>
         <a target='_blank' rel='noreferrer' href='https://music.apple.com/us/artist/sspenst/1592620337' className='flex gap-3 items-center hover:scale-110 transition'>
           <Image alt='sspenst apple music' src='/applemusic.svg' width='32' height='32' className='w-10' />
+        </a>
+        <a target='_blank' rel='noreferrer' href='https://soundcloud.com/sspenst' className='flex gap-3 items-center hover:scale-110 transition'>
+          <Image alt='sspenst soundcloud' src='/soundcloud.png' width='32' height='32' className='w-10 dark:invert ' />
         </a>
       </div>
       {/* <MusicCard
@@ -31,7 +31,7 @@ export default function Music() {
         hrefSoundCloud='https://soundcloud.com/sspenst/sets/ephemeral'
         hrefSpotify='https://open.spotify.com/album/3NQEsxiwMrpQF1pN9w7XbR'
         info={['Album - 2026', '7 songs', '9:32']}
-        src='IMG_9332.jpeg'
+        src='ephemeral.jpeg'
         title='ephemeral'
       /> */}
       <MusicCard
