@@ -30,7 +30,8 @@ export default function Music() {
         hrefBandcamp='https://sspenst.bandcamp.com/album/ephemeral'
         hrefSoundCloud='https://soundcloud.com/sspenst/sets/ephemeral'
         hrefSpotify='https://open.spotify.com/album/3NQEsxiwMrpQF1pN9w7XbR'
-        info={['Album - 2026', '7 songs', '9:32']}
+        info={['Album', '7 songs', '9:32']}
+        releaseDate='2026-05-??'
         src='ephemeral.jpeg'
         title='ephemeral'
       /> */}
@@ -39,14 +40,16 @@ export default function Music() {
         hrefBandcamp='https://sspenst.bandcamp.com/track/turbine'
         hrefSoundCloud='https://soundcloud.com/sspenst/turbine'
         hrefSpotify='https://open.spotify.com/album/4r6LvBdQFye0qBfdm9BuT3'
-        info={['Single - 2022', '1:52']}
+        info={['Single', '1:52']}
+        releaseDate='2022-11-02'
         src='turbine.png'
         title='turbine'
       />
       <MusicCard
         feature='N E T W O R K'
         hrefSoundCloud='https://soundcloud.com/n_e_t_w_o_r_k/expanse-w-sspenst'
-        info={['Single - 2022', '2:02']}
+        info={['Single', '2:02']}
+        releaseDate='2022-09-06'
         src='expanse.jpeg'
         title='expanse'
       />
@@ -55,14 +58,16 @@ export default function Music() {
         hrefBandcamp='https://sspenst.bandcamp.com/album/re'
         hrefSoundCloud='https://soundcloud.com/sspenst/sets/re_ep'
         hrefSpotify='https://open.spotify.com/album/3NQEsxiwMrpQF1pN9w7XbR'
-        info={['EP - 2021', '4 songs', '7:11']}
+        info={['EP - 4 songs', '7:11']}
+        releaseDate='2021-10-28'
         src='re.png'
         title='re'
       />
       <MusicCard
         feature='N E T W O R K'
         hrefSoundCloud='https://soundcloud.com/n_e_t_w_o_r_k/uplift-w-sspenst'
-        info={['Single - 2021', '2:04']}
+        info={['Single', '2:04']}
+        releaseDate='2021-10-05'
         src='uplift.jpeg'
         title='uplift'
       />
@@ -71,7 +76,8 @@ export default function Music() {
         hrefBandcamp='https://sspenst.bandcamp.com/track/practice'
         hrefSoundCloud='https://soundcloud.com/sspenst/practice'
         hrefSpotify='https://open.spotify.com/album/0AYabae2TkwyL0nrG30MQH'
-        info={['Single - 2021', '1:37']}
+        info={['Single', '1:37']}
+        releaseDate='2021-09-05'
         src='200930.jpeg'
         title='practice'
       />

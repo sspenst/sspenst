@@ -8,8 +8,27 @@ interface MusicCardProps {
   hrefSoundCloud?: string;
   hrefSpotify?: string;
   info?: string[];
+  releaseDate?: string; // yyyy, yyyy-mm, or yyyy-mm-dd
   src: string;
   title: string;
+}
+
+function formatReleaseDate(date: string): string {
+  const parts = date.split('-');
+
+  if (parts.length === 1) {
+    return parts[0];
+  }
+
+  const year = parseInt(parts[0]);
+  const month = parseInt(parts[1]) - 1;
+  const d = new Date(year, month, parts.length === 3 ? parseInt(parts[2]) : 1);
+
+  if (parts.length === 2) {
+    return d.toLocaleDateString('en-US', { month: 'short', year: 'numeric' });
+  }
+
+  return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
 }
 
 export default function MusicCard({
@@ -19,6 +38,7 @@ export default function MusicCard({
   hrefSoundCloud,
   hrefSpotify,
   info,
+  releaseDate,
   src,
   title,
 }: MusicCardProps) {
@@ -41,6 +61,11 @@ export default function MusicCard({
         {feature && <div className='text-neutral-800 dark:text-neutral-200 text-md'>
           w/ {feature}
         </div>}
+        {releaseDate && (
+          <div className='text-neutral-600 dark:text-neutral-400 text-sm'>
+            {formatReleaseDate(releaseDate)}
+          </div>
+        )}
         {info?.map((line, index) => {
           return (
             <div className='text-neutral-600 dark:text-neutral-400 text-sm' key={`${title}-${index}`}>
