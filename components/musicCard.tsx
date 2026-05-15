@@ -4,6 +4,7 @@ import React from 'react';
 interface MusicCardProps {
   feature?: string;
   hrefAppleMusic?: string;
+  hrefBandcamp?: string;
   hrefSoundCloud?: string;
   hrefSpotify?: string;
   info?: string[];
@@ -14,6 +15,7 @@ interface MusicCardProps {
 export default function MusicCard({
   feature,
   hrefAppleMusic,
+  hrefBandcamp,
   hrefSoundCloud,
   hrefSpotify,
   info,
@@ -47,6 +49,9 @@ export default function MusicCard({
           );
         })}
         <div className='flex gap-3'>
+          {hrefBandcamp && <a target='_blank' rel='noreferrer' href={hrefBandcamp} className='h-6 w-6 flex items-center hover:scale-110 transition'>
+            <Image alt='bandcamp' src='/bandcamp.svg' width='32' height='32' className='w-7' />
+          </a>}
           {hrefSoundCloud && <a target='_blank' rel='noreferrer' href={hrefSoundCloud} className='h-6 w-6 flex items-center hover:scale-110 transition'>
             <Image alt='soundcloud' src='/soundcloud.png' width='32' height='32' className='w-7 dark:invert' />
           </a>}

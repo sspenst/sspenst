@@ -12,6 +12,9 @@ export default function Music() {
     <div className='flex flex-col items-center gap-6'>
       <h1 className='text-4xl font-medium'>Music</h1>
       <div className='flex flex-wrap justify-center gap-6 text-lg m-2'>
+        <a target='_blank' rel='noreferrer' href='https://sspenst.bandcamp.com' className='flex gap-3 items-center hover:scale-110 transition'>
+          <Image alt='sspenst bandcamp' src='/bandcamp.svg' width='32' height='32' className='w-10' />
+        </a>
         <a target='_blank' rel='noreferrer' href='https://soundcloud.com/sspenst' className='flex gap-3 items-center hover:scale-110 transition'>
           <Image alt='sspenst soundcloud' src='/soundcloud.png' width='32' height='32' className='w-10 dark:invert ' />
         </a>
@@ -23,15 +26,17 @@ export default function Music() {
         </a>
       </div>
       {/* <MusicCard
-        hrefAppleMusic='https://music.apple.com/us/album/turbine/1652622865?i=1652622866'
-        hrefSoundCloud='https://soundcloud.com/sspenst/turbine'
-        hrefSpotify='https://open.spotify.com/track/36svwtlEoExlHUPJnhk9TG?si=00111c0436c040c2'
-        info={['Album - 2026', '15 songs', '12:34']}
-        src='200930.jpeg'
+        hrefAppleMusic='https://music.apple.com/us/album/re-ep/1592628164'
+        hrefBandcamp='https://sspenst.bandcamp.com/album/ephemeral'
+        hrefSoundCloud='https://soundcloud.com/sspenst/sets/ephemeral'
+        hrefSpotify='https://open.spotify.com/album/3NQEsxiwMrpQF1pN9w7XbR'
+        info={['Album - 2026', '7 songs', '9:32']}
+        src='IMG_9332.jpeg'
         title='ephemeral'
       /> */}
       <MusicCard
         hrefAppleMusic='https://music.apple.com/us/album/turbine/1652622865'
+        hrefBandcamp='https://sspenst.bandcamp.com/track/turbine'
         hrefSoundCloud='https://soundcloud.com/sspenst/turbine'
         hrefSpotify='https://open.spotify.com/album/4r6LvBdQFye0qBfdm9BuT3'
         info={['Single - 2022', '1:52']}
@@ -47,6 +52,7 @@ export default function Music() {
       />
       <MusicCard
         hrefAppleMusic='https://music.apple.com/us/album/re-ep/1592628164'
+        hrefBandcamp='https://sspenst.bandcamp.com/album/re'
         hrefSoundCloud='https://soundcloud.com/sspenst/sets/re_ep'
         hrefSpotify='https://open.spotify.com/album/3NQEsxiwMrpQF1pN9w7XbR'
         info={['EP - 2021', '4 songs', '7:11']}
@@ -62,6 +68,7 @@ export default function Music() {
       />
       <MusicCard
         hrefAppleMusic='https://music.apple.com/us/album/practice-single/1895442355'
+        hrefBandcamp='https://sspenst.bandcamp.com/track/practice'
         hrefSoundCloud='https://soundcloud.com/sspenst/practice'
         hrefSpotify='https://open.spotify.com/album/0AYabae2TkwyL0nrG30MQH'
         info={['Single - 2021', '1:37']}

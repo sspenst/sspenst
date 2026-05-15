@@ -12,7 +12,7 @@ export default function Footer() {
         <div className='w-full h-px gradient-border' />
         <div className='flex flex-wrap justify-center w-full max-w-xl gap-x-12 gap-y-8 items-center px-8'>
           <span>
-            © 2025 Spencer Spenst
+            © 2026 Spencer Spenst
           </span>
           <div className='flex flex-wrap gap-10 items-center justify-center'>
             <IconLink ariaLabel='sspenst github' className='hover:text-black dark:hover:text-white' href={'https://github.com/sspenst'}>
