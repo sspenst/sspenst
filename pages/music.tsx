@@ -25,16 +25,16 @@ export default function Music() {
           <Image alt='sspenst soundcloud' src='/soundcloud.png' width='32' height='32' className='w-10 dark:invert ' />
         </a>
       </div>
-      {/* <MusicCard
-        hrefAppleMusic='https://music.apple.com/us/album/re-ep/1592628164'
+      <MusicCard
+        // hrefAppleMusic='https://music.apple.com/us/album/ephemeral/'
         hrefBandcamp='https://sspenst.bandcamp.com/album/ephemeral'
         hrefSoundCloud='https://soundcloud.com/sspenst/sets/ephemeral'
-        hrefSpotify='https://open.spotify.com/album/3NQEsxiwMrpQF1pN9w7XbR'
-        info={['Album', '7 songs', '9:32']}
-        releaseDate='2026-05-??'
+        // hrefSpotify='https://open.spotify.com/album/'
+        info={['Album', '7 songs', '10:49']}
+        releaseDate='2026-07-17'
         src='ephemeral.jpeg'
         title='ephemeral'
-      /> */}
+      />
       <MusicCard
         hrefAppleMusic='https://music.apple.com/us/album/turbine/1652622865'
         hrefBandcamp='https://sspenst.bandcamp.com/track/turbine'
