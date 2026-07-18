@@ -26,10 +26,10 @@ export default function Music() {
         </a>
       </div>
       <MusicCard
-        // hrefAppleMusic='https://music.apple.com/us/album/ephemeral/'
+        hrefAppleMusic='https://music.apple.com/us/album/ephemeral/6792182451'
         hrefBandcamp='https://sspenst.bandcamp.com/album/ephemeral'
         hrefSoundCloud='https://soundcloud.com/sspenst/sets/ephemeral'
-        // hrefSpotify='https://open.spotify.com/album/'
+        hrefSpotify='https://open.spotify.com/album/6aIrRJPpDc90XbEYyDnoEI'
         info={['Album', '7 songs', '10:49']}
         releaseDate='2026-07-17'
         src='ephemeral.jpeg'
