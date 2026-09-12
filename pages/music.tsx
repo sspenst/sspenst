@@ -6,7 +6,9 @@ import MusicCard from '../components/musicCard';
 export default function Music() {
   return (<>
     <Head>
-      <title>Music</title>
+      <title>Music - Spencer Spenst</title>
+      <meta name='description' content='Music released by Spencer Spenst as sspenst.' />
+      <link rel='canonical' href='https://sspenst.com/music' />
       <meta name='robots' content='nosnippet' />
     </Head>
     <div className='flex flex-col items-center gap-6'>
@@ -32,7 +34,7 @@ export default function Music() {
         hrefSpotify='https://open.spotify.com/album/6aIrRJPpDc90XbEYyDnoEI'
         info={['Album', '7 songs', '10:49']}
         releaseDate='2026-07-17'
-        src='ephemeral.jpeg'
+        src='ephemeral.jpeg?v=1'
         title='ephemeral'
       />
       <MusicCard
@@ -78,7 +80,7 @@ export default function Music() {
         hrefSpotify='https://open.spotify.com/album/0AYabae2TkwyL0nrG30MQH'
         info={['Single', '1:37']}
         releaseDate='2021-09-05'
-        src='200930.jpeg'
+        src='200930.jpeg?v=1'
         title='practice'
       />
     </div>
