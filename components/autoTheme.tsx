@@ -15,7 +15,7 @@ export default function AutoTheme() {
   return (
     <button
       aria-label='Toggle color theme'
-      className='fixed top-6 right-6 z-10 rounded-full p-2 text-neutral-600 transition hover:text-black dark:text-neutral-400 dark:hover:text-white'
+      className='shrink-0 rounded-full p-2 text-neutral-600 transition hover:text-black dark:text-neutral-400 dark:hover:text-white fadeIn'
       onClick={() => setTheme(resolvedTheme === 'dark' ? 'light' : 'dark')}
       type='button'
     >

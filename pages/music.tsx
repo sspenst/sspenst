@@ -1,7 +1,5 @@
-import { ArrowLeftIcon } from '@heroicons/react/24/solid';
 import Head from 'next/head';
 import Image from 'next/image';
-import Link from 'next/link';
 import React from 'react';
 import MusicCard from '../components/musicCard';
 
@@ -14,13 +12,7 @@ export default function Music() {
       <meta name='robots' content='nosnippet' />
     </Head>
     <div className='flex justify-center'>
-      <div className='flex flex-col items-center gap-6 w-full max-w-2xl px-8 py-12'>
-        <div className='w-full'>
-          <Link className='inline-flex items-center gap-2 text-sm font-medium text-neutral-600 dark:text-neutral-400 hover:text-rose-500 dark:hover:text-rose-500 transition' href='/'>
-            <ArrowLeftIcon aria-hidden='true' className='w-4 h-4' />
-            Spencer Spenst
-          </Link>
-        </div>
+      <div className='flex flex-col items-center gap-6 w-full max-w-2xl px-8 pt-6 pb-12'>
         <h1 className='text-2xl font-medium'>Music</h1>
         <div className='flex flex-wrap justify-center gap-6 text-lg m-2'>
           <a target='_blank' rel='noreferrer' href='https://sspenst.bandcamp.com' className='flex gap-3 items-center hover:scale-110 transition'>

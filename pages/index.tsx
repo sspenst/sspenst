@@ -4,7 +4,6 @@ import Link from 'next/link';
 import React from 'react';
 import FaviconLink from '../components/faviconLink';
 import RevealText from '../components/revealText';
-import SS from '../components/ss';
 
 export default function Index() {
   return (<>
@@ -12,19 +11,7 @@ export default function Index() {
       <title>Spencer Spenst</title>
     </Head>
     <div className='flex justify-center'>
-      <div className='flex flex-col w-full gap-6 text-sm py-12 px-8 max-w-2xl'>
-        <section id='spencer-spenst' className='py-2'>
-          <div className='flex w-24 h-24 relative fadeIn'>
-            <div className='absolute w-full h-full animateSSPath text-transparent stroke-black dark:stroke-white' style={{
-              strokeLinecap: 'round',
-              strokeLinejoin: 'round',
-              strokeWidth: 0.3,
-            }}>
-              <SS />
-            </div>
-          </div>
-        </section>
-        <h1 className='text-lg font-medium fadeIn'>Spencer Spenst</h1>
+      <div className='flex flex-col w-full gap-6 text-sm px-8 pt-6 pb-12 max-w-2xl'>
         <RevealText className='flex flex-col gap-6'>
           <p>
             I was born and raised in Abbotsford, BC, Canada, and am currently living there with my beautiful wife <FaviconLink href='https://kevina.ca'>Kevina</FaviconLink> while working as the CTO of <FaviconLink href='https://linelint.com'>LineLint</FaviconLink>, a uniform rental cost reduction platform.
