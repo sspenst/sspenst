@@ -8,6 +8,7 @@ interface MusicCardProps {
   hrefSoundCloud?: string;
   hrefSpotify?: string;
   info?: string[];
+  loading?: 'eager' | 'lazy';
   releaseDate?: string; // yyyy, yyyy-mm, or yyyy-mm-dd
   src: string;
   title: string;
@@ -38,6 +39,7 @@ export default function MusicCard({
   hrefSoundCloud,
   hrefSpotify,
   info,
+  loading,
   releaseDate,
   src,
   title,
@@ -48,6 +50,7 @@ export default function MusicCard({
         alt={title}
         className='shadow-lg w-48 h-48 rounded-md'
         height={192}
+        loading={loading}
         src={src.startsWith('http') ? src : `/music/${src}`}
         style={{
           minWidth: '12rem',
@@ -55,20 +58,20 @@ export default function MusicCard({
         width={192}
       />
       <div className='flex flex-col gap-2 w-36'>
-        <div className='text-2xl font-medium'>
+        <div className='text-xl font-medium'>
           {title}
         </div>
-        {feature && <div className='text-neutral-800 dark:text-neutral-200 text-md'>
+        {feature && <div className='text-neutral-800 dark:text-neutral-200'>
           w/ {feature}
         </div>}
         {releaseDate && (
-          <div className='text-neutral-600 dark:text-neutral-400 text-sm'>
+          <div className='text-neutral-600 dark:text-neutral-400 text-xs'>
             {formatReleaseDate(releaseDate)}
           </div>
         )}
         {info?.map((line, index) => {
           return (
-            <div className='text-neutral-600 dark:text-neutral-400 text-sm' key={`${title}-${index}`}>
+            <div className='text-neutral-600 dark:text-neutral-400 text-xs' key={`${title}-${index}`}>
               {line}
             </div>
           );
@@ -84,7 +87,7 @@ export default function MusicCard({
             <Image alt='apple music' src='/applemusic.svg' width='32' height='32' className='w-7' />
           </a>}
           {hrefSoundCloud && <a target='_blank' rel='noreferrer' href={hrefSoundCloud} className='h-6 w-6 flex items-center hover:scale-110 transition'>
-            <Image alt='soundcloud' src='/soundcloud.png' width='32' height='32' className='w-7 dark:invert' />
+            <Image alt='soundcloud' src='/soundcloud.png' width='76' height='35' className='w-7 dark:invert' style={{ height: 'auto' }} />
           </a>}
         </div>
       </div>
