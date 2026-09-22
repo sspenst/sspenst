@@ -13,7 +13,6 @@ export default function Music() {
     </Head>
     <div className='flex justify-center'>
       <div className='flex flex-col items-center gap-6 w-full max-w-2xl px-8 pt-6 pb-12'>
-        <h1 className='text-2xl font-medium'>Music</h1>
         <div className='flex flex-wrap justify-center gap-6 text-lg m-2'>
           <a target='_blank' rel='noreferrer' href='https://sspenst.bandcamp.com' className='flex gap-3 items-center hover:scale-110 transition'>
             <Image alt='sspenst bandcamp' src='/bandcamp.svg' width='32' height='32' className='w-8' />

@@ -1,8 +1,8 @@
 import { EnvelopeIcon } from '@heroicons/react/24/solid';
 import Head from 'next/head';
-import Link from 'next/link';
 import React from 'react';
 import FaviconLink from '../components/faviconLink';
+import { TransitionLink } from '../components/pageTransition';
 import RevealText from '../components/revealText';
 
 export default function Index() {
@@ -29,7 +29,7 @@ export default function Index() {
             I like to build solutions to problems I see in my own life. I built <FaviconLink href='https://chromewebstore.google.com/detail/simplify-youtube/lcakcdjbimeedkincdcpphddbjdmdhaa'>Simplify YouTube</FaviconLink> to remove Shorts and other distracting UX elements. I was also a top contributor to the <FaviconLink href='https://www.npmjs.com/package/@sspenst/spotify-web-api'>Spotify Web API</FaviconLink> so that I could build <FaviconLink href='https://rabbit.sspenst.com'>Rabbit</FaviconLink>, a quick way to discover new music.
           </p>
           <p>
-            I&apos;ve also made some music myself which you can check out <Link className='font-medium hover:text-rose-500 transition' href='/music'>here</Link>.
+            I&apos;ve also made some music myself which you can check out <TransitionLink className='font-medium hover:text-rose-500 transition' href='/music'>here</TransitionLink>.
           </p>
           <p>
             Feel free to connect through <FaviconLink href='https://github.com/sspenst'>GitHub</FaviconLink>, <FaviconLink href='https://linkedin.com/in/sspenst'>LinkedIn</FaviconLink>, or <a className='whitespace-nowrap font-medium hover:text-rose-500 transition' href='mailto:spencerspenst@gmail.com'><EnvelopeIcon aria-hidden='true' className='inline-block w-4 h-4 mr-1 align-[-0.125em]' />email</a>!

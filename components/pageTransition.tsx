@@ -1,0 +1,127 @@
+import Link from 'next/link';
+import { useRouter } from 'next/router';
+import React, { ComponentProps, createContext, MouseEvent, ReactNode, useCallback, useContext, useMemo, useRef, useState } from 'react';
+
+type TransitionPhase = 'idle' | 'exiting' | 'hidden' | 'entering';
+
+interface PageTransitionContextValue {
+  phase: TransitionPhase;
+  transitionTo: (href: string) => Promise<void>;
+}
+
+const PageTransitionContext = createContext<PageTransitionContextValue | null>(null);
+
+const TRANSITION_DURATION = 200;
+
+function wait(duration: number) {
+  return new Promise(resolve => window.setTimeout(resolve, duration));
+}
+
+function waitForPaint() {
+  return new Promise(resolve => window.requestAnimationFrame(() => resolve(undefined)));
+}
+
+function routeName(pathname: string) {
+  return pathname === '/music' ? 'music' : 'index';
+}
+
+export function PageTransitionProvider({ children }: { children: ReactNode }) {
+  const router = useRouter();
+  const [phase, setPhase] = useState<TransitionPhase>('idle');
+  const transitioning = useRef(false);
+
+  const transitionTo = useCallback(async (href: string) => {
+    if (transitioning.current || href === router.asPath) {
+      return;
+    }
+
+    const isPageTransition =
+      (router.pathname === '/' && href === '/music') ||
+      (router.pathname === '/music' && href === '/');
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    if (!isPageTransition || reduceMotion) {
+      await router.push(href);
+
+      return;
+    }
+
+    transitioning.current = true;
+    setPhase('exiting');
+
+    try {
+      await wait(TRANSITION_DURATION);
+      setPhase('hidden');
+      await waitForPaint();
+
+      const didNavigate = await router.push(href);
+
+      if (!didNavigate) {
+        setPhase('idle');
+
+        return;
+      }
+
+      setPhase('entering');
+      await wait(TRANSITION_DURATION);
+      setPhase('idle');
+    } finally {
+      transitioning.current = false;
+    }
+  }, [router]);
+
+  const value = useMemo(() => ({ phase, transitionTo }), [phase, transitionTo]);
+
+  return (
+    <PageTransitionContext.Provider value={value}>
+      {children}
+    </PageTransitionContext.Provider>
+  );
+}
+
+export function PageTransition({ children }: { children: ReactNode }) {
+  const router = useRouter();
+  const { phase } = usePageTransition();
+
+  return (
+    <main className={`pageTransition pageTransition--${routeName(router.pathname)} pageTransition--${phase}`}>
+      {children}
+    </main>
+  );
+}
+
+export function TransitionLink({ href, onClick, ...props }: ComponentProps<typeof Link>) {
+  const { transitionTo } = usePageTransition();
+
+  function handleClick(event: MouseEvent<HTMLAnchorElement>) {
+    onClick?.(event);
+
+    if (
+      event.defaultPrevented ||
+      event.button !== 0 ||
+      event.metaKey ||
+      event.ctrlKey ||
+      event.shiftKey ||
+      event.altKey ||
+      props.target === '_blank' ||
+      typeof href !== 'string'
+    ) {
+      return;
+    }
+
+    event.preventDefault();
+    void transitionTo(href);
+  }
+
+  return <Link href={href} onClick={handleClick} {...props} />;
+}
+
+export function usePageTransition() {
+  const context = useContext(PageTransitionContext);
+
+  if (!context) {
+    throw new Error('usePageTransition must be used inside PageTransitionProvider');
+  }
+
+  return context;
+}
