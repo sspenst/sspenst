@@ -1,4 +1,5 @@
-import React, { CSSProperties, isValidElement, ReactElement, ReactNode } from 'react';
+import React, { CSSProperties, isValidElement, ReactElement, ReactNode, useEffect, useState } from 'react';
+import { usePageTransition } from './pageTransition';
 
 interface RevealTextProps {
   children: ReactNode;
@@ -9,7 +10,7 @@ type RevealWordStyle = CSSProperties & {
   '--word-index': number;
 };
 
-function revealNode(node: ReactNode, wordIndex: { current: number }): ReactNode {
+function revealNode(node: ReactNode, wordIndex: { current: number }, shouldAnimate: boolean): ReactNode {
   if (typeof node === 'string') {
     return node.split(/(\s+)/).map((part) => {
       if (!part || /^\s+$/.test(part)) {
@@ -20,7 +21,15 @@ function revealNode(node: ReactNode, wordIndex: { current: number }): ReactNode 
         '--word-index': wordIndex.current++,
       };
 
-      return <span className='revealTextWord' key={`${part}-${style['--word-index']}`} style={style}>{part}</span>;
+      return (
+        <span
+          className={`revealTextWord${shouldAnimate ? '' : ' revealTextWord--revealed'}`}
+          key={`${part}-${style['--word-index']}`}
+          style={style}
+        >
+          {part}
+        </span>
+      );
     });
   }
 
@@ -34,7 +43,11 @@ function revealNode(node: ReactNode, wordIndex: { current: number }): ReactNode 
       '--word-index': wordIndex.current++,
     };
 
-    return <span className='revealTextWord' style={style}>{node}</span>;
+    return (
+      <span className={`revealTextWord${shouldAnimate ? '' : ' revealTextWord--revealed'}`} style={style}>
+        {node}
+      </span>
+    );
   }
 
   if (node.props.children === undefined) {
@@ -44,16 +57,24 @@ function revealNode(node: ReactNode, wordIndex: { current: number }): ReactNode 
   return React.cloneElement(
     node as ReactElement<{ children?: ReactNode }>,
     undefined,
-    React.Children.map(node.props.children, child => revealNode(child, wordIndex)),
+    React.Children.map(node.props.children, child => revealNode(child, wordIndex, shouldAnimate)),
   );
 }
 
 export default function RevealText({ children, className }: RevealTextProps) {
+  const { hasRevealedText, markTextAsRevealed } = usePageTransition();
+  const [shouldAnimate] = useState(() => !hasRevealedText);
   const wordIndex = { current: 0 };
+
+  useEffect(() => {
+    if (shouldAnimate) {
+      markTextAsRevealed();
+    }
+  }, [markTextAsRevealed, shouldAnimate]);
 
   return (
     <div className={className}>
-      {React.Children.map(children, child => revealNode(child, wordIndex))}
+      {React.Children.map(children, child => revealNode(child, wordIndex, shouldAnimate))}
     </div>
   );
 }

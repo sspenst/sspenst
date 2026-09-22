@@ -53,6 +53,13 @@
   animation-delay: calc(0.4s + var(--word-index) * 7ms);
 }
 
+.revealTextWord--revealed {
+  animation: none;
+  opacity: 1;
+  filter: none;
+  transform: none;
+}
+
 @keyframes revealTextWord {
   to {
     opacity: 1;

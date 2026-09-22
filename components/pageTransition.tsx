@@ -6,6 +6,8 @@ type TransitionPhase = 'idle' | 'exiting' | 'hidden' | 'entering';
 
 interface PageTransitionContextValue {
   phase: TransitionPhase;
+  hasRevealedText: boolean;
+  markTextAsRevealed: () => void;
   transitionTo: (href: string) => Promise<void>;
 }
 
@@ -28,7 +30,12 @@ function routeName(pathname: string) {
 export function PageTransitionProvider({ children }: { children: ReactNode }) {
   const router = useRouter();
   const [phase, setPhase] = useState<TransitionPhase>('idle');
+  const [hasRevealedText, setHasRevealedText] = useState(false);
   const transitioning = useRef(false);
+
+  const markTextAsRevealed = useCallback(() => {
+    setHasRevealedText(true);
+  }, []);
 
   const transitionTo = useCallback(async (href: string) => {
     if (transitioning.current || href === router.asPath) {
@@ -70,7 +77,10 @@ export function PageTransitionProvider({ children }: { children: ReactNode }) {
     }
   }, [router]);
 
-  const value = useMemo(() => ({ phase, transitionTo }), [phase, transitionTo]);
+  const value = useMemo(
+    () => ({ phase, hasRevealedText, markTextAsRevealed, transitionTo }),
+    [phase, hasRevealedText, markTextAsRevealed, transitionTo],
+  );
 
   return (
     <PageTransitionContext.Provider value={value}>

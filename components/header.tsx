@@ -18,7 +18,7 @@ export default function Header() {
               style={{
                 strokeLinecap: 'round',
                 strokeLinejoin: 'round',
-                strokeWidth: 0.3,
+                strokeWidth: 0.4,
               }}
             >
               <SS />
