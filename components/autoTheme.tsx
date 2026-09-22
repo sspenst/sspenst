@@ -1,3 +1,4 @@
+import { MoonIcon, SunIcon } from '@heroicons/react/24/outline';
 import { useTheme } from 'next-themes';
 import { useEffect } from 'react';
 
@@ -11,5 +12,15 @@ export default function AutoTheme() {
     }
   }, [resolvedTheme, setTheme, systemTheme]);
 
-  return null;
+  return (
+    <button
+      aria-label='Toggle color theme'
+      className='fixed top-6 right-6 z-10 rounded-full p-2 text-neutral-600 transition hover:text-black dark:text-neutral-400 dark:hover:text-white'
+      onClick={() => setTheme(resolvedTheme === 'dark' ? 'light' : 'dark')}
+      type='button'
+    >
+      <MoonIcon aria-hidden='true' className='h-5 w-5 dark:hidden' />
+      <SunIcon aria-hidden='true' className='hidden h-5 w-5 dark:block' />
+    </button>
+  );
 }
