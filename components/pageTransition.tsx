@@ -13,7 +13,8 @@ interface PageTransitionContextValue {
 
 const PageTransitionContext = createContext<PageTransitionContextValue | null>(null);
 
-const TRANSITION_DURATION = 200;
+const TRANSITION_DURATION = 250;
+const TRANSITION_SETTLE_BUFFER = 50;
 
 function wait(duration: number) {
   return new Promise(resolve => window.setTimeout(resolve, duration));
@@ -70,7 +71,9 @@ export function PageTransitionProvider({ children }: { children: ReactNode }) {
       }
 
       setPhase('entering');
-      await wait(TRANSITION_DURATION);
+      // Keep the completed CSS animation in place long enough for its final
+      // frame to be painted before removing the animation class.
+      await wait(TRANSITION_DURATION + TRANSITION_SETTLE_BUFFER);
       setPhase('idle');
     } finally {
       transitioning.current = false;
