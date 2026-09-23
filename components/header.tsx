@@ -10,7 +10,7 @@ export default function Header() {
   const { phase } = usePageTransition();
 
   return (
-    <header className='fixed inset-x-0 top-0 z-50 flex justify-center bg-white/70 backdrop-blur-md dark:bg-black/70'>
+    <header className='headerScrim fixed inset-x-0 top-0 z-50 flex justify-center'>
       <div className='relative flex w-full max-w-2xl items-center justify-between px-4 pt-6 pb-3 sm:px-8 sm:pt-12 sm:pb-4'>
         <TransitionLink className='flex min-w-0 items-center gap-2 sm:gap-4' href='/'>
           <div className='relative flex h-16 w-16 shrink-0 fadeIn'>

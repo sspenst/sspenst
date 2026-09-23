@@ -17,7 +17,7 @@ class MyDocument extends Document {
           <link rel='icon' href='/favicon.ico' />
           <meta name='theme-color' content='rgb(23 23 23)' />
         </Head>
-        <body className='bg-white dark:bg-neutral-900 text-black dark:text-white antialiased' style={{
+        <body className='bg-white dark:bg-black text-black dark:text-white antialiased' style={{
           textRendering: 'optimizeLegibility',
         }}>
           <Main />

@@ -13,6 +13,31 @@
   }
 }
 
+.headerScrim::before {
+  position: absolute;
+  z-index: -1;
+  inset: 0 0 -2rem;
+  content: "";
+  pointer-events: none;
+  background: linear-gradient(
+    to bottom,
+    rgb(255 255 255) 0%,
+    rgb(255 255 255) 70%,
+    rgb(255 255 255 / 0.9) 80%,
+    transparent 100%
+  );
+}
+
+.dark .headerScrim::before {
+  background: linear-gradient(
+    to bottom,
+    rgb(0 0 0) 0%,
+    rgb(0 0 0) 70%,
+    rgb(0 0 0 / 0.9) 80%,
+    transparent 100%
+  );
+}
+
 .animateSSPath {
   stroke-dasharray: 168.26;
   stroke-dashoffset: 168.26;
