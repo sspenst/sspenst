@@ -140,7 +140,7 @@ export default function ReleaseShelf({ releases }: ReleaseShelfProps) {
       <div className='mt-2 flex items-center justify-center gap-4'>
         <button
           aria-label='Previous release'
-          className='flex h-9 w-9 items-center justify-center rounded-full text-neutral-500 transition hover:bg-neutral-100 hover:text-black focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-rose-500 dark:hover:bg-neutral-900 dark:hover:text-white'
+          className='flex h-9 w-9 items-center justify-center rounded-full text-neutral-500 transition hover:text-black focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-rose-500 dark:hover:text-white'
           onClick={showPrevious}
           type='button'
         >
@@ -161,7 +161,7 @@ export default function ReleaseShelf({ releases }: ReleaseShelfProps) {
 
         <button
           aria-label='Next release'
-          className='flex h-9 w-9 items-center justify-center rounded-full text-neutral-500 transition hover:bg-neutral-100 hover:text-black focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-rose-500 dark:hover:bg-neutral-900 dark:hover:text-white'
+          className='flex h-9 w-9 items-center justify-center rounded-full text-neutral-500 transition hover:text-black focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-rose-500 dark:hover:text-white'
           onClick={showNext}
           type='button'
         >

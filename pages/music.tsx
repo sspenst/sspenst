@@ -37,7 +37,7 @@ const releases: Release[] = [
     hrefBandcamp: 'https://sspenst.bandcamp.com/album/re',
     hrefSoundCloud: 'https://soundcloud.com/sspenst/sets/re_ep',
     hrefSpotify: 'https://open.spotify.com/album/3NQEsxiwMrpQF1pN9w7XbR',
-    info: ['EP - 4 songs', '7:11'],
+    info: ['EP', '4 songs', '7:11'],
     releaseDate: '2021-10-28',
     src: 're.png',
     title: 're',
