@@ -6,7 +6,7 @@ interface FaviconLinkProps {
 }
 
 export default function FaviconLink({ children, href }: FaviconLinkProps) {
-  const faviconHref = `https://www.google.com/s2/favicons?domain_url=${encodeURIComponent(href)}&sz=32`;
+  const faviconHref = `https://www.google.com/s2/favicons?domain_url=${encodeURIComponent(href)}&sz=32&v=1`;
 
   return (
     <a
