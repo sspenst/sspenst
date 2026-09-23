@@ -19,9 +19,11 @@ export default function App({ Component, pageProps }: AppProps) {
       <ThemeProvider attribute='class' enableSystem>
         <PageTransitionProvider>
           <Header />
-          <PageTransition>
-            <Component {...pageProps} />
-          </PageTransition>
+          <div className='overflow-x-hidden'>
+            <PageTransition>
+              <Component {...pageProps} />
+            </PageTransition>
+          </div>
         </PageTransitionProvider>
       </ThemeProvider>
     </div>
