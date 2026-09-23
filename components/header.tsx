@@ -30,7 +30,7 @@ export default function Header() {
             <span className='inline-flex h-6 flex-none items-center'>
               {router.pathname === '/music' && (
                 <span className={`headerMusicSuffix headerMusicSuffix--${phase} flex items-center gap-1 whitespace-nowrap text-xs font-normal leading-6 text-neutral-500 sm:text-sm`}>
-                  <ChevronRightIcon aria-hidden='true' className='h-3 w-3 shrink-0' />
+                  <ChevronRightIcon aria-hidden='true' className='h-4 w-4 shrink-0' />
                   Music
                 </span>
               )}
