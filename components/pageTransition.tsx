@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import React, { ComponentProps, createContext, MouseEvent, ReactNode, useCallback, useContext, useMemo, useRef, useState } from 'react';
+import React, { ComponentProps, createContext, MouseEvent, ReactNode, useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react';
 
 type TransitionPhase = 'idle' | 'exiting' | 'hidden' | 'entering';
 
@@ -28,6 +28,17 @@ function routeName(pathname: string) {
   return pathname === '/music' ? 'music' : 'index';
 }
 
+function pathnameFromHref(href: string) {
+  return href.split(/[?#]/, 1)[0];
+}
+
+function isAnimatedPageTransition(from: string, to: string) {
+  const toPathname = pathnameFromHref(to);
+
+  return (from === '/' && toPathname === '/music') ||
+    (from === '/music' && toPathname === '/');
+}
+
 export function PageTransitionProvider({ children }: { children: ReactNode }) {
   const router = useRouter();
   const [phase, setPhase] = useState<TransitionPhase>('idle');
@@ -38,18 +49,17 @@ export function PageTransitionProvider({ children }: { children: ReactNode }) {
     setHasRevealedText(true);
   }, []);
 
-  const transitionTo = useCallback(async (href: string) => {
+  const performTransition = useCallback(async (href: string, replace = false) => {
     if (transitioning.current || href === router.asPath) {
       return;
     }
 
-    const isPageTransition =
-      (router.pathname === '/' && href === '/music') ||
-      (router.pathname === '/music' && href === '/');
+    const isPageTransition = isAnimatedPageTransition(router.pathname, href);
     const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const navigate = replace ? router.replace : router.push;
 
     if (!isPageTransition || reduceMotion) {
-      await router.push(href);
+      await navigate(href);
 
       return;
     }
@@ -62,7 +72,7 @@ export function PageTransitionProvider({ children }: { children: ReactNode }) {
       setPhase('hidden');
       await waitForPaint();
 
-      const didNavigate = await router.push(href);
+      const didNavigate = await navigate(href);
 
       if (!didNavigate) {
         setPhase('idle');
@@ -79,6 +89,31 @@ export function PageTransitionProvider({ children }: { children: ReactNode }) {
       transitioning.current = false;
     }
   }, [router]);
+
+  const transitionTo = useCallback(
+    (href: string) => performTransition(href),
+    [performTransition],
+  );
+
+  useEffect(() => {
+    router.beforePopState(({ as }) => {
+      if (
+        !isAnimatedPageTransition(router.pathname, as) ||
+        window.matchMedia('(prefers-reduced-motion: reduce)').matches
+      ) {
+        return true;
+      }
+
+      // The browser has already moved to the destination history entry. A
+      // replace renders that entry after the exit animation without adding a
+      // duplicate entry, so both Back and Forward keep their native behavior.
+      void performTransition(as, true);
+
+      return false;
+    });
+
+    return () => router.beforePopState(() => true);
+  }, [performTransition, router]);
 
   const value = useMemo(
     () => ({ phase, hasRevealedText, markTextAsRevealed, transitionTo }),
@@ -97,7 +132,7 @@ export function PageTransition({ children }: { children: ReactNode }) {
   const { phase } = usePageTransition();
 
   return (
-    <main className={`pageTransition pageTransition--${routeName(router.pathname)} pageTransition--${phase} min-h-screen pt-[6.25rem] will-change-[opacity,filter,transform] sm:pt-32`}>
+    <main className={`pageTransition pageTransition--${routeName(router.pathname)} pageTransition--${phase} min-h-screen pt-25 will-change-[opacity,filter,transform] sm:pt-32`}>
       {children}
     </main>
   );
