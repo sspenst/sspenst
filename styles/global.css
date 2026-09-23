@@ -68,10 +68,6 @@
   }
 }
 
-.pageTransition {
-  will-change: opacity, filter, transform;
-}
-
 .pageTransition--hidden {
   opacity: 0;
 }
@@ -90,10 +86,6 @@
 
 .pageTransition--music.pageTransition--entering {
   animation: pageEnterRight 250ms cubic-bezier(0, 0, 0.6, 1) both;
-}
-
-.headerMusicSuffix {
-  display: inline-block;
 }
 
 .headerMusicSuffix--hidden {

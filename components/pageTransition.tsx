@@ -97,7 +97,7 @@ export function PageTransition({ children }: { children: ReactNode }) {
   const { phase } = usePageTransition();
 
   return (
-    <main className={`pageTransition pageTransition--${routeName(router.pathname)} pageTransition--${phase}`}>
+    <main className={`pageTransition pageTransition--${routeName(router.pathname)} pageTransition--${phase} min-h-screen pt-[6.25rem] will-change-[opacity,filter,transform] sm:pt-32`}>
       {children}
     </main>
   );

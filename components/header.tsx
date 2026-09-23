@@ -1,3 +1,4 @@
+import { ChevronRightIcon } from '@heroicons/react/20/solid';
 import { useRouter } from 'next/router';
 import React from 'react';
 import AutoTheme from './autoTheme';
@@ -9,9 +10,9 @@ export default function Header() {
   const { phase } = usePageTransition();
 
   return (
-    <header className='flex justify-center'>
-      <div className='flex w-full max-w-2xl items-center justify-between px-8 pt-12'>
-        <TransitionLink className='flex items-center gap-4' href='/'>
+    <header className='fixed inset-x-0 top-0 z-50 flex justify-center bg-white/70 backdrop-blur-md dark:bg-black/70'>
+      <div className='relative flex w-full max-w-2xl items-center justify-between px-4 pt-6 pb-3 sm:px-8 sm:pt-12 sm:pb-4'>
+        <TransitionLink className='flex min-w-0 items-center gap-2 sm:gap-4' href='/'>
           <div className='relative flex h-16 w-16 shrink-0 fadeIn'>
             <div
               className='animateSSPath absolute h-full w-full text-transparent stroke-black dark:stroke-white'
@@ -24,11 +25,16 @@ export default function Header() {
               <SS />
             </div>
           </div>
-          <h1 className='text-lg font-medium fadeIn'>
-            Spencer Spenst
-            {router.pathname === '/music' && (
-              <span className={`headerMusicSuffix headerMusicSuffix--${phase}`}>&apos;s Music</span>
-            )}
+          <h1 className='flex min-w-0 flex-wrap items-center text-base font-medium sm:text-lg fadeIn gap-x-1'>
+            <span className='whitespace-nowrap'>Spencer Spenst</span>
+            <span className='inline-flex h-6 flex-none items-center'>
+              {router.pathname === '/music' && (
+                <span className={`headerMusicSuffix headerMusicSuffix--${phase} flex items-center gap-1 whitespace-nowrap text-xs font-normal leading-6 text-neutral-500 sm:text-sm`}>
+                  <ChevronRightIcon aria-hidden='true' className='h-3 w-3 shrink-0' />
+                  Music
+                </span>
+              )}
+            </span>
           </h1>
         </TransitionLink>
         <AutoTheme />

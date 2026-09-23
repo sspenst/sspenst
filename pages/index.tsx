@@ -17,7 +17,7 @@ export default function Index() {
             I was born and raised in Abbotsford, BC, Canada, and am currently living there with my beautiful wife <FaviconLink href='https://kevina.ca'>Kevina</FaviconLink> while working as the CTO of <FaviconLink href='https://linelint.com'>LineLint</FaviconLink>, a uniform rental cost reduction platform.
           </p>
           <p>
-            I have always had a passion for puzzles and games. This led me to build <FaviconLink href='https://thinky.gg'>Thinky.gg</FaviconLink>, a platform for pathfinding and optimization puzzle games. The community has created thousands of high quality levels for its 2 games: <FaviconLink href='https://pathology.thinky.gg'>Pathology</FaviconLink> and <FaviconLink href='https://sokopath.thinky.gg'>Sokopath</FaviconLink>.
+            Previously, I built <FaviconLink href='https://thinky.gg'>Thinky.gg</FaviconLink> - a platform for pathfinding and optimization puzzles. The community has created thousands of high-quality levels for its 2 games: <FaviconLink href='https://pathology.thinky.gg'>Pathology</FaviconLink> and <FaviconLink href='https://sokopath.thinky.gg'>Sokopath</FaviconLink>.
           </p>
           <p>
             Before this, I worked at <FaviconLink href='https://microsoft.com'>Microsoft</FaviconLink> to help build out the Universal Store, add new pricing systems, and support new product types.
@@ -26,7 +26,7 @@ export default function Index() {
             I graduated from <FaviconLink href='https://www.ubc.ca/'>UBC</FaviconLink> in Computer Engineering. While I was there I had the chance to work as a research assistant focusing on GPU optimizations for machine learning.
           </p>
           <p>
-            I like to build solutions to problems I see in my own life. I built <FaviconLink href='https://chromewebstore.google.com/detail/simplify-youtube/lcakcdjbimeedkincdcpphddbjdmdhaa'>Simplify YouTube</FaviconLink> to remove Shorts and other distracting UX elements. I was also a top contributor to the <FaviconLink href='https://www.npmjs.com/package/@sspenst/spotify-web-api'>Spotify Web API</FaviconLink> so that I could build <FaviconLink href='https://rabbit.sspenst.com'>Rabbit</FaviconLink>, a quick way to discover new music.
+            I like to build solutions to problems I see in my own life. I made <FaviconLink href='https://chromewebstore.google.com/detail/simplify-youtube/lcakcdjbimeedkincdcpphddbjdmdhaa'>Simplify YouTube</FaviconLink> to remove Shorts and other distracting UX elements. I was also a top contributor to the <FaviconLink href='https://www.npmjs.com/package/@sspenst/spotify-web-api'>Spotify Web API</FaviconLink> so that I could build <FaviconLink href='https://rabbit.sspenst.com'>Rabbit</FaviconLink>, a quick way to discover new music.
           </p>
           <p>
             I&apos;ve also made some music myself which you can check out <TransitionLink className='font-medium hover:text-rose-500 transition' href='/music'>here</TransitionLink>.
