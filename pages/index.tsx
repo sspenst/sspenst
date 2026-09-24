@@ -14,7 +14,7 @@ export default function Index() {
       <div className='flex flex-col w-full gap-6 text-sm px-8 pt-6 pb-12 max-w-2xl'>
         <RevealText className='flex flex-col gap-6'>
           <p>
-            I was born and raised in Abbotsford, BC, Canada, and am currently living there with my beautiful wife <FaviconLink href='https://kevina.ca'>Kevina</FaviconLink> while working as the CTO of <FaviconLink href='https://linelint.com'>LineLint</FaviconLink>, a uniform rental cost reduction platform.
+            I was born and raised in Abbotsford, BC, Canada, and am currently living there with my beautiful wife <FaviconLink faviconHref='https://kevina.ca/favicon.png?v=2' href='https://kevina.ca'>Kevina</FaviconLink> while working as the CTO of <FaviconLink href='https://linelint.com'>LineLint</FaviconLink>, a uniform rental cost reduction platform.
           </p>
           <p>
             Previously, I built <FaviconLink href='https://thinky.gg'>Thinky.gg</FaviconLink> - a platform for pathfinding and optimization puzzles. The community has created thousands of high-quality levels for its 2 games: <FaviconLink href='https://pathology.thinky.gg'>Pathology</FaviconLink> and <FaviconLink href='https://sokopath.thinky.gg'>Sokopath</FaviconLink>.

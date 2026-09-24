@@ -2,11 +2,12 @@ import React, { ReactNode } from 'react';
 
 interface FaviconLinkProps {
   children: ReactNode;
+  faviconHref?: string;
   href: string;
 }
 
-export default function FaviconLink({ children, href }: FaviconLinkProps) {
-  const faviconHref = `https://www.google.com/s2/favicons?domain_url=${encodeURIComponent(href)}&sz=32&v=1`;
+export default function FaviconLink({ children, faviconHref, href }: FaviconLinkProps) {
+  const resolvedFaviconHref = faviconHref ?? `https://www.google.com/s2/favicons?domain_url=${encodeURIComponent(href)}&sz=32&v=1`;
 
   return (
     <a
@@ -24,7 +25,7 @@ export default function FaviconLink({ children, href }: FaviconLinkProps) {
         height={16}
         loading='lazy'
         referrerPolicy='no-referrer'
-        src={faviconHref}
+        src={resolvedFaviconHref}
         width={16}
       />
       {children}
