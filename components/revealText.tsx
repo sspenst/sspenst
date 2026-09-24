@@ -1,4 +1,4 @@
-import React, { CSSProperties, isValidElement, ReactElement, ReactNode, useEffect, useState } from 'react';
+import React, { AnimationEvent, CSSProperties, isValidElement, ReactElement, ReactNode, useEffect, useState } from 'react';
 import { usePageTransition } from './pageTransition';
 
 interface RevealTextProps {
@@ -9,6 +9,12 @@ interface RevealTextProps {
 type RevealWordStyle = CSSProperties & {
   '--word-index': number;
 };
+
+function finishReveal(event: AnimationEvent<HTMLSpanElement>) {
+  if (event.animationName === 'revealTextWord') {
+    event.currentTarget.classList.add('revealTextWord--revealed');
+  }
+}
 
 function revealNode(node: ReactNode, wordIndex: { current: number }, shouldAnimate: boolean): ReactNode {
   if (typeof node === 'string') {
@@ -25,6 +31,7 @@ function revealNode(node: ReactNode, wordIndex: { current: number }, shouldAnima
         <span
           className={`revealTextWord${shouldAnimate ? '' : ' revealTextWord--revealed'}`}
           key={`${part}-${style['--word-index']}`}
+          onAnimationEnd={finishReveal}
           style={style}
         >
           {part}
@@ -44,7 +51,11 @@ function revealNode(node: ReactNode, wordIndex: { current: number }, shouldAnima
     };
 
     return (
-      <span className={`revealTextWord${shouldAnimate ? '' : ' revealTextWord--revealed'}`} style={style}>
+      <span
+        className={`revealTextWord${shouldAnimate ? '' : ' revealTextWord--revealed'}`}
+        onAnimationEnd={finishReveal}
+        style={style}
+      >
         {node}
       </span>
     );
