@@ -186,22 +186,22 @@ export default function ReleaseShelf({ releases }: ReleaseShelfProps) {
         </div>
         <div className='mt-4 flex justify-center gap-4'>
           {activeRelease.hrefBandcamp && (
-            <a aria-label={`${activeRelease.title} on Bandcamp`} className='flex h-7 w-7 items-center transition hover:scale-110' href={activeRelease.hrefBandcamp} rel='noreferrer' target='_blank'>
+            <a aria-label={`${activeRelease.title} on Bandcamp`} className='flex h-7 w-7 items-center transition hover:scale-110' href={activeRelease.hrefBandcamp}>
               <Image alt='' className='w-7' height='32' src='/bandcamp.svg' width='32' />
             </a>
           )}
           {activeRelease.hrefSpotify && (
-            <a aria-label={`${activeRelease.title} on Spotify`} className='w-fit transition hover:scale-110' href={activeRelease.hrefSpotify} rel='noreferrer' target='_blank'>
+            <a aria-label={`${activeRelease.title} on Spotify`} className='w-fit transition hover:scale-110' href={activeRelease.hrefSpotify}>
               <Image alt='' className='w-7' height='32' src='/spotify.png' width='32' />
             </a>
           )}
           {activeRelease.hrefAppleMusic && (
-            <a aria-label={`${activeRelease.title} on Apple Music`} className='w-fit transition hover:scale-110' href={activeRelease.hrefAppleMusic} rel='noreferrer' target='_blank'>
+            <a aria-label={`${activeRelease.title} on Apple Music`} className='w-fit transition hover:scale-110' href={activeRelease.hrefAppleMusic}>
               <Image alt='' className='w-7' height='32' src='/applemusic.svg' width='32' />
             </a>
           )}
           {activeRelease.hrefSoundCloud && (
-            <a aria-label={`${activeRelease.title} on SoundCloud`} className='flex h-7 w-7 items-center transition hover:scale-110' href={activeRelease.hrefSoundCloud} rel='noreferrer' target='_blank'>
+            <a aria-label={`${activeRelease.title} on SoundCloud`} className='flex h-7 w-7 items-center transition hover:scale-110' href={activeRelease.hrefSoundCloud}>
               <Image alt='' className='w-7 dark:invert' height='35' src='/soundcloud.png' style={{ height: 'auto' }} width='76' />
             </a>
           )}

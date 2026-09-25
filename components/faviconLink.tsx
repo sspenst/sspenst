@@ -13,8 +13,6 @@ export default function FaviconLink({ children, faviconHref, href }: FaviconLink
     <a
       className='whitespace-nowrap font-medium hover:text-rose-500 transition'
       href={href}
-      rel='noreferrer'
-      target='_blank'
     >
       {/* Favicons are already-sized external images, so Next.js optimization adds no value here. */}
       {/* eslint-disable-next-line @next/next/no-img-element */}
