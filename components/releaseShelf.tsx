@@ -63,11 +63,15 @@ export default function ReleaseShelf({ releases }: ReleaseShelfProps) {
   }
 
   function handleKeyDown(event: KeyboardEvent<HTMLElement>) {
+    if (event.key !== 'ArrowLeft' && event.key !== 'ArrowRight') return;
+
+    event.preventDefault();
+    // Keep focus on the shelf before a cover is disabled or release links are replaced.
+    event.currentTarget.focus({ preventScroll: true });
+
     if (event.key === 'ArrowLeft') {
-      event.preventDefault();
       showPrevious();
-    } else if (event.key === 'ArrowRight') {
-      event.preventDefault();
+    } else {
       showNext();
     }
   }
