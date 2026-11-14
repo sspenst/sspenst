@@ -1,5 +1,11 @@
 import Head from 'next/head';
 import React from 'react';
+import ephemeral from '../assets/music/ephemeral.webp';
+import expanse from '../assets/music/expanse.webp';
+import practice from '../assets/music/practice.webp';
+import re from '../assets/music/re.webp';
+import turbine from '../assets/music/turbine.webp';
+import uplift from '../assets/music/uplift.webp';
 import FaviconLink from '../components/faviconLink';
 import ReleaseShelf, { Release } from '../components/releaseShelf';
 
@@ -11,7 +17,7 @@ const releases: Release[] = [
     hrefSpotify: 'https://open.spotify.com/album/6aIrRJPpDc90XbEYyDnoEI',
     info: ['Album', '7 songs', '10:49'],
     releaseDate: '2026-07-17',
-    src: 'ephemeral.jpeg?v=1',
+    src: ephemeral,
     title: 'ephemeral',
   },
   {
@@ -21,7 +27,7 @@ const releases: Release[] = [
     hrefSpotify: 'https://open.spotify.com/album/4r6LvBdQFye0qBfdm9BuT3',
     info: ['Single', '1:52'],
     releaseDate: '2022-11-02',
-    src: 'turbine.png',
+    src: turbine,
     title: 'turbine',
   },
   {
@@ -29,7 +35,7 @@ const releases: Release[] = [
     hrefSoundCloud: 'https://soundcloud.com/n_e_t_w_o_r_k/expanse-w-sspenst',
     info: ['Single', '2:02'],
     releaseDate: '2022-09-06',
-    src: 'expanse.jpeg',
+    src: expanse,
     title: 'expanse',
   },
   {
@@ -39,7 +45,7 @@ const releases: Release[] = [
     hrefSpotify: 'https://open.spotify.com/album/3NQEsxiwMrpQF1pN9w7XbR',
     info: ['EP', '4 songs', '7:11'],
     releaseDate: '2021-10-28',
-    src: 're.png',
+    src: re,
     title: 're',
   },
   {
@@ -47,7 +53,7 @@ const releases: Release[] = [
     hrefSoundCloud: 'https://soundcloud.com/n_e_t_w_o_r_k/uplift-w-sspenst',
     info: ['Single', '2:04'],
     releaseDate: '2021-10-05',
-    src: 'uplift.jpeg',
+    src: uplift,
     title: 'uplift',
   },
   {
@@ -57,7 +63,7 @@ const releases: Release[] = [
     hrefSpotify: 'https://open.spotify.com/album/0AYabae2TkwyL0nrG30MQH',
     info: ['Single', '1:37'],
     releaseDate: '2021-09-05',
-    src: '200930.jpeg?v=1',
+    src: practice,
     title: 'practice',
   },
 ];

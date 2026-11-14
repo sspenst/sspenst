@@ -1,5 +1,5 @@
 import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/20/solid';
-import Image from 'next/image';
+import Image, { type StaticImageData } from 'next/image';
 import React, { KeyboardEvent, TouchEvent, useRef, useState } from 'react';
 
 export interface Release {
@@ -10,7 +10,7 @@ export interface Release {
   hrefSpotify?: string;
   info?: string[];
   releaseDate?: string;
-  src: string;
+  src: StaticImageData;
   title: string;
 }
 
@@ -46,7 +46,11 @@ function relativePosition(index: number, activeIndex: number, length: number) {
 }
 
 export default function ReleaseShelf({ releases }: ReleaseShelfProps) {
-  const [activeIndex, setActiveIndex] = useState(0);
+  const [selection, setSelection] = useState(() => ({
+    activeIndex: 0,
+    shownIndexes: new Set([0, 1, releases.length - 1]),
+  }));
+  const { activeIndex, shownIndexes } = selection;
   const touchStartX = useRef<number | null>(null);
   const activeRelease = releases[activeIndex];
   const releaseDetails = [
@@ -54,12 +58,27 @@ export default function ReleaseShelf({ releases }: ReleaseShelfProps) {
     ...(activeRelease.info ?? []),
   ];
 
+  function showRelease(getIndex: (index: number) => number) {
+    setSelection(previous => {
+      const count = releases.length;
+      const index = (getIndex(previous.activeIndex) + count) % count;
+
+      if (index === previous.activeIndex) return previous;
+
+      // Keep seen covers mounted so they can finish sliding out and reappear without loading again.
+      return {
+        activeIndex: index,
+        shownIndexes: new Set([...previous.shownIndexes, index, (index + 1) % count, (index + count - 1) % count]),
+      };
+    });
+  }
+
   function showPrevious() {
-    setActiveIndex(index => (index - 1 + releases.length) % releases.length);
+    showRelease(index => index - 1);
   }
 
   function showNext() {
-    setActiveIndex(index => (index + 1) % releases.length);
+    showRelease(index => index + 1);
   }
 
   function handleKeyDown(event: KeyboardEvent<HTMLElement>) {
@@ -110,32 +129,34 @@ export default function ReleaseShelf({ releases }: ReleaseShelfProps) {
           const position = relativePosition(index, activeIndex, releases.length);
           const isActive = position === 0;
           const isNeighbor = Math.abs(position) === 1;
+          const coverVisibility = isActive ? 'z-20' : isNeighbor ? 'z-10 opacity-[0.48] hover:opacity-60' : 'pointer-events-none z-10 opacity-0';
 
           return (
             <button
               aria-current={isActive ? 'true' : undefined}
               aria-label={isActive ? `${release.title}, selected` : `Show ${release.title}`}
-              className={`absolute left-1/2 top-1/2 overflow-hidden rounded-md shadow-lg transition-[transform,opacity,filter] duration-500 ease-out motion-reduce:transition-none ${isActive ? 'z-20' : 'z-10'} ${isNeighbor ? 'hover:brightness-110' : ''}`}
+              className={`absolute left-1/2 top-1/2 overflow-hidden rounded-md shadow-lg transition-[transform,opacity] duration-[240ms] ease-out motion-reduce:transition-none ${coverVisibility}`}
               disabled={!isActive && !isNeighbor}
               key={release.title}
-              onClick={() => setActiveIndex(index)}
+              onClick={() => showRelease(() => index)}
               style={{
                 height: 'clamp(14rem, 45vw, 18rem)',
-                opacity: isActive ? 1 : isNeighbor ? 0.48 : 0,
-                pointerEvents: isActive || isNeighbor ? 'auto' : 'none',
                 transform: `translateX(calc(-50% + ${position * 74}%)) translateY(-50%) scale(${isActive ? 1 : 0.72})`,
                 width: 'clamp(14rem, 45vw, 18rem)',
               }}
               type='button'
             >
-              <Image
-                alt={release.title}
-                className='object-cover'
-                fill
-                loading={index === 0 ? 'eager' : 'lazy'}
-                sizes='(min-width: 640px) 288px, 224px'
-                src={release.src.startsWith('http') ? release.src : `/music/${release.src}`}
-              />
+              {shownIndexes.has(index) && (
+                <Image
+                  alt={release.title}
+                  className='object-cover'
+                  fetchPriority={isActive ? 'high' : undefined}
+                  fill
+                  loading='eager'
+                  placeholder='blur'
+                  src={release.src}
+                />
+              )}
             </button>
           );
         })}
@@ -157,7 +178,7 @@ export default function ReleaseShelf({ releases }: ReleaseShelfProps) {
               aria-label={`Show ${release.title}`}
               className={`h-1.5 rounded-full transition-all duration-300 motion-reduce:transition-none ${index === activeIndex ? 'w-5 bg-rose-500' : 'w-1.5 bg-neutral-300 hover:bg-neutral-400 dark:bg-neutral-700 dark:hover:bg-neutral-600'}`}
               key={release.title}
-              onClick={() => setActiveIndex(index)}
+              onClick={() => showRelease(() => index)}
               type='button'
             />
           ))}

@@ -1,123 +1,97 @@
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import React, { ComponentProps, createContext, MouseEvent, ReactNode, useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react';
+import React, { createContext, ReactNode, useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react';
 
-type TransitionPhase = 'idle' | 'exiting' | 'hidden' | 'entering';
+type TransitionPhase = 'idle' | 'exiting' | 'entering';
+
+interface PendingTransition {
+  from: string;
+  navigate: () => Promise<boolean>;
+}
 
 interface PageTransitionContextValue {
   phase: TransitionPhase;
+  finishAnimation: (phase: TransitionPhase) => void;
   hasRevealedText: boolean;
   markTextAsRevealed: () => void;
-  transitionTo: (href: string) => Promise<void>;
+  startTransition: (href: string, navigate: PendingTransition['navigate']) => boolean;
 }
 
 const PageTransitionContext = createContext<PageTransitionContextValue | null>(null);
 
-const TRANSITION_DURATION = 250;
-const TRANSITION_SETTLE_BUFFER = 50;
-
-function wait(duration: number) {
-  return new Promise(resolve => window.setTimeout(resolve, duration));
-}
-
-function waitForPaint() {
-  return new Promise(resolve => window.requestAnimationFrame(() => resolve(undefined)));
-}
-
-function routeName(pathname: string) {
-  return pathname === '/music' ? 'music' : 'index';
-}
-
-function pathnameFromHref(href: string) {
-  return href.split(/[?#]/, 1)[0];
-}
-
-function isAnimatedPageTransition(from: string, to: string) {
-  const toPathname = pathnameFromHref(to);
-
-  return (from === '/' && toPathname === '/music') ||
-    (from === '/music' && toPathname === '/');
-}
-
 export function PageTransitionProvider({ children }: { children: ReactNode }) {
   const router = useRouter();
-  const [phase, setPhase] = useState<TransitionPhase>('idle');
+  const [transition, setTransition] = useState<PendingTransition | null>(null);
   const [hasRevealedText, setHasRevealedText] = useState(false);
-  const transitioning = useRef(false);
+  const pending = useRef<PendingTransition | null>(null);
+  let phase: TransitionPhase = 'idle';
+
+  if (transition) {
+    phase = router.pathname === transition.from ? 'exiting' : 'entering';
+  }
+
+  const startTransition = useCallback((href: string, navigate: PendingTransition['navigate']) => {
+    const destination = href.split(/[?#]/, 1)[0];
+    const from = router.pathname;
+    const betweenHomeAndMusic = (from === '/' && destination === '/music') ||
+      (from === '/music' && destination === '/');
+
+    if (!betweenHomeAndMusic || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return false;
+    if (pending.current) return true;
+
+    const next = { from, navigate };
+
+    pending.current = next;
+    setTransition(next);
+
+    return true;
+  }, [router.pathname]);
+
+  const finishAnimation = useCallback((completed: TransitionPhase) => {
+    const current = pending.current;
+
+    if (!current) return;
+
+    function reset() {
+      if (pending.current === current) {
+        pending.current = null;
+        setTransition(null);
+      }
+    }
+
+    if (completed === 'exiting') {
+      void current.navigate().then(didNavigate => {
+        if (!didNavigate) reset();
+      }, reset);
+    } else if (completed === 'entering') {
+      reset();
+    }
+  }, []);
+
+  useEffect(() => {
+    router.beforePopState(({ as }) => {
+      if (pending.current) {
+        // Honor a new history action even if the previous slide is still running.
+        pending.current = null;
+        setTransition(null);
+
+        return true;
+      }
+
+      // Back and Forward have already selected the history entry by this point.
+      return !startTransition(as, () => router.replace(as));
+    });
+
+    return () => router.beforePopState(() => true);
+  }, [router, startTransition]);
 
   const markTextAsRevealed = useCallback(() => {
     setHasRevealedText(true);
   }, []);
 
-  const performTransition = useCallback(async (href: string, replace = false) => {
-    if (transitioning.current || href === router.asPath) {
-      return;
-    }
-
-    const isPageTransition = isAnimatedPageTransition(router.pathname, href);
-    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const navigate = replace ? router.replace : router.push;
-
-    if (!isPageTransition || reduceMotion) {
-      await navigate(href);
-
-      return;
-    }
-
-    transitioning.current = true;
-    setPhase('exiting');
-
-    try {
-      await wait(TRANSITION_DURATION);
-      setPhase('hidden');
-      await waitForPaint();
-
-      const didNavigate = await navigate(href);
-
-      if (!didNavigate) {
-        setPhase('idle');
-
-        return;
-      }
-
-      setPhase('entering');
-      // Keep the completed CSS animation in place long enough for its final
-      // frame to be painted before removing the animation class.
-      await wait(TRANSITION_DURATION + TRANSITION_SETTLE_BUFFER);
-      setPhase('idle');
-    } finally {
-      transitioning.current = false;
-    }
-  }, [router]);
-
-  const transitionTo = useCallback(
-    (href: string) => performTransition(href),
-    [performTransition],
-  );
-
-  useEffect(() => {
-    router.beforePopState(({ as }) => {
-      if (
-        !isAnimatedPageTransition(router.pathname, as) ||
-        window.matchMedia('(prefers-reduced-motion: reduce)').matches
-      ) {
-        return true;
-      }
-
-      // The browser has already moved to the destination history entry. A
-      // replace renders that entry after the exit animation without adding a
-      // duplicate entry, so both Back and Forward keep their native behavior.
-      void performTransition(as, true);
-
-      return false;
-    });
-
-    return () => router.beforePopState(() => true);
-  }, [performTransition, router]);
-
-  const value = useMemo(
-    () => ({ phase, hasRevealedText, markTextAsRevealed, transitionTo }),
-    [phase, hasRevealedText, markTextAsRevealed, transitionTo],
+  const value = useMemo<PageTransitionContextValue>(
+    () => ({ finishAnimation, hasRevealedText, markTextAsRevealed, phase, startTransition }),
+    [finishAnimation, hasRevealedText, markTextAsRevealed, phase, startTransition],
   );
 
   return (
@@ -128,40 +102,53 @@ export function PageTransitionProvider({ children }: { children: ReactNode }) {
 }
 
 export function PageTransition({ children }: { children: ReactNode }) {
-  const router = useRouter();
-  const { phase } = usePageTransition();
+  const { pathname } = useRouter();
+  const { finishAnimation, phase } = usePageTransition();
+  const main = useRef<HTMLElement>(null);
+  const direction = pathname === '/music' ? 'right' : 'left';
+
+  useEffect(() => {
+    if (phase === 'idle') return;
+
+    let active = true;
+    const animations = main.current?.getAnimations() ?? [];
+
+    // An empty or canceled animation can occur when the motion preference changes.
+    void Promise.allSettled(animations.map(animation => animation.finished)).then(() => {
+      if (active) finishAnimation(phase);
+    });
+
+    return () => { active = false; };
+  }, [finishAnimation, phase]);
 
   return (
-    <main className={`pageTransition pageTransition--${routeName(router.pathname)} pageTransition--${phase} min-h-screen pt-25 sm:pt-32`}>
+    <main className={`pageTransition pageTransition--${direction} pageTransition--${phase} min-h-screen pt-25 sm:pt-32`} ref={main}>
       {children}
     </main>
   );
 }
 
-export function TransitionLink({ href, onClick, ...props }: ComponentProps<typeof Link>) {
-  const { transitionTo } = usePageTransition();
+interface TransitionLinkProps {
+  children: ReactNode;
+  className?: string;
+  href: string;
+}
 
-  function handleClick(event: MouseEvent<HTMLAnchorElement>) {
-    onClick?.(event);
+export function TransitionLink({ children, className, href }: TransitionLinkProps) {
+  const router = useRouter();
+  const { startTransition } = usePageTransition();
 
-    if (
-      event.defaultPrevented ||
-      event.button !== 0 ||
-      event.metaKey ||
-      event.ctrlKey ||
-      event.shiftKey ||
-      event.altKey ||
-      props.target === '_blank' ||
-      typeof href !== 'string'
-    ) {
-      return;
-    }
-
-    event.preventDefault();
-    void transitionTo(href);
-  }
-
-  return <Link href={href} onClick={handleClick} {...props} />;
+  return (
+    <Link
+      className={className}
+      href={href}
+      onNavigate={event => {
+        if (startTransition(href, () => router.push(href))) event.preventDefault();
+      }}
+    >
+      {children}
+    </Link>
+  );
 }
 
 export function usePageTransition() {
