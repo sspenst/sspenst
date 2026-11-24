@@ -79,7 +79,7 @@ export default function Music() {
     <div className='flex justify-center'>
       <div className='flex w-full max-w-2xl flex-col items-center gap-4 px-4 pt-4 pb-12 sm:px-8 sm:pt-6'>
         <p className='w-full px-4 pt-2 pb-6 text-sm sm:px-0 sm:pt-0'>
-          Music has been one of my hobbies over the years. You can check me out on <FaviconLink href='https://sspenst.bandcamp.com'>Bandcamp</FaviconLink>, <FaviconLink href='https://open.spotify.com/artist/7yWCWPWpYoj22kUps71yey'>Spotify</FaviconLink>, <FaviconLink href='https://music.apple.com/us/artist/sspenst/1592620337'>Apple Music</FaviconLink>, <FaviconLink href='https://soundcloud.com/sspenst'>SoundCloud</FaviconLink>, or look through my projects below.
+          Music has been one of my hobbies over the years. You can check me out on <FaviconLink href='https://sspenst.bandcamp.com'>Bandcamp</FaviconLink>, <FaviconLink href='https://open.spotify.com/artist/7yWCWPWpYoj22kUps71yey'>Spotify</FaviconLink>, <FaviconLink faviconHref='/applemusic.png' href='https://music.apple.com/us/artist/sspenst/1592620337'>Apple Music</FaviconLink>, <FaviconLink faviconHref='/soundcloud.webp' href='https://soundcloud.com/sspenst'>SoundCloud</FaviconLink>, or look through my projects below.
         </p>
         <ReleaseShelf releases={releases} />
       </div>

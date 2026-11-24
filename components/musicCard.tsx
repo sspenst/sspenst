@@ -84,10 +84,10 @@ export default function MusicCard({
             <Image alt='spotify' src='/spotify.png' width='32' height='32' className='w-7' />
           </a>}
           {hrefAppleMusic && <a href={hrefAppleMusic} className='w-fit hover:scale-110 transition'>
-            <Image alt='apple music' src='/applemusic.svg' width='32' height='32' className='w-7' />
+            <Image alt='apple music' src='/applemusic.png' width='32' height='32' className='w-7' />
           </a>}
           {hrefSoundCloud && <a href={hrefSoundCloud} className='h-6 w-6 flex items-center hover:scale-110 transition'>
-            <Image alt='soundcloud' src='/soundcloud.png' width='76' height='35' className='w-7 dark:invert' style={{ height: 'auto' }} />
+            <Image alt='soundcloud' src='/soundcloud.webp' width='32' height='32' className='w-7' />
           </a>}
         </div>
       </div>

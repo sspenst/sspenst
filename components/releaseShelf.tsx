@@ -222,12 +222,12 @@ export default function ReleaseShelf({ releases }: ReleaseShelfProps) {
           )}
           {activeRelease.hrefAppleMusic && (
             <a aria-label={`${activeRelease.title} on Apple Music`} className='w-fit transition hover:scale-110' href={activeRelease.hrefAppleMusic}>
-              <Image alt='' className='w-7' height='32' src='/applemusic.svg' width='32' />
+              <Image alt='' className='w-7' height='32' src='/applemusic.png' width='32' />
             </a>
           )}
           {activeRelease.hrefSoundCloud && (
             <a aria-label={`${activeRelease.title} on SoundCloud`} className='flex h-7 w-7 items-center transition hover:scale-110' href={activeRelease.hrefSoundCloud}>
-              <Image alt='' className='w-7 dark:invert' height='35' src='/soundcloud.png' style={{ height: 'auto' }} width='76' />
+              <Image alt='' className='w-7' height='32' src='/soundcloud.webp' width='32' />
             </a>
           )}
         </div>
