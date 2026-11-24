@@ -4,7 +4,14 @@
 
 @layer base {
   ::selection {
-    background-color: var(--color-rose-100);
+    background-color: var(--color-orange-100);
+    color: var(--color-orange-950);
+  }
+
+  .dark::selection,
+  .dark ::selection {
+    background-color: var(--color-orange-900);
+    color: var(--color-orange-50);
   }
 
   button:not(:disabled),
