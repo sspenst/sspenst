@@ -19,7 +19,7 @@ export default function FaviconLink({ children, darkFaviconHref, faviconClassNam
 
   return (
     <a
-      className='whitespace-nowrap font-medium hover:text-rose-500 transition'
+      className='whitespace-nowrap font-medium hover:text-orange-500 dark:hover:text-orange-400 transition'
       href={href}
     >
       {/* These small icons do not need Next.js image optimization. */}

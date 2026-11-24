@@ -29,10 +29,10 @@ export default function Index() {
             I like to build solutions to problems I see in my own life. I made <FaviconLink href='https://chromewebstore.google.com/detail/simplify-youtube/lcakcdjbimeedkincdcpphddbjdmdhaa'>Simplify YouTube</FaviconLink> to remove Shorts and other distracting UX elements, and I was a top contributor to the <FaviconLink href='https://www.npmjs.com/package/@sspenst/spotify-web-api'>Spotify Web API</FaviconLink> so I could build <FaviconLink darkFaviconHref='/rabbit.svg' faviconHref='/rabbit-light.svg' href='https://rabbit.sspenst.com'>Rabbit</FaviconLink>, a quick way to discover new music.
           </p>
           <p>
-            I&apos;ve also made some music myself which you can check out <TransitionLink className='font-medium hover:text-rose-500 transition' href='/music'>here</TransitionLink>.
+            I&apos;ve also made some music myself which you can check out <TransitionLink className='font-medium hover:text-orange-500 dark:hover:text-orange-400 transition' href='/music'>here</TransitionLink>.
           </p>
           <p>
-            Feel free to connect through <FaviconLink faviconClassName='dark:invert' faviconHref='/github.svg' href='https://github.com/sspenst'>GitHub</FaviconLink>, <FaviconLink href='https://linkedin.com/in/sspenst'>LinkedIn</FaviconLink>, or <a className='whitespace-nowrap font-medium hover:text-rose-500 transition' href='mailto:spencerspenst@gmail.com'><EnvelopeIcon aria-hidden='true' className='inline-block w-4 h-4 mr-1 align-[-0.125em]' />email</a>!
+            Feel free to connect through <FaviconLink faviconClassName='dark:invert' faviconHref='/github.svg' href='https://github.com/sspenst'>GitHub</FaviconLink>, <FaviconLink href='https://linkedin.com/in/sspenst'>LinkedIn</FaviconLink>, or <a className='whitespace-nowrap font-medium hover:text-orange-500 dark:hover:text-orange-400 transition' href='mailto:spencerspenst@gmail.com'><EnvelopeIcon aria-hidden='true' className='inline-block w-4 h-4 mr-1 align-[-0.125em]' />email</a>!
           </p>
           <p className='text-end text-neutral-500'>
             September 24, 2026
