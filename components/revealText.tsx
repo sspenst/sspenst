@@ -10,6 +10,14 @@ type RevealWordStyle = CSSProperties & {
   '--word-index': number;
 };
 
+interface RevealElementProps {
+  children?: ReactNode;
+  className?: string;
+  href?: unknown;
+  style?: CSSProperties;
+  'data-reveal-decoration'?: boolean;
+}
+
 function finishReveal(event: AnimationEvent<HTMLSpanElement>) {
   if (event.animationName === 'revealTextWord') {
     event.currentTarget.classList.add('revealTextWord--revealed');
@@ -40,7 +48,7 @@ function revealNode(node: ReactNode, wordIndex: { current: number }, shouldAnima
     });
   }
 
-  if (!isValidElement<{ children?: ReactNode; href?: unknown }>(node)) {
+  if (!isValidElement<RevealElementProps>(node)) {
     return node;
   }
 
@@ -65,9 +73,15 @@ function revealNode(node: ReactNode, wordIndex: { current: number }, shouldAnima
     return node;
   }
 
+  // Fade decorative pseudo-elements when this element's first word appears.
+  const decorationProps = node.props['data-reveal-decoration'] ? {
+    className: `${node.props.className ?? ''} revealTextDecoration${shouldAnimate ? '' : ' revealTextDecoration--revealed'}`,
+    style: { ...node.props.style, '--word-index': wordIndex.current } as RevealWordStyle,
+  } : undefined;
+
   return React.cloneElement(
-    node as ReactElement<{ children?: ReactNode }>,
-    undefined,
+    node as ReactElement<RevealElementProps>,
+    decorationProps,
     React.Children.map(node.props.children, child => revealNode(child, wordIndex, shouldAnimate)),
   );
 }

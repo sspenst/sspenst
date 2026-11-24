@@ -33,18 +33,32 @@ export default function Index() {
           <p>
             I was born and raised in Abbotsford, BC, Canada, and am currently living there with my beautiful wife <FaviconLink faviconClassName='dark:invert' faviconHref='/kevina.svg' href='https://kevina.ca'>Kevina</FaviconLink>.
           </p>
-          <p>
-            I&apos;m the CTO of <FaviconLink href='https://linelint.com'>LineLint</FaviconLink>, a cost reduction platform for uniform & linen rentals.
-          </p>
-          <p>
-            Previously, I built <FaviconLink href='https://thinky.gg'>Thinky.gg</FaviconLink> - a platform for pathfinding and optimization puzzles. The community has created thousands of levels for its two games: <FaviconLink faviconHref='/pathology.svg' href='https://pathology.thinky.gg'>Pathology</FaviconLink> and <FaviconLink href='https://sokopath.thinky.gg'>Sokopath</FaviconLink>.
-          </p>
-          <p>
-            Before this, I worked on the Universal Store at <FaviconLink href='https://microsoft.com'>Microsoft</FaviconLink>, building regional pricing tools for Store and Xbox publishers, and pricing and availability pages for VMs, SaaS, Azure Apps, and Office Add-ins.
-          </p>
-          <p>
-            I studied Computer Engineering at <FaviconLink href='https://ubc.ca'>UBC</FaviconLink>, where I also worked as a research assistant optimizing machine learning workloads on GPUs using CUDA.
-          </p>
+          <div className='relative flex flex-col gap-4 pl-px sm:ml-12 sm:gap-6 before:absolute before:inset-y-0 before:left-0 before:w-px before:bg-neutral-200 dark:before:bg-neutral-800' data-reveal-decoration>
+            <div className='relative pl-6 sm:pl-4 before:absolute before:-left-[0.5px] before:-translate-x-1/2 before:bottom-2.5 before:h-px before:w-2 before:bg-neutral-300 sm:before:bottom-auto sm:before:top-full sm:before:mt-3 dark:before:bg-neutral-700' data-reveal-decoration>
+              <p>
+                I&apos;m the CTO of <FaviconLink href='https://linelint.com'>LineLint</FaviconLink>, a cost reduction platform for uniform & linen rentals. Before LineLint, I built software for <FaviconLink href='https://thelaundryguy.com'>The Laundry Guy</FaviconLink>.
+              </p>
+              <span className='mt-4 block text-xs leading-5 tabular-nums text-neutral-500 sm:absolute sm:-left-12 sm:top-full sm:mt-0.5 sm:w-10'>2024</span>
+            </div>
+            <div className='relative pl-6 sm:pl-4 before:absolute before:-left-[0.5px] before:-translate-x-1/2 before:bottom-2.5 before:h-px before:w-2 before:bg-neutral-300 sm:before:bottom-auto sm:before:top-full sm:before:mt-3 dark:before:bg-neutral-700' data-reveal-decoration>
+              <p>
+                Previously, I built <FaviconLink href='https://thinky.gg'>Thinky.gg</FaviconLink> - a platform for pathfinding and optimization puzzles. The community has created thousands of levels for its two games: <FaviconLink faviconHref='/pathology.svg' href='https://pathology.thinky.gg'>Pathology</FaviconLink> and <FaviconLink href='https://sokopath.thinky.gg'>Sokopath</FaviconLink>.
+              </p>
+              {/* TODO: Confirm Thinky.gg start year; 2021 is a placeholder. */}
+              <span className='mt-4 block text-xs leading-5 tabular-nums text-neutral-500 sm:absolute sm:-left-12 sm:top-full sm:mt-0.5 sm:w-10'>2021</span>
+            </div>
+            <div className='relative pl-6 sm:pl-4 before:absolute before:-left-[0.5px] before:-translate-x-1/2 before:bottom-2.5 before:h-px before:w-2 before:bg-neutral-300 sm:before:bottom-auto sm:before:top-full sm:before:mt-3 dark:before:bg-neutral-700' data-reveal-decoration>
+              <p>
+                Before this, I worked on the Universal Store at <FaviconLink href='https://microsoft.com'>Microsoft</FaviconLink>, building regional pricing tools for Store and Xbox publishers, and pricing and availability pages for VMs, SaaS, Azure Apps, and Office Add-ins.
+              </p>
+              <span className='mt-4 block text-xs leading-5 tabular-nums text-neutral-500 sm:absolute sm:-left-12 sm:top-full sm:mt-0.5 sm:w-10'>2018</span>
+            </div>
+            <div className='pl-6 sm:pl-4'>
+              <p>
+                I studied Computer Engineering at <FaviconLink href='https://ubc.ca'>UBC</FaviconLink>, where I also worked as a research assistant optimizing machine learning workloads on GPUs using CUDA.
+              </p>
+            </div>
+          </div>
           <p>
             I like to build solutions to problems I see in my own life. I made <FaviconLink href='https://chromewebstore.google.com/detail/simplify-youtube/lcakcdjbimeedkincdcpphddbjdmdhaa'>Simplify YouTube</FaviconLink> to remove Shorts and other distracting elements, and I was a top contributor to the <FaviconLink href='https://www.npmjs.com/package/@sspenst/spotify-web-api'>Spotify Web API</FaviconLink> npm package so I could build <FaviconLink darkFaviconHref='/rabbit.svg' faviconHref='/rabbit-light.svg' href='https://rabbit.sspenst.com'>Rabbit</FaviconLink>, a quick way to discover new music.
           </p>
