@@ -79,8 +79,8 @@
 .revealTextWord {
   display: inline-block;
   opacity: 0;
-  animation: revealTextWord 330ms cubic-bezier(0.22, 1, 0.36, 1) both;
-  animation-delay: calc(80ms + var(--word-index) * 5ms);
+  animation: revealTextWord 250ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation-delay: calc(50ms + var(--word-index) * 4ms);
 }
 
 .revealTextWord--revealed {
